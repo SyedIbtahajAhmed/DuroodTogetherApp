@@ -1,12 +1,15 @@
-import 'package:durood_together_app/HomePage%20Screen/HomeScreen/CountFieldWidget/countField.dart';
-import 'package:durood_together_app/HomePage%20Screen/HomeScreen/CountSaveButton/countSaveButton.dart';
-import 'package:durood_together_app/HomePage%20Screen/HomeScreen/ExpandedWidget/expandedWidget.dart';
-import 'package:durood_together_app/HomePage%20Screen/HomeScreen/HeaderRow/header_row.dart';
-import 'package:durood_together_app/HomePage%20Screen/HomeScreen/HomeCountTabs/homeCountTabs.dart';
-import 'package:durood_together_app/HomePage%20Screen/HomeScreen/UnExpandWidget/unExpandedWidget.dart';
-import 'package:durood_together_app/HomePage%20Screen/ReportScreen/ReportCountWidget/reportcount.dart';
-import 'package:durood_together_app/HomePage%20Screen/ReportScreen/RerpotHeader/reportheader.dart';
+import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/ReportScreen/ReportCountWidget/reportcount.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/ReportScreen/RerpotHeader/reportheader.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'CountFieldWidget/countField.dart';
+import 'CountSaveButton/countSaveButton.dart';
+import 'ExpandedWidget/expandedWidget.dart';
+import 'HeaderRow/header_row.dart';
+import 'HomeCountTabs/homeCountTabs.dart';
+import 'UnExpandWidget/unExpandedWidget.dart';
 
 class Home extends StatefulWidget {
   const Home({key}) : super(key: key);

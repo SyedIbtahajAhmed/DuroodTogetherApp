@@ -7,7 +7,40 @@ import 'package:flutter/material.dart';
 class DuroodCountVM extends ChangeNotifier {
   Api _api = locator<Api>();
 
+
+  // Attributes
+  Map<String, dynamic> _topCountry = {};
+  Map<String, dynamic> _topCity = {};
+  int _globalCount = 0;
+  String _dateString = '';
+  String _currentMonth = '';
+  int _currentYear = 0;
+
+
+
+  // Getters
+  Map<String, dynamic> get topCountry => _topCountry;
+  Map<String, dynamic> get topCity => _topCity;
+  int get globalCount => _globalCount;
+  String get dateString => _dateString;
+  String get currentMonth => _currentMonth;
+  int get currentYear => _currentYear;
+
+
+
+
   List<DuroodCount> DuroodCounts;
+
+  setAttributes({
+    Map<String, dynamic> topCountry,
+    Map<String, dynamic> topCity,
+    int globalCount,
+  }
+      ) {
+    this._topCountry = topCountry;
+    this._topCity = topCity;
+    this._globalCount = globalCount;
+  }
 
   Future<dynamic> fetchDuroodCounts() async {
     var result = await _api.getDataCollection();

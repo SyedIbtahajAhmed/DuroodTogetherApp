@@ -1,8 +1,9 @@
 import 'package:durood_together_app/Authentication/Authentication.dart';
-import 'package:durood_together_app/HomePage%20Screen/ProfileScreen/ProfileBody/profileBody.dart';
-import 'package:durood_together_app/HomePage%20Screen/ProfileScreen/ProfileHeader/profileheader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'ProfileBody/profileBody.dart';
+import 'ProfileHeader/profileheader.dart';
 
 class Profile extends StatelessWidget {
   const Profile({key}) : super(key: key);

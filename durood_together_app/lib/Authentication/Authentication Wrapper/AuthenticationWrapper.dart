@@ -1,10 +1,10 @@
+import 'package:durood_together_app/Screens/HomePage%20Screen/homepage.dart';
+import 'package:durood_together_app/Screens/Login%20Screen/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
 // Local Imports
-import 'package:durood_together_app/HomePage Screen/homepage.dart';
-import 'package:durood_together_app/Login Screen/login.dart';
 
 class AuthenticationWrapper extends StatelessWidget {
   const AuthenticationWrapper({

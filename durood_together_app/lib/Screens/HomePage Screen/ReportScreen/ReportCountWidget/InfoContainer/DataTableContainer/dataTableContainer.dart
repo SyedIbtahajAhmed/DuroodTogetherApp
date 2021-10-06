@@ -1,5 +1,5 @@
 import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
-import 'package:durood_together_app/HomePage%20Screen/ReportScreen/ReportCountWidget/InfoContainer/CountTextContainer/countTextContainer.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/ReportScreen/ReportCountWidget/InfoContainer/CountTextContainer/countTextContainer.dart';
 import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:numeral/numeral.dart';

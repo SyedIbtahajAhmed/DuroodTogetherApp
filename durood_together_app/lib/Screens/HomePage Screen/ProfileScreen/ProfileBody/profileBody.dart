@@ -1,8 +1,9 @@
 import 'package:durood_together_app/Core/DataModels/UserLocation/user_location.dart';
-import 'package:durood_together_app/HomePage%20Screen/ProfileScreen/ProfileBody/FieldWidget/fieldWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'FieldWidget/fieldWidget.dart';
 
 class ProfileBody extends StatefulWidget {
   const ProfileBody({Key key}) : super(key: key);
@@ -58,11 +59,11 @@ class _ProfileBodyState extends State<ProfileBody> {
               ),
               // Country Widget
               FieldWidget(
-                data: userLocation.addresses.first.countryName,
+                data: userLocation.addresses[0].country,
               ),
               // City Widget
               FieldWidget(
-                data: userLocation.addresses.first.locality,
+                data: userLocation.addresses[0].locality,
               ),
             ],
           ),

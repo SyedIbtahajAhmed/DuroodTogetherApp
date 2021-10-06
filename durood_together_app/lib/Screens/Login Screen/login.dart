@@ -41,7 +41,8 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
+      body: SingleChildScrollView(
+        child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -210,6 +211,7 @@ class _LoginState extends State<Login> {
           ],
         ),
       ),
+    ),
     );
   }
 }

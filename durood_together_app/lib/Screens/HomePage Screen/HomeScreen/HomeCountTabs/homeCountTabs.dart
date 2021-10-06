@@ -1,5 +1,6 @@
-import 'package:durood_together_app/HomePage%20Screen/HomeScreen/HomeCountTabs/HomeCountTabsText/homeCountTabsText.dart';
 import 'package:flutter/material.dart';
+
+import 'HomeCountTabsText/homeCountTabsText.dart';
 
 class HomeCountTabs extends StatefulWidget {
   final double opacity;

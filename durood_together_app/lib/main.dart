@@ -1,7 +1,6 @@
 import 'package:durood_together_app/Authentication/Authentication.dart';
 import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:durood_together_app/Shared/Locator/lcoator.dart';
-import 'package:durood_together_app/Shared/Providers/providers_call.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

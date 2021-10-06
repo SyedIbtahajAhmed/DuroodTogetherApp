@@ -1,8 +1,9 @@
-import 'package:durood_together_app/HomePage%20Screen/ReportScreen/ReportCountWidget/reportcount.dart';
-import 'package:durood_together_app/HomePage%20Screen/ReportScreen/ReportHeading/reportheading.dart';
-import 'package:durood_together_app/HomePage%20Screen/ReportScreen/RerpotHeader/reportheader.dart';
-import 'package:durood_together_app/HomePage%20Screen/ReportScreen/TotalCountWidget/totalcountwidget.dart';
 import 'package:flutter/material.dart';
+
+import 'ReportCountWidget/reportcount.dart';
+import 'ReportHeading/reportheading.dart';
+import 'RerpotHeader/reportheader.dart';
+import 'TotalCountWidget/totalcountwidget.dart';
 
 class Report extends StatelessWidget {
   const Report({key}) : super(key: key);
