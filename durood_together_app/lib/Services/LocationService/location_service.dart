@@ -12,7 +12,9 @@ class LocationService {
   loc.Location location = loc.Location();
 
   // Address
-  List _userAddress;
+  List<Placemark> _userAddress;
+
+  List<Placemark> get userAddress => this._userAddress;
 
   // Continuously Emit Location Updates
   StreamController<UserLocation> _locationController =
@@ -57,8 +59,7 @@ class LocationService {
 
   getAddressBasedOnLocation(double latitude, double longitude) async {
     try {
-      List<Placemark> placemark = await placemarkFromCoordinates(latitude, longitude);
-      this._userAddress = placemark;
+      this._userAddress = await placemarkFromCoordinates(latitude, longitude);
       // print(this._userAddress);
     } catch (e) {
       print('Could Not Get the Location: $e');

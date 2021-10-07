@@ -5,7 +5,6 @@ import 'package:numeral/numeral.dart';
 import 'package:provider/provider.dart';
 
 import 'CountTextContainer/countTextContainer.dart';
-import 'DataTableContainer/dataTableContainer.dart';
 import 'DateTextContainer/dateTextContainer.dart';
 import 'MonthCountWidget/monthCountWidget.dart';
 
@@ -14,8 +13,10 @@ class InfoContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         // crossAxisAlignment: CrossAxisAlignment.baseline,
         children: <Widget>[
           DateTextContainer(
@@ -27,7 +28,56 @@ class InfoContainer extends StatelessWidget {
 
           // Country And City Widget
           Container(
-            child: DataTableContainer(),
+            // child: DataTableContainer(),
+            child: Column(
+              children: [
+                // Country Row
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 50.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Country Name
+                      Container(
+                        child: CountTextContainer(
+                          text: context.watch<DuroodCountVM>().topCountry.keys.elementAt(0).toString(),
+                        ),
+                      ),
+
+                      // Country Count Value
+                      Container(
+                        child: CountTextContainer(
+                          text: Numeral(context.watch<DuroodCountVM>().topCountry.values.elementAt(0)).value().toString(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // City Row
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Country Name
+                      Container(
+                        child: CountTextContainer(
+                          text: context.watch<DuroodCountVM>().topCity.keys.elementAt(0).toString(),
+                        ),
+                      ),
+
+                      // Country Count Value
+                      Container(
+                        child: CountTextContainer(
+                          text: Numeral(context.watch<DuroodCountVM>().topCity.values.elementAt(0)).value().toString(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
 
           // Total Count Widget

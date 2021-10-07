@@ -30,6 +30,38 @@ class Functions {
     return returnedValue;
   }
 
+
+
+  // Get Top Country Dictionary
+  Future<Map<String, dynamic>> getTopCountries(dataDict) async {
+    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+    Map<String, dynamic> returnedValue = {};
+
+    // Iterating dataDict
+    duroodCount.forEach((durood) {
+      if (durood.Date == getDateString()) {
+        int count = 0;
+        durood.TopFiveCountryData.values.forEach((element) {
+          if (element > count) {
+            count = element;
+          }
+        });
+        // Getting The Top Country
+        durood.TopFiveCountryData.keys.forEach((element) {
+          // We Have Keys in Elements
+          if (durood.TopFiveCountryData[element] == count) {
+            returnedValue[element] = count;
+          }
+          ;
+        });
+      }
+      ;
+    });
+    return returnedValue;
+  }
+
+
+
   // Get Top City Count With Name
   Future<Map<String, int>> getTopCity(dataDict) async {
     List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();

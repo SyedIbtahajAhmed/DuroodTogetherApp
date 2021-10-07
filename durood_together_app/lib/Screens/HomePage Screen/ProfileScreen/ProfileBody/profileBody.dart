@@ -1,4 +1,5 @@
 import 'package:durood_together_app/Core/DataModels/UserLocation/user_location.dart';
+import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     final firebaseUser = Provider.of<User>(context);
-    final userLocation = Provider.of<UserLocation>(context);
+    // final userLocation = Provider.of<UserLocation>(context);
 
     return Container(
       width: screenSize.width / 2 * 1.6,
@@ -59,11 +60,11 @@ class _ProfileBodyState extends State<ProfileBody> {
               ),
               // Country Widget
               FieldWidget(
-                data: userLocation.addresses[0].country,
+                data: context.watch<LocationService>().userAddress[0].country.toString(),
               ),
               // City Widget
               FieldWidget(
-                data: userLocation.addresses[0].locality,
+                data: context.watch<LocationService>().userAddress[0].locality.toString(),
               ),
             ],
           ),

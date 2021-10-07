@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class CountTextConainer extends StatelessWidget {
+class CountTextContainer extends StatelessWidget {
   final String text;
-  const CountTextConainer({Key key, this.text}) : super(key: key);
+  const CountTextContainer({Key key, this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

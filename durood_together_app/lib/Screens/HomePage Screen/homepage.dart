@@ -45,10 +45,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     // Getting Location Of The User
     // Providers(context).duroodCountVM_provider;
-    final userLocation = Provider.of<UserLocation>(context);
-
-
-
+    // final userLocation = Provider.of<UserLocation>(context);
     final dynamic duroodCount = Provider.of<DuroodCountVM>(context);
 
     return FutureBuilder(
