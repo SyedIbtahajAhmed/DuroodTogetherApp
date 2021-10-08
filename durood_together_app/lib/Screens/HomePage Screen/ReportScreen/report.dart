@@ -1,4 +1,6 @@
+import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 import 'ReportCountWidget/reportcount.dart';
 import 'ReportHeading/reportheading.dart';
@@ -28,7 +30,10 @@ class Report extends StatelessWidget {
             ),
 
             // Durood Count Widget
-            TotalCountWidget(),
+            TotalCountWidget(
+              tableHeader: '',
+              data: context.watch<DuroodCountVM>().userMonthlyData,
+            ),
 
             // Count Heading Container
             ReportHeading(
@@ -36,13 +41,19 @@ class Report extends StatelessWidget {
             ),
 
             // Location Wise Count Widget
-            TotalCountWidget(),
+            TotalCountWidget(
+              tableHeader: "Countries Data",
+              data: context.watch<DuroodCountVM>().topFiveCountries,
+            ),
 
             // City Wise Count Widget
             // Durood Count Widget
             Padding(
               padding: const EdgeInsets.only(top: 50.0, bottom: 10.0),
-              child: TotalCountWidget(),
+              child: TotalCountWidget(
+                tableHeader: "Cities Data",
+                data: context.watch<DuroodCountVM>().topFiveCities,
+              ),
             ),
           ],
         ),

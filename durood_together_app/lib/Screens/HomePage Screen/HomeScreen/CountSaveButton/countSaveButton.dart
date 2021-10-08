@@ -10,7 +10,8 @@ class CountSaveButton extends StatelessWidget {
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
-      height: this.opacity == 1.0 ? 50 : 0,
+      curve: Curves.easeInExpo,
+      height: this.opacity == 1.0 ? 60 : 0,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 5.0),
         child: AnimatedContainer(
@@ -30,7 +31,7 @@ class CountSaveButton extends StatelessWidget {
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
               ),

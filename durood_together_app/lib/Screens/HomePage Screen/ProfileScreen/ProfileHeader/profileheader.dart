@@ -6,16 +6,15 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    Orientation orientation = MediaQuery.of(context).orientation;
 
     return Container(
       width: screenSize.width,
-      height: screenSize.height / 4.5,
+      height: screenSize.height * 0.31,
       decoration: BoxDecoration(
         color: Colors.teal[700],
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(screenSize.width / 13.5),
-          bottomRight: Radius.circular(screenSize.width / 13.5),
+          bottomLeft: Radius.circular(30.0),
+          bottomRight: Radius.circular(30.0),
         ),
         // boxShadow: [
         //   BoxShadow(
@@ -30,7 +29,7 @@ class ProfileHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 50.0),
+            padding: EdgeInsets.only(top: screenSize.height*0.13),
             child: Container(
               child: Center(
                 child: Text(
@@ -45,7 +44,7 @@ class ProfileHeader extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 15.0),
+            padding: const EdgeInsets.only(top: 20.0, bottom: 30.0),
             child: Container(
               child: Center(
                 child: Text(

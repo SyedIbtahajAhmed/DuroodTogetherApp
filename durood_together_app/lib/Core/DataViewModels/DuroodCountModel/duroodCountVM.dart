@@ -12,6 +12,11 @@ class DuroodCountVM extends ChangeNotifier {
   Map<String, dynamic> _topCountry = {};
   Map<String, dynamic> _topCity = {};
   int _globalCount = 0;
+  Map<String, dynamic> _topFiveCountries = {};
+  Map<String, dynamic> _topFiveCities = {};
+  Map<String, dynamic> _userMonthlyData = {};
+
+
   String _dateString = '';
   String _currentMonth = '';
   int _currentYear = 0;
@@ -22,6 +27,11 @@ class DuroodCountVM extends ChangeNotifier {
   Map<String, dynamic> get topCountry => _topCountry;
   Map<String, dynamic> get topCity => _topCity;
   int get globalCount => _globalCount;
+  Map<String, dynamic> get topFiveCountries => _topFiveCountries;
+  Map<String, dynamic> get topFiveCities => _topFiveCities;
+  Map<String, dynamic> get userMonthlyData => _userMonthlyData;
+
+
   String get dateString => _dateString;
   String get currentMonth => _currentMonth;
   int get currentYear => _currentYear;
@@ -35,11 +45,17 @@ class DuroodCountVM extends ChangeNotifier {
     Map<String, dynamic> topCountry,
     Map<String, dynamic> topCity,
     int globalCount,
+    Map<String, dynamic> topFiveCountries,
+    Map<String, dynamic> topFiveCities,
+    Map<String, dynamic> userMonthlyData,
   }
       ) {
     this._topCountry = topCountry;
     this._topCity = topCity;
     this._globalCount = globalCount;
+    this._topFiveCountries = topFiveCountries;
+    this._topFiveCities = topFiveCities;
+    this._userMonthlyData = userMonthlyData;
   }
 
   Future<dynamic> fetchDuroodCounts() async {

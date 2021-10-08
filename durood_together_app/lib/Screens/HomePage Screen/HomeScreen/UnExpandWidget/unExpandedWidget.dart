@@ -7,7 +7,7 @@ class UnExpandedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return IntrinsicHeight(
       child: AnimatedContainer(
         duration: Duration(milliseconds: 500),
         child: GestureDetector(

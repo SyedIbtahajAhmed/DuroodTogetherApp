@@ -8,21 +8,19 @@ class ReportHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 500),
-      // curve: Curves.ease,
+      duration: const Duration(milliseconds: 1000),
+      curve: Curves.easeInCubic,
       width: screenSize.width,
-      height: this.opacity == 1.0 ? 100 : 0,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 50.0),
-        child: Container(
-          child: Center(
-            child: Text(
-              "BE A PART OF THE BARAKAH CIRCLE OF DUROOD SHAREEF",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
-              ),
+      height: this.opacity == 1.0 ? 80 : 0,
+      child: Container(
+        padding: const EdgeInsets.only(top: 30.0),
+        child: Center(
+          child: Text(
+            "BE A PART OF THE BARAKAH CIRCLE OF DUROOD SHAREEF",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),

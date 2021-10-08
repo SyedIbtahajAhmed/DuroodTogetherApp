@@ -1,6 +1,7 @@
 import 'package:durood_together_app/Core/DataModels/UserLocation/user_location.dart';
 import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
 import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -47,6 +48,7 @@ class _HomePageState extends State<HomePage> {
     // Providers(context).duroodCountVM_provider;
     // final userLocation = Provider.of<UserLocation>(context);
     final dynamic duroodCount = Provider.of<DuroodCountVM>(context);
+    final firebaseUser = Provider.of<User>(context);
 
     return FutureBuilder(
       future: Future.wait(
@@ -54,13 +56,23 @@ class _HomePageState extends State<HomePage> {
           Functions().getTopCountry(duroodCount),
           Functions().getTopCity(duroodCount),
           Functions().getGlobalCount(duroodCount),
+          Functions().getTopFiveCountries(duroodCount),
+          Functions().getTopFiveCities(duroodCount),
+          Functions().getUserMonthlyData(firebaseUser.uid, duroodCount),
         ],
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
 
           // Setting Durood Data
-          context.watch<DuroodCountVM>().setAttributes(topCountry: snapshot.data[0], topCity: snapshot.data[1], globalCount: snapshot.data[2]);
+          context.watch<DuroodCountVM>().setAttributes(
+            topCountry: snapshot.data[0],           // Top Country
+            topCity: snapshot.data[1],              // Top City
+            globalCount: snapshot.data[2],          // Global Count
+            topFiveCountries: snapshot.data[3],     // Top Five Countries
+            topFiveCities: snapshot.data[4],        // Top Five Cities
+            userMonthlyData: snapshot.data[5],      // User Monthly Data
+          );
 
           // print(context.watch<DuroodCountVM>().topCountry.toString());
 
@@ -79,19 +91,13 @@ class _HomePageState extends State<HomePage> {
                     controller: _pageController,
                     children: <Widget>[
                       Container(
-                        child: Center(
-                          child: Home(),
-                        ),
+                        child: Home(),
                       ),
                       Container(
-                        child: Center(
-                          child: Report(),
-                        ),
+                        child: Report(),
                       ),
                       Container(
-                        child: Center(
-                          child: Profile(),
-                        ),
+                        child: Profile(),
                       ),
                     ],
                   ),
@@ -163,7 +169,21 @@ class _HomePageState extends State<HomePage> {
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         } else {
-          return CircularProgressIndicator(color: Colors.white,);
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Container(
+                    child: CircularProgressIndicator(
+                      color: Colors.teal[900],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
           // return AnimatedContainer(
           //   duration: Duration(milliseconds: 500),
           //   child: CountTextConainer(

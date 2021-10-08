@@ -10,51 +10,56 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        // Profile Header Widget
-        ProfileHeader(),
-
-        // Profile Container
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+    Size screenSize = MediaQuery.of(context).size;
+    return SingleChildScrollView(
+      child: Container(
+        child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 100.0),
-              child: Column(
-                children: [
-                  ProfileBody(),
-                  IntrinsicHeight(
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            context.read<Authentication>().signOut();
-                          },
-                          child: Text(
-                            'SIGNOUT',
-                            style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green[900]),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor:
+            // Profile Header Widget
+            ProfileHeader(),
+
+            // Profile Container
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: screenSize.height * 0.08),
+                  child: Column(
+                    children: [
+                      ProfileBody(),
+                      IntrinsicHeight(
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 30.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                context.read<Authentication>().signOut();
+                              },
+                              child: Text(
+                                'SIGNOUT',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green[900]),
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.white),
-                            minimumSize:
-                                MaterialStateProperty.all<Size>(Size(20, 50)),
+                                minimumSize:
+                                MaterialStateProperty.all<Size>(Size(60, 50)),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),
-      ],
+      ),
     );
   }
 }

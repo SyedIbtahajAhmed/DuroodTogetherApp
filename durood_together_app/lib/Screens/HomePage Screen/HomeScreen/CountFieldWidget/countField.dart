@@ -10,10 +10,11 @@ class CountField extends StatelessWidget {
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
-      width: (screenSize.width / 5) * 4.5,
+      // width: (screenSize.width / 5) * 4.5,
+      width: 350,
       height: this.opacity == 1.0 ? 100 : 0,
       child: Padding(
-        padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
+        padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
         child: Container(
           child: TextFormField(
             textAlign: TextAlign.center,
@@ -21,7 +22,7 @@ class CountField extends StatelessWidget {
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(15),
                 borderSide: BorderSide.none,
               ),
               hintText: 'Enter Your Durood Shareef Count',

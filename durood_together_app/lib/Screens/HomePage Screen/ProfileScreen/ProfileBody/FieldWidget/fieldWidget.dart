@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,9 @@ class FieldWidget extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
           labelText: this.data.toString(),
+          labelStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
           prefixIcon: Icon(Icons.email),
           enabled: false,
         ),

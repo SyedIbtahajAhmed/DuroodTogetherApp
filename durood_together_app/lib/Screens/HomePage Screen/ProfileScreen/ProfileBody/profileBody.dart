@@ -52,19 +52,19 @@ class _ProfileBodyState extends State<ProfileBody> {
             children: <Widget>[
               // Name Widget
               FieldWidget(
-                data: firebaseUser.displayName,
+                data: (firebaseUser.displayName != null) ? firebaseUser.displayName : "Name Not Available",
               ),
               // Email Widget
               FieldWidget(
-                data: firebaseUser.email,
+                data: (firebaseUser.email != null) ? firebaseUser.email : "Email Not Available",
               ),
               // Country Widget
               FieldWidget(
-                data: context.watch<LocationService>().userAddress[0].country.toString(),
+                data: (context.watch<LocationService>().userAddress[0].country.toString() != null || context.watch<LocationService>().userAddress[0].country.toString() != "") ? context.watch<LocationService>().userAddress[0].country.toString() : "Country Not Available",
               ),
               // City Widget
               FieldWidget(
-                data: context.watch<LocationService>().userAddress[0].locality.toString(),
+                data: (context.watch<LocationService>().userAddress[0].locality.toString() != null || context.watch<LocationService>().userAddress[0].locality.toString() != "") ? context.watch<LocationService>().userAddress[0].locality.toString() : "City Not Available",
               ),
             ],
           ),

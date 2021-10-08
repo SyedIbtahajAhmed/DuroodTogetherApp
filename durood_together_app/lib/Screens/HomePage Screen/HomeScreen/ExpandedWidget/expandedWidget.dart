@@ -19,7 +19,7 @@ class ExpandedWidget extends StatelessWidget {
     // final product = Provider.of<CRUDModel>(context);
     final duroodCount = Provider.of<DuroodCountVM>(context);
 
-    return Expanded(
+    return IntrinsicHeight(
       child: Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: AnimatedContainer(
