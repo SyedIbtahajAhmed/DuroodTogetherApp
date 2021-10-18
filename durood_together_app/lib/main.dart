@@ -1,15 +1,15 @@
+//Local Imports
+import 'package:durood_together_app/Authentication/Authentication Wrapper/AuthenticationWrapper.dart';
 import 'package:durood_together_app/Authentication/Authentication.dart';
 import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:durood_together_app/Shared/Locator/lcoator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-//Local Imports
-import 'package:durood_together_app/Authentication/Authentication Wrapper/AuthenticationWrapper.dart';
 import 'Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
+import 'Core/Providers/DuroodCountProvider/durood-count-provider.dart';
 
 void main() async {
   setupLocator();
@@ -34,6 +34,9 @@ class DuroodApp extends StatelessWidget {
                 context.read<LocationService>().locationStream),
         ChangeNotifierProvider(
           create: (_) => locator<DuroodCountVM>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => locator<DuroodCountProvider>(),
         ),
         // ChangeNotifierProvider(
         //   create: (_) => locator<CRUDModel>(),

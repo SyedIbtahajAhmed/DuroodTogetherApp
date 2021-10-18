@@ -39,6 +39,7 @@ dependencies:
   vibration: ^1.4.0
   numeral: ^1.2.4
   geocoding: ^2.0.1
+  google_sign_in: ^5.1.1
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +59,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/ReportCount_Pic.jpg
+    - images/google_logo.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

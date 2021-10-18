@@ -1,23 +1,24 @@
-import 'package:durood_together_app/Core/DataModels/DuroodCount/duroodCount_model.dart';
-import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'dart:math';
+
+import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:vibration/vibration.dart';
 
-class ExpandedWidget extends StatelessWidget {
+class ExpandedWidget extends StatefulWidget {
   final Function expandedWidget;
   const ExpandedWidget({Key key, this.expandedWidget}) : super(key: key);
 
-  // void getData(durood) async {
-  //   List<DuroodCount> duroodCount = await durood.fetchDuroodCounts();
-  //   duroodCount.forEach((durood) => print(durood));
-  // }
+  @override
+  State<ExpandedWidget> createState() => _ExpandedWidgetState();
+}
 
+class _ExpandedWidgetState extends State<ExpandedWidget>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     // final product = Provider.of<CRUDModel>(context);
-    final duroodCount = Provider.of<DuroodCountVM>(context);
+    // final duroodCount = Provider.of<DuroodCountVM>(context);
 
     return IntrinsicHeight(
       child: Padding(
@@ -26,7 +27,7 @@ class ExpandedWidget extends StatelessWidget {
           duration: Duration(milliseconds: 500),
           child: GestureDetector(
             onTap: () {
-              this.expandedWidget();
+              this.widget.expandedWidget();
             },
             child: Container(
               child: Align(
@@ -67,7 +68,10 @@ class ExpandedWidget extends StatelessWidget {
                             shape: BoxShape.circle,
                           ),
                           child: Text(
-                            'Create Product',
+                            context
+                                .watch<DuroodCountProvider>()
+                                .duroodCount
+                                .toString(),
                             style: TextStyle(
                               fontSize: 30,
                               color: Colors.white,
@@ -76,8 +80,7 @@ class ExpandedWidget extends StatelessWidget {
                         ),
                         onPressed: () {
                           Vibration.vibrate(duration: 35);
-                          // awiat duroodCount.fetchDuroodCounts();
-                          // getData(duroodCount);
+                          context.read<DuroodCountProvider>().addDuroodCount();
                         },
                       ),
                     )
