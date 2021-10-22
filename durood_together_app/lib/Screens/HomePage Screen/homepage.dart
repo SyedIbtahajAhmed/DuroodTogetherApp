@@ -1,4 +1,3 @@
-import 'package:durood_together_app/Core/DataModels/UserLocation/user_location.dart';
 import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
 import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -63,16 +62,15 @@ class _HomePageState extends State<HomePage> {
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
-
           // Setting Durood Data
           context.watch<DuroodCountVM>().setAttributes(
-            topCountry: snapshot.data[0],           // Top Country
-            topCity: snapshot.data[1],              // Top City
-            globalCount: snapshot.data[2],          // Global Count
-            topFiveCountries: snapshot.data[3],     // Top Five Countries
-            topFiveCities: snapshot.data[4],        // Top Five Cities
-            userMonthlyData: snapshot.data[5],      // User Monthly Data
-          );
+                topCountry: snapshot.data[0], // Top Country
+                topCity: snapshot.data[1], // Top City
+                globalCount: snapshot.data[2], // Global Count
+                topFiveCountries: snapshot.data[3], // Top Five Countries
+                topFiveCities: snapshot.data[4], // Top Five Cities
+                userMonthlyData: snapshot.data[5], // User Monthly Data
+              );
 
           // print(context.watch<DuroodCountVM>().topCountry.toString());
 
@@ -163,9 +161,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           );
-
-
-
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         } else {

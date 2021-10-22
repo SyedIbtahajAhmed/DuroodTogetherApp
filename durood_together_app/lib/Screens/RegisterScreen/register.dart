@@ -1,24 +1,19 @@
 // Local Imports
 import 'package:durood_together_app/Authentication/Authentication.dart';
-import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Login extends StatefulWidget {
+class Register extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   // Form Key
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // Email And Password Declaration
   String _email, _password;
-
-  String result;
-  String country;
-  String city;
 
   // Making Email And Password Controllers
   final TextEditingController emailController = TextEditingController();
@@ -37,12 +32,6 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     // TODO: implement initState
-    country = context.read<LocationService>().userAddress.length > 0
-        ? context.read<LocationService>().userAddress[0].country.toString()
-        : '';
-    city = context.read<LocationService>().userAddress.length > 0
-        ? context.read<LocationService>().userAddress[0].locality.toString()
-        : '';
     super.initState();
     // this.checkAuthentication();
   }
@@ -188,26 +177,12 @@ class _LoginState extends State<Login> {
 
                               // Elevated Button
                               ElevatedButton(
-                                onPressed: () async {
-                                  country = country;
-                                  city = city;
-
-                                  print(country);
-                                  print(city);
-
-                                  result = await context
-                                      .read<Authentication>()
-                                      .signUp(
+                                onPressed: () {
+                                  context.read<Authentication>().signUp(
                                         email: emailController.text.trim(),
                                         password:
                                             passwordController.text.trim(),
-                                        country: country,
-                                        city: city,
                                       );
-
-                                  print(result);
-                                  emailController.clear();
-                                  passwordController.clear();
                                 },
                                 child: Text(
                                   'Register',

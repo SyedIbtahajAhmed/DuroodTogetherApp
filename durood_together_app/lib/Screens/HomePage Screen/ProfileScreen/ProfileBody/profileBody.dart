@@ -1,4 +1,3 @@
-import 'package:durood_together_app/Core/DataModels/UserLocation/user_location.dart';
 import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -52,19 +51,57 @@ class _ProfileBodyState extends State<ProfileBody> {
             children: <Widget>[
               // Name Widget
               FieldWidget(
-                data: (firebaseUser.displayName != null) ? firebaseUser.displayName : "Name Not Available",
+                data: (firebaseUser.displayName != null)
+                    ? firebaseUser.displayName
+                    : "Name Not Available",
               ),
               // Email Widget
               FieldWidget(
-                data: (firebaseUser.email != null) ? firebaseUser.email : "Email Not Available",
+                data: (firebaseUser.email != null)
+                    ? firebaseUser.email
+                    : "Email Not Available",
               ),
               // Country Widget
               FieldWidget(
-                data: (context.watch<LocationService>().userAddress[0].country.toString() != null || context.watch<LocationService>().userAddress[0].country.toString() != "") ? context.watch<LocationService>().userAddress[0].country.toString() : "Country Not Available",
+                data: (context
+                                .watch<LocationService>()
+                                .userAddress[0]
+                                .country
+                                .toString() !=
+                            null ||
+                        context
+                                .watch<LocationService>()
+                                .userAddress[0]
+                                .country
+                                .toString() !=
+                            "")
+                    ? context
+                        .watch<LocationService>()
+                        .userAddress[0]
+                        .country
+                        .toString()
+                    : "Country Not Available",
               ),
               // City Widget
               FieldWidget(
-                data: (context.watch<LocationService>().userAddress[0].locality.toString() != null || context.watch<LocationService>().userAddress[0].locality.toString() != "") ? context.watch<LocationService>().userAddress[0].locality.toString() : "City Not Available",
+                data: (context
+                                .watch<LocationService>()
+                                .userAddress[0]
+                                .locality
+                                .toString() !=
+                            null ||
+                        context
+                                .watch<LocationService>()
+                                .userAddress[0]
+                                .locality
+                                .toString() !=
+                            "")
+                    ? context
+                        .watch<LocationService>()
+                        .userAddress[0]
+                        .locality
+                        .toString()
+                    : "City Not Available",
               ),
             ],
           ),

@@ -40,14 +40,31 @@ class InfoContainer extends StatelessWidget {
                       // Country Name
                       Container(
                         child: CountTextContainer(
-                          text: context.watch<DuroodCountVM>().topCountry.keys.elementAt(0).toString(),
+                          text:
+                              context.watch<DuroodCountVM>().topCountry.isEmpty
+                                  ? 'Nan'
+                                  : context
+                                      .watch<DuroodCountVM>()
+                                      .topCountry
+                                      .keys
+                                      .elementAt(0)
+                                      .toString(),
                         ),
                       ),
 
                       // Country Count Value
                       Container(
                         child: CountTextContainer(
-                          text: Numeral(context.watch<DuroodCountVM>().topCountry.values.elementAt(0)).value().toString(),
+                          text:
+                              context.watch<DuroodCountVM>().topCountry.isEmpty
+                                  ? 0.toString()
+                                  : Numeral(context
+                                          .watch<DuroodCountVM>()
+                                          .topCountry
+                                          .values
+                                          .elementAt(0))
+                                      .value()
+                                      .toString(),
                         ),
                       ),
                     ],
@@ -56,21 +73,37 @@ class InfoContainer extends StatelessWidget {
 
                 // City Row
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // Country Name
                       Container(
                         child: CountTextContainer(
-                          text: context.watch<DuroodCountVM>().topCity.keys.elementAt(0).toString(),
+                          text: context.watch<DuroodCountVM>().topCity.isEmpty
+                              ? 'Nan'
+                              : context
+                                  .watch<DuroodCountVM>()
+                                  .topCity
+                                  .keys
+                                  .elementAt(0)
+                                  .toString(),
                         ),
                       ),
 
                       // Country Count Value
                       Container(
                         child: CountTextContainer(
-                          text: Numeral(context.watch<DuroodCountVM>().topCity.values.elementAt(0)).value().toString(),
+                          text: context.watch<DuroodCountVM>().topCity.isEmpty
+                              ? 0.toString()
+                              : Numeral(context
+                                      .watch<DuroodCountVM>()
+                                      .topCity
+                                      .values
+                                      .elementAt(0))
+                                  .value()
+                                  .toString(),
                         ),
                       ),
                     ],
@@ -83,7 +116,11 @@ class InfoContainer extends StatelessWidget {
           // Total Count Widget
           MonthCountWidget(
             text: Functions().getCurrentMonth() + ' Global Count',
-            totalCount: Numeral(context.watch<DuroodCountVM>().globalCount).value().toString(),
+            totalCount: context.watch<DuroodCountVM>().globalCount.isNaN
+                ? 0.toString()
+                : Numeral(context.watch<DuroodCountVM>().globalCount)
+                    .value()
+                    .toString(),
             // Numeral(snapshot.data.elementAt(0)).value().toString(),
           ),
         ],
@@ -91,7 +128,6 @@ class InfoContainer extends StatelessWidget {
     );
   }
 }
-
 
 //
 //
