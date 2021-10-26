@@ -3,7 +3,10 @@ import 'package:durood_together_app/Core/DataModels/DuroodCount/duroodCount_mode
 import 'package:durood_together_app/Core/DataServices/API/appConst.dart';
 import 'package:durood_together_app/Core/DataServices/API/generic_api.dart';
 import 'package:durood_together_app/Shared/Locator/lcoator.dart';
+import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 class DuroodCountVM extends ChangeNotifier {
   Api _api = locator<Api>();
@@ -84,16 +87,52 @@ class DuroodCountVM extends ChangeNotifier {
     return;
   }
 
-  Future addDuroodCount(DuroodCount data) async {
-    var result = await _api.addDocument(data.toJson());
+  Future addCustomDuroodCount(
+      BuildContext context, Map<String, dynamic> data, String date) async {
+    // Changing Collection Path
+    _api.changePath(AppConst.durrodCountCollection);
 
+    // Top Five Cities Service
+    // Getting Top Five Cities Dictionary
+    // Future<Map<String, dynamic>> topCities = Services().updateTopFiveCities();
+    // print(topCities);
+
+    // Making Data
+    // Making Temporary Objects
+    DuroodCount mapObject = new DuroodCount();
+
+    // City Value
+    mapObject.CityData = {
+      data['City']: FieldValue.increment(data['DuroodCount'])
+    };
+
+    // Country Value
+    mapObject.CountryData = {
+      data['Country']: FieldValue.increment(data['DuroodCount'])
+    };
+    // UserData Value
+    mapObject.UserData = {
+      data['User']: FieldValue.increment(data['DuroodCount'])
+    };
+    // UserMonthlyData
+    mapObject.UserMonthlyData = {
+      context.read<User>().uid: {
+        Functions().getDateString(): FieldValue.increment(data['DuroodCount'])
+      }
+    };
+    // TopFiveCities
+    print(mapObject.toJson());
+
+    // Getting Data
+    await _api.addCustomDocument(mapObject.toJson(), date);
+    // print(result);
+    print('DuroodCount Added Successfully At ' + date);
     return;
   }
 
-  Future addCustomDuroodCount(DuroodCount data, String date) async {
-    var result = await _api.addCustomDocument(data.toJson(), date);
-    print(result);
-    print('Durood Count Added Successfully At ' + date);
+  Future addDuroodCount(DuroodCount data) async {
+    var result = await _api.addDocument(data.toJson());
+
     return;
   }
 }

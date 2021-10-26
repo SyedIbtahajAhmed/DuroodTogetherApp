@@ -1,4 +1,10 @@
+import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
+import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
+import 'package:durood_together_app/Services/LocationService/location_service.dart';
+import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 class HeaderRow extends StatelessWidget {
   final double opacity;
@@ -25,7 +31,28 @@ class HeaderRow extends StatelessWidget {
               height: this.opacity == 0.0 ? 40 : 0,
               child: ElevatedButton(
                 onPressed: () {
-                  // Calling Durood Count API
+                  Map<String, dynamic> dataObject = new Map<String, dynamic>();
+
+                  // Storing Data
+                  dataObject['City'] = context
+                      .read<LocationService>()
+                      .userAddress[0]
+                      .locality
+                      .toString();
+                  dataObject['Country'] = context
+                      .read<LocationService>()
+                      .userAddress[0]
+                      .country
+                      .toString();
+                  dataObject['User'] = context.read<User>().uid;
+                  dataObject['DuroodCount'] =
+                      context.read<DuroodCountProvider>().duroodCount;
+
+                  print(dataObject);
+                  DuroodCountVM().addCustomDuroodCount(
+                      context, dataObject, Functions().getDateString());
+
+                  context.read<DuroodCountProvider>().resetDuroodCount();
                 },
                 child: Text(
                   'Save Count',

@@ -57,8 +57,8 @@ class UserViewModel {
   Future addCustomUser(UserModel data, String uid) async {
     // Changing Collection Path
     _api.changePath(AppConst.userCollection);
-    var result = await _api.addCustomDocument(data.toJson(), uid);
-    print(result);
+    await _api.addCustomDocument(data.toJson(), uid);
+    // print(result);
     print('User Added Successfully At ' + uid);
     return;
   }

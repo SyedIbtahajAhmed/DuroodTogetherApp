@@ -35,19 +35,6 @@ class _LoginState extends State<Login> {
   // }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    country = context.read<LocationService>().userAddress.length > 0
-        ? context.read<LocationService>().userAddress[0].country.toString()
-        : '';
-    city = context.read<LocationService>().userAddress.length > 0
-        ? context.read<LocationService>().userAddress[0].locality.toString()
-        : '';
-    super.initState();
-    // this.checkAuthentication();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -189,8 +176,28 @@ class _LoginState extends State<Login> {
                               // Elevated Button
                               ElevatedButton(
                                 onPressed: () async {
-                                  country = country;
-                                  city = city;
+                                  country = context
+                                              .read<LocationService>()
+                                              .userAddress
+                                              .length >
+                                          0
+                                      ? context
+                                          .read<LocationService>()
+                                          .userAddress[0]
+                                          .country
+                                          .toString()
+                                      : '';
+                                  city = context
+                                              .read<LocationService>()
+                                              .userAddress
+                                              .length >
+                                          0
+                                      ? context
+                                          .read<LocationService>()
+                                          .userAddress[0]
+                                          .locality
+                                          .toString()
+                                      : '';
 
                                   print(country);
                                   print(city);

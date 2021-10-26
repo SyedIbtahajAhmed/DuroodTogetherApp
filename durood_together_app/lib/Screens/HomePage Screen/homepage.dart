@@ -52,11 +52,11 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
       future: Future.wait(
         [
-          Functions().getTopCountry(duroodCount),
-          Functions().getTopCity(duroodCount),
+          // Functions().getTopCountry(duroodCount),
+          // Functions().getTopCity(duroodCount),
           Functions().getGlobalCount(duroodCount),
-          Functions().getTopFiveCountries(duroodCount),
-          Functions().getTopFiveCities(duroodCount),
+          // Functions().getTopFiveCountries(duroodCount),
+          // Functions().getTopFiveCities(duroodCount),
           Functions().getUserMonthlyData(firebaseUser.uid, duroodCount),
         ],
       ),
@@ -64,12 +64,12 @@ class _HomePageState extends State<HomePage> {
         if (snapshot.hasData) {
           // Setting Durood Data
           context.watch<DuroodCountVM>().setAttributes(
-                topCountry: snapshot.data[0], // Top Country
-                topCity: snapshot.data[1], // Top City
-                globalCount: snapshot.data[2], // Global Count
-                topFiveCountries: snapshot.data[3], // Top Five Countries
-                topFiveCities: snapshot.data[4], // Top Five Cities
-                userMonthlyData: snapshot.data[5], // User Monthly Data
+                // topCountry: snapshot.data[0], // Top Country
+                // topCity: snapshot.data[1], // Top City
+                globalCount: snapshot.data[0], // Global Count
+                // topFiveCountries: snapshot.data[3], // Top Five Countries
+                // topFiveCities: snapshot.data[1], // Top Five Cities
+                userMonthlyData: snapshot.data[1], // User Monthly Data
               );
 
           // print(context.watch<DuroodCountVM>().topCountry.toString());

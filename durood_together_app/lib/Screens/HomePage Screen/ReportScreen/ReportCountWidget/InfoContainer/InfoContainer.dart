@@ -41,7 +41,7 @@ class InfoContainer extends StatelessWidget {
                       Container(
                         child: CountTextContainer(
                           text:
-                              context.watch<DuroodCountVM>().topCountry.isEmpty
+                              context.watch<DuroodCountVM>().topCountry == null
                                   ? 'Nan'
                                   : context
                                       .watch<DuroodCountVM>()
@@ -56,7 +56,7 @@ class InfoContainer extends StatelessWidget {
                       Container(
                         child: CountTextContainer(
                           text:
-                              context.watch<DuroodCountVM>().topCountry.isEmpty
+                              context.watch<DuroodCountVM>().topCountry == null
                                   ? 0.toString()
                                   : Numeral(context
                                           .watch<DuroodCountVM>()
@@ -81,7 +81,7 @@ class InfoContainer extends StatelessWidget {
                       // Country Name
                       Container(
                         child: CountTextContainer(
-                          text: context.watch<DuroodCountVM>().topCity.isEmpty
+                          text: context.watch<DuroodCountVM>().topCity == null
                               ? 'Nan'
                               : context
                                   .watch<DuroodCountVM>()
@@ -95,7 +95,7 @@ class InfoContainer extends StatelessWidget {
                       // Country Count Value
                       Container(
                         child: CountTextContainer(
-                          text: context.watch<DuroodCountVM>().topCity.isEmpty
+                          text: context.watch<DuroodCountVM>().topCity == null
                               ? 0.toString()
                               : Numeral(context
                                       .watch<DuroodCountVM>()

@@ -3,18 +3,16 @@ class DuroodCount {
 
   Map<String, dynamic> CityData = {};
   Map<String, dynamic> CountryData = {};
-  Map<String, dynamic> TopFiveCityData = {};
-  Map<String, dynamic> TopFiveCountryData = {};
   Map<String, dynamic> UserData = {};
+  // Map<String, dynamic> TopFiveCityData = {};
   Map<String, dynamic> UserMonthlyData = {};
 
   DuroodCount({
     this.Date,
     this.CityData,
     this.CountryData,
-    this.TopFiveCityData,
-    this.TopFiveCountryData,
     this.UserData,
+    // this.TopFiveCityData,
     this.UserMonthlyData,
   });
 
@@ -22,18 +20,16 @@ class DuroodCount {
       : this.Date = date,
         CityData = snapshot['CityData'] ?? '',
         CountryData = snapshot['CountryData'] ?? '',
-        TopFiveCityData = snapshot['TopFiveCityData'] ?? '',
-        TopFiveCountryData = snapshot['TopFiveCountryData'] ?? '',
         UserData = snapshot['UserData'] ?? '',
+        // TopFiveCityData = snapshot['TopFiveCityData'] ?? '',
         UserMonthlyData = snapshot['UserMonthlyData'] ?? '';
 
   toJson() {
     return {
       "CityData": CityData,
       "CountryData": CountryData,
-      "TopFiveCityData": TopFiveCityData,
-      "TopFiveCountryData": TopFiveCountryData,
       "UserData": UserData,
+      // "TopFiveCityData": TopFiveCityData,
       "UserMonthlyData": UserMonthlyData,
     };
   }

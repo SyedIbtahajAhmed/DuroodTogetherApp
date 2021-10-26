@@ -40,8 +40,10 @@ class Api {
     return ref.add(data);
   }
 
-  Future<DocumentReference> addCustomDocument(Map data, String id) {
-    return ref.doc(id).set(data);
+  Future<void> addCustomDocument(Map data, String id) {
+    return ref.doc(id).set(data, SetOptions(merge: true)).then((_) {
+      print("success!");
+    });
   }
 
   Future<void> updateDocument(Map data, String id) {
