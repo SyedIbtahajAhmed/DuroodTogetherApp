@@ -40,7 +40,7 @@ class CountSaveButton extends StatelessWidget {
                     .toString();
                 dataObject['User'] = context.read<User>().uid;
                 dataObject['DuroodCount'] =
-                    context.read<DuroodCountProvider>().duroodCount;
+                    context.read<DuroodCountProvider>().duroodCountField;
 
                 print(dataObject);
                 DuroodCountVM().addCustomDuroodCount(

@@ -1,6 +1,6 @@
 import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 class CountField extends StatefulWidget {
   final double opacity;
@@ -11,21 +11,32 @@ class CountField extends StatefulWidget {
 }
 
 class _CountFieldState extends State<CountField> {
+  TextEditingController _textController;
+
+  // @override
+  // void initState() {
+  //   final DuroodCountProvider duroodCount =
+  //       Provider.of<DuroodCountProvider>(context, listen: false);
+  //
+  //   super.initState();
+  //   _textController =
+  //       TextEditingController(text: duroodCount.duroodCount.toString());
+  // }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    TextEditingController _controller = new TextEditingController(
-        text: context.read<DuroodCountProvider>().duroodCount != 0
-            ? context.read<DuroodCountProvider>().duroodCount.toString()
-            : '');
-
-    // initState() {
-    //   super.initState();
-    //   _controller = new TextEditingController();
-    // }
-
-    // print(textController.text.trim());
+    final DuroodCountProvider duroodCount =
+        Provider.of<DuroodCountProvider>(context, listen: false);
+    TextEditingController _textController =
+        TextEditingController(text: duroodCount.duroodCountField.toString());
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
@@ -36,7 +47,12 @@ class _CountFieldState extends State<CountField> {
         padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
         child: Container(
           child: TextFormField(
-            controller: _controller,
+            controller: _textController,
+            onChanged: (value) {
+              print(value);
+              duroodCount
+                  .duroodCountFromField(int.parse(value.trim().toString()));
+            },
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               filled: true,

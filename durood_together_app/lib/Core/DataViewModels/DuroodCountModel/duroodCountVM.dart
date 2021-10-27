@@ -92,11 +92,6 @@ class DuroodCountVM extends ChangeNotifier {
     // Changing Collection Path
     _api.changePath(AppConst.durrodCountCollection);
 
-    // Top Five Cities Service
-    // Getting Top Five Cities Dictionary
-    // Future<Map<String, dynamic>> topCities = Services().updateTopFiveCities();
-    // print(topCities);
-
     // Making Data
     // Making Temporary Objects
     DuroodCount mapObject = new DuroodCount();

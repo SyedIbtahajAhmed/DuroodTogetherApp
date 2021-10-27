@@ -5,92 +5,101 @@ import 'package:durood_together_app/Shared/Const/constant.dart';
 
 class Functions {
   // Get Top Country Count With Name
-  // Future<Map<String, dynamic>> getTopCountry(dataDict) async {
-  //   List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
-  //   Map<String, dynamic> returnedValue = {};
-  //
-  //   // Iterating dataDict
-  //   duroodCount.forEach((durood) {
-  //     if (durood.Date == getDateString()) {
-  //       int count = 0;
-  //       durood.TopFiveCountryData.values.forEach((element) {
-  //         if (element > count) {
-  //           count = element;
-  //         }
-  //       });
-  //       // Getting The Top Country
-  //       durood.TopFiveCountryData.keys.forEach((element) {
-  //         // We Have Keys in Elements
-  //         if (durood.TopFiveCountryData[element] == count) {
-  //           returnedValue[element] = count;
-  //         }
-  //         ;
-  //       });
-  //     }
-  //     ;
-  //   });
-  //   return returnedValue;
-  // }
+  Future<Map<String, dynamic>> getTopCountry(dataDict) async {
+    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+    Map<String, dynamic> returnedValue = {};
+
+    // Iterating dataDict
+    duroodCount.forEach((durood) {
+      if (durood.Date == getDateString()) {
+        // Sorting The All City Data
+        dynamic response = SortDictionary(durood.CountryData);
+        // Now City Data Is Sorted
+        // Getting The Top City
+        print(response);
+        returnedValue[response.keys.elementAt(0)] =
+            response.values.elementAt(0);
+      }
+      ;
+    });
+    return returnedValue;
+  }
 
   // Get Top Countries Dictionary
-  // Future<Map<String, dynamic>> getTopFiveCountries(dataDict) async {
-  //   List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
-  //   Map<String, dynamic> returnedValue = {};
-  //
-  //   // Iterating dataDict
-  //   duroodCount.forEach((durood) {
-  //     if (durood.Date == getDateString()) {
-  //       returnedValue = durood.TopFiveCountryData;
-  //     }
-  //     ;
-  //   });
-  //   // print(returnedValue);
-  //   return returnedValue;
-  // }
+  Future<Map<String, dynamic>> getTopFiveCountries(dataDict) async {
+    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+    Map<String, dynamic> returnedValue = {};
+
+    // Iterating dataDict
+    duroodCount.forEach((durood) {
+      if (durood.Date == getDateString()) {
+        // Date Matched
+        int count = 0;
+        dynamic sortedResponse = SortDictionary(durood.CountryData);
+        // Setting Count According To Length Of The Response
+        if (durood.CountryData.length >= 0 && durood.CountryData.length < 5) {
+          count = durood.CountryData.length;
+        } else {
+          count = 5;
+        }
+        for (int i = 0; i < count; i++) {
+          // Saving First Top Five
+          returnedValue[durood.CountryData.keys.elementAt(i)] =
+              durood.CountryData.values.elementAt(i);
+        }
+      }
+      ;
+    });
+    return returnedValue;
+  }
 
   // Get Top City Count With Name
-  // Future<Map<String, int>> getTopCity(dataDict) async {
-  //   List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
-  //   Map<String, int> returnedValue = {};
-  //
-  //   // Iterating dataDict
-  //   duroodCount.forEach((durood) {
-  //     if (durood.Date == getDateString()) {
-  //       int count = 0;
-  //       durood.TopFiveCityData.values.forEach((element) {
-  //         if (element > count) {
-  //           count = element;
-  //         }
-  //       });
-  //       // Getting The Top Country
-  //       durood.TopFiveCityData.keys.forEach((element) {
-  //         // We Have Keys in Elements
-  //         if (durood.TopFiveCityData[element] == count) {
-  //           returnedValue[element] = count;
-  //         }
-  //         ;
-  //       });
-  //     }
-  //     ;
-  //   });
-  //   return returnedValue;
-  // }
+  Future<Map<String, int>> getTopCity(dataDict) async {
+    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+    Map<String, int> returnedValue = {};
+
+    // Iterating dataDict
+    duroodCount.forEach((durood) {
+      if (durood.Date == getDateString()) {
+        // Sorting The All City Data
+        dynamic response = SortDictionary(durood.CityData);
+        // Now City Data Is Sorted
+        // Getting The Top City
+        returnedValue[response.keys.elementAt(0)] =
+            response.values.elementAt(0);
+      }
+      ;
+    });
+    return returnedValue;
+  }
 
   // Get Top Cities Dictionary
-  // Future<Map<String, dynamic>> getTopFiveCities(dataDict) async {
-  //   List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
-  //   Map<String, dynamic> returnedValue = {};
-  //
-  //   // Iterating dataDict
-  //   duroodCount.forEach((durood) {
-  //     if (durood.Date == getDateString()) {
-  //       returnedValue = durood.TopFiveCityData;
-  //     }
-  //     ;
-  //   });
-  //   // print(returnedValue);
-  //   return returnedValue;
-  // }
+  Future<Map<String, dynamic>> getTopFiveCities(dataDict) async {
+    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+    Map<String, dynamic> returnedValue = {};
+
+    // Iterating dataDict
+    duroodCount.forEach((durood) {
+      if (durood.Date == getDateString()) {
+        // Date Matched
+        int count = 0;
+        dynamic sortedResponse = SortDictionary(durood.CityData);
+        // Setting Count According To Length Of The Response
+        if (durood.CityData.length >= 0 && durood.CityData.length < 5) {
+          count = durood.CityData.length;
+        } else {
+          count = 5;
+        }
+        for (int i = 0; i < count; i++) {
+          // Saving First Top Five
+          returnedValue[durood.CityData.keys.elementAt(i)] =
+              durood.CityData.values.elementAt(i);
+        }
+      }
+      ;
+    });
+    return returnedValue;
+  }
 
   // Getting Total Global Count
   Future<int> getGlobalCount(dataDict) async {
@@ -170,20 +179,27 @@ class Functions {
   // User Durood Count Date Maker
   String getUserDuroodMonthDate(date) {
     // Getting Year From The String
-    String slicedString = date.replaceAll(new RegExp(r'[^0-9]'), '');
+    String slicedString = date.replaceAll(new RegExp(r'_'), '');
+
+    print(slicedString);
+
+    String numberString = date.replaceAll(new RegExp(r'^_|[^0-9]'), '');
+    print(numberString);
+
     String finalString;
 
     int index = 0;
-    Constant().months.forEach((element) {
+    Constant().month.forEach((element) {
       // print(element);
       if (date.contains(element)) {
         // print(Constant().month[index]);
-        finalString = Constant().month[index] + ' ' + slicedString;
+        finalString = Constant().months[index] + ' ' + numberString;
         // print(finalString);
       } else {
         index += 1;
       }
     });
+    print(finalString);
     return finalString;
   }
 
