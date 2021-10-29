@@ -1,6 +1,7 @@
 // Local Imports
 import 'package:durood_together_app/Authentication/Authentication.dart';
 import 'package:durood_together_app/Services/LocationService/location_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,7 @@ class _LoginState extends State<Login> {
   // Email And Password Declaration
   String _email, _password;
 
+  UserCredential googleResult;
   String result;
   String country;
   String city;
@@ -239,8 +241,9 @@ class _LoginState extends State<Login> {
 
                         // Elevated Button
                         ElevatedButton(
-                          onPressed: () {
-                            context.read<Authentication>().signInWithGoogle();
+                          onPressed: () async {
+                            googleResult = await context.read<Authentication>().signInWithGoogle();
+                            print(googleResult);
                           },
                           child: Container(
                             child: Row(

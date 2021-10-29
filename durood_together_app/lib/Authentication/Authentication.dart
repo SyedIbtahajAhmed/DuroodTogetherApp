@@ -60,15 +60,21 @@ class Authentication {
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
+    print(googleUser);
+
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
         await googleUser?.authentication;
+
+    print(googleAuth);
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
+
+    print(credential);
 
     // Once signed in, return the UserCredential
     UserCredential returned_credential =

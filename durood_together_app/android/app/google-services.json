@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1033799077474-47ukm2rvjfqmvne85l3ps7biec339nsj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.durood_together_app",
+            "certificate_hash": "1c7eaf94d1f89423b089ff55d471d3f7e568ea36"
+          }
+        },
+        {
           "client_id": "1033799077474-dlvu4esupeoi860kvespkni0suh2k2ag.apps.googleusercontent.com",
           "client_type": 3
         }
