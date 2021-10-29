@@ -7,8 +7,13 @@ class Api {
   CollectionReference ref;
   // const static String durrodCountCollection = "DuroodCount";
 
+  // Default Constructor
   Api() {
     ref = _db.collection(AppConst.durrodCountCollection);
+  }
+
+  Api.overLoadedConstructor({String collectionName}) {
+    ref = _db.collection(collectionName);
   }
 
   changePath(String collectionName) {
@@ -33,6 +38,12 @@ class Api {
 
   Future<DocumentReference> addDocument(Map data) {
     return ref.add(data);
+  }
+
+  Future<void> addCustomDocument(Map data, String id) {
+    return ref.doc(id).set(data, SetOptions(merge: true)).then((_) {
+      print("success!");
+    });
   }
 
   Future<void> updateDocument(Map data, String id) {

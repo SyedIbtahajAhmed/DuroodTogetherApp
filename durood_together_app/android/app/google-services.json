@@ -1,154 +1,42 @@
 {
   "project_info": {
-    "project_number": "528704416934",
-    "firebase_url": "https://tasbeehcounteraksiq.firebaseio.com",
-    "project_id": "tasbeehcounteraksiq",
-    "storage_bucket": "tasbeehcounteraksiq.appspot.com"
+    "project_number": "1033799077474",
+    "project_id": "duroodappv2",
+    "storage_bucket": "duroodappv2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:528704416934:android:834d6345ed13dd08df5867",
-        "android_client_info": {
-          "package_name": "com.aksiq.tasbeehcounter"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "528704416934-4gftehj9e4g2257co55dg08b8ub0h4mc.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.aksiq.tasbeehcounter",
-            "certificate_hash": "f59ecdd875751e720d4dcc86c29048fdebde855d"
-          }
-        },
-        {
-          "client_id": "528704416934-8j2c8lch5u000ugncffaapk9f3ffaelv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.aksiq.tasbeehcounter",
-            "certificate_hash": "e7eb2dd8740915536cd74b744671c91979414b0e"
-          }
-        },
-        {
-          "client_id": "528704416934-jihpmehtr5egaqpeeau3fb2jc94prjvj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.aksiq.tasbeehcounter",
-            "certificate_hash": "aaef051b5f4b937113111e903eb9309c73765a75"
-          }
-        },
-        {
-          "client_id": "528704416934-ule6tbcv0e7ith5iddfumpop42kdtod6.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBLOqXw9hX__Y4ZlgZrI1zUdqwZH7bKxqQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "528704416934-ule6tbcv0e7ith5iddfumpop42kdtod6.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "528704416934-8vdr9ar0uto28a33benve1gi7pg6mlh2.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.aksiq.tasbeah"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:528704416934:android:dbbd259945ec6fe1df5867",
+        "mobilesdk_app_id": "1:1033799077474:android:fbd316758f93562d5ccb3b",
         "android_client_info": {
           "package_name": "com.example.durood_together_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "528704416934-62gtt8alu59ms9t1f5meleimu5c69hbi.apps.googleusercontent.com",
+          "client_id": "1033799077474-47ukm2rvjfqmvne85l3ps7biec339nsj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.durood_together_app",
-            "certificate_hash": "a0a66e2e36c02ac75c5ea81a011c291ac7d043fe"
+            "certificate_hash": "1c7eaf94d1f89423b089ff55d471d3f7e568ea36"
           }
         },
         {
-          "client_id": "528704416934-ule6tbcv0e7ith5iddfumpop42kdtod6.apps.googleusercontent.com",
+          "client_id": "1033799077474-dlvu4esupeoi860kvespkni0suh2k2ag.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBLOqXw9hX__Y4ZlgZrI1zUdqwZH7bKxqQ"
+          "current_key": "AIzaSyB8DVwLdV_UGRrwD_L6XXAd_t9It6sQGnE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "528704416934-ule6tbcv0e7ith5iddfumpop42kdtod6.apps.googleusercontent.com",
+              "client_id": "1033799077474-dlvu4esupeoi860kvespkni0suh2k2ag.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "528704416934-8vdr9ar0uto28a33benve1gi7pg6mlh2.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.aksiq.tasbeah"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:528704416934:android:a928609ff7cb7e64df5867",
-        "android_client_info": {
-          "package_name": "com.example.tasbeah"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "528704416934-me16m6dj5ph3d0kgaovsn3cufg2gb8ju.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.tasbeah",
-            "certificate_hash": "f59ecdd875751e720d4dcc86c29048fdebde855d"
-          }
-        },
-        {
-          "client_id": "528704416934-ule6tbcv0e7ith5iddfumpop42kdtod6.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBLOqXw9hX__Y4ZlgZrI1zUdqwZH7bKxqQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "528704416934-ule6tbcv0e7ith5iddfumpop42kdtod6.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "528704416934-8vdr9ar0uto28a33benve1gi7pg6mlh2.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.aksiq.tasbeah"
-              }
             }
           ]
         }
