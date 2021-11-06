@@ -18,6 +18,9 @@ class DuroodCountVM extends ChangeNotifier {
   Map<String, dynamic> _topFiveCountries = {};
   Map<String, dynamic> _topFiveCities = {};
   Map<String, dynamic> _userMonthlyData = {};
+  int _userWeeklyCount = 0;
+  int _userTodayCount = 0;
+  int _userYesterdayCount = 0;
 
   String _dateString = '';
   String _currentMonth = '';
@@ -30,6 +33,9 @@ class DuroodCountVM extends ChangeNotifier {
   Map<String, dynamic> get topFiveCountries => _topFiveCountries;
   Map<String, dynamic> get topFiveCities => _topFiveCities;
   Map<String, dynamic> get userMonthlyData => _userMonthlyData;
+  int get userWeeklyCount => _userWeeklyCount;
+  int get userTodayCount => _userTodayCount;
+  int get userYesterdayCount => _userYesterdayCount;
 
   String get dateString => _dateString;
   String get currentMonth => _currentMonth;
@@ -44,6 +50,9 @@ class DuroodCountVM extends ChangeNotifier {
     Map<String, dynamic> topFiveCountries,
     Map<String, dynamic> topFiveCities,
     Map<String, dynamic> userMonthlyData,
+    int userWeeklyCount,
+    int userTodayCount,
+    int userYesterdayCount,
   }) {
     this._topCountry = topCountry;
     this._topCity = topCity;
@@ -51,6 +60,21 @@ class DuroodCountVM extends ChangeNotifier {
     this._topFiveCountries = topFiveCountries;
     this._topFiveCities = topFiveCities;
     this._userMonthlyData = userMonthlyData;
+    this._userWeeklyCount = userWeeklyCount;
+    this._userTodayCount = userTodayCount;
+    this._userYesterdayCount = userYesterdayCount;
+  }
+
+  resetAttributes() {
+    this._topCountry = {};
+    this._topCity = {};
+    this._globalCount = 0;
+    this._topFiveCountries = {};
+    this._topFiveCities = {};
+    this._userMonthlyData = {};
+    this._userWeeklyCount = 0;
+    this._userTodayCount = 0;
+    this._userYesterdayCount = 0;
   }
 
   Future<dynamic> fetchDuroodCounts() async {
@@ -87,7 +111,7 @@ class DuroodCountVM extends ChangeNotifier {
     return;
   }
 
-  Future addCustomDuroodCount(
+  Future<String> addCustomDuroodCount(
       BuildContext context, Map<String, dynamic> data, String date) async {
     // Changing Collection Path
     _api.changePath(AppConst.durrodCountCollection);
@@ -112,7 +136,8 @@ class DuroodCountVM extends ChangeNotifier {
     // UserMonthlyData
     mapObject.UserMonthlyData = {
       context.read<User>().uid: {
-        Functions().getDateString(): FieldValue.increment(data['DuroodCount'])
+        Functions().getDayDateString():
+            FieldValue.increment(data['DuroodCount'])
       }
     };
     // TopFiveCities
@@ -121,8 +146,7 @@ class DuroodCountVM extends ChangeNotifier {
     // Getting Data
     await _api.addCustomDocument(mapObject.toJson(), date);
     // print(result);
-    print('DuroodCount Added Successfully At ' + date);
-    return;
+    return 'DuroodCount Added Successfully.';
   }
 
   Future addDuroodCount(DuroodCount data) async {

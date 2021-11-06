@@ -23,11 +23,11 @@ class _CountFieldState extends State<CountField> {
   //       TextEditingController(text: duroodCount.duroodCount.toString());
   // }
 
-  @override
-  void dispose() {
-    _textController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _textController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,10 @@ class _CountFieldState extends State<CountField> {
 
     final DuroodCountProvider duroodCount =
         Provider.of<DuroodCountProvider>(context, listen: false);
-    TextEditingController _textController =
-        TextEditingController(text: duroodCount.duroodCountField.toString());
+    TextEditingController _textController = TextEditingController(
+        text: duroodCount.duroodCountField != 0
+            ? duroodCount.duroodCountField.toString()
+            : '');
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),

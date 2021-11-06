@@ -1,6 +1,6 @@
 //Local Imports
-import 'package:durood_together_app/Authentication/Authentication Wrapper/AuthenticationWrapper.dart';
 import 'package:durood_together_app/Authentication/Authentication.dart';
+import 'package:durood_together_app/Screens/SplashScreen/splash-screen.dart';
 import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:durood_together_app/Shared/Locator/lcoator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -53,7 +53,7 @@ class DuroodApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
 
         //Home
-        home: AuthenticationWrapper(),
+        home: SplashScreen(),
       ),
     );
   }

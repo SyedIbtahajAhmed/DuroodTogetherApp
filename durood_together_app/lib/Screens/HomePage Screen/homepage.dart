@@ -58,6 +58,9 @@ class _HomePageState extends State<HomePage> {
           Functions().getTopFiveCountries(duroodCount),
           Functions().getTopFiveCities(duroodCount),
           Functions().getUserMonthlyData(firebaseUser.uid, duroodCount),
+          Functions().getUserWeeklyCount(firebaseUser.uid, duroodCount),
+          Functions().getUserTodayCount(firebaseUser.uid, duroodCount),
+          Functions().getUserYesterdayCount(firebaseUser.uid, duroodCount),
         ],
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
@@ -70,6 +73,9 @@ class _HomePageState extends State<HomePage> {
                 topFiveCountries: snapshot.data[3], // Top Five Countries
                 topFiveCities: snapshot.data[4], // Top Five Cities
                 userMonthlyData: snapshot.data[5], // User Monthly Data
+                userWeeklyCount: snapshot.data[6], // User Weekly Count
+                userTodayCount: snapshot.data[7], // User Today Count
+                userYesterdayCount: snapshot.data[8], // User Yesterday Count
               );
 
           // print(context.watch<DuroodCountVM>().topCountry.toString());

@@ -1,4 +1,5 @@
 import 'package:durood_together_app/Authentication/Authentication.dart';
+import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,6 +34,7 @@ class Profile extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 30.0),
                             child: ElevatedButton(
                               onPressed: () {
+                                context.read<DuroodCountVM>().resetAttributes();
                                 context.read<Authentication>().signOut();
                               },
                               child: Text(
@@ -44,9 +46,10 @@ class Profile extends StatelessWidget {
                               ),
                               style: ButtonStyle(
                                 backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                                minimumSize:
-                                MaterialStateProperty.all<Size>(Size(60, 50)),
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                minimumSize: MaterialStateProperty.all<Size>(
+                                    Size(60, 50)),
                               ),
                             ),
                           ),

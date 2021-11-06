@@ -40,31 +40,39 @@ class InfoContainer extends StatelessWidget {
                       // Country Name
                       Container(
                         child: CountTextContainer(
-                          text:
-                              context.watch<DuroodCountVM>().topCountry == null
-                                  ? 'Nan'
-                                  : context
+                          text: context.watch<DuroodCountVM>().topCountry ==
+                                      null ||
+                                  context
                                       .watch<DuroodCountVM>()
                                       .topCountry
-                                      .keys
-                                      .elementAt(0)
-                                      .toString(),
+                                      .isEmpty
+                              ? 'Nan'
+                              : context
+                                  .watch<DuroodCountVM>()
+                                  .topCountry
+                                  .keys
+                                  .elementAt(0)
+                                  .toString(),
                         ),
                       ),
 
                       // Country Count Value
                       Container(
                         child: CountTextContainer(
-                          text:
-                              context.watch<DuroodCountVM>().topCountry == null
-                                  ? 0.toString()
-                                  : Numeral(context
-                                          .watch<DuroodCountVM>()
-                                          .topCountry
-                                          .values
-                                          .elementAt(0))
-                                      .value()
-                                      .toString(),
+                          text: context.watch<DuroodCountVM>().topCountry ==
+                                      null ||
+                                  context
+                                      .watch<DuroodCountVM>()
+                                      .topCountry
+                                      .isEmpty
+                              ? 0.toString()
+                              : Numeral(context
+                                      .watch<DuroodCountVM>()
+                                      .topCountry
+                                      .values
+                                      .elementAt(0))
+                                  .value()
+                                  .toString(),
                         ),
                       ),
                     ],
@@ -81,7 +89,9 @@ class InfoContainer extends StatelessWidget {
                       // Country Name
                       Container(
                         child: CountTextContainer(
-                          text: context.watch<DuroodCountVM>().topCity == null
+                          text: context.watch<DuroodCountVM>().topCity ==
+                                      null ||
+                                  context.watch<DuroodCountVM>().topCity.isEmpty
                               ? 'Nan'
                               : context
                                   .watch<DuroodCountVM>()
@@ -95,7 +105,9 @@ class InfoContainer extends StatelessWidget {
                       // Country Count Value
                       Container(
                         child: CountTextContainer(
-                          text: context.watch<DuroodCountVM>().topCity == null
+                          text: context.watch<DuroodCountVM>().topCity ==
+                                      null ||
+                                  context.watch<DuroodCountVM>().topCity.isEmpty
                               ? 0.toString()
                               : Numeral(context
                                       .watch<DuroodCountVM>()
@@ -116,7 +128,8 @@ class InfoContainer extends StatelessWidget {
           // Total Count Widget
           MonthCountWidget(
             text: Functions().getCurrentMonth() + ' Global Count',
-            totalCount: context.watch<DuroodCountVM>().globalCount.isNaN
+            totalCount: context.watch<DuroodCountVM>().globalCount.isNaN ||
+                    context.watch<DuroodCountVM>().globalCount == 0
                 ? 0.toString()
                 : Numeral(context.watch<DuroodCountVM>().globalCount)
                     .value()

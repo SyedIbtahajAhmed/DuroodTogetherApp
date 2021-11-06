@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numeral/numeral.dart';
 
 class HomeCountTabsText extends StatelessWidget {
   final String text;
@@ -10,10 +11,10 @@ class HomeCountTabsText extends StatelessWidget {
   Widget build(BuildContext context) {
     if (this.count != null) {
       return Text(
-        this.count.toString(),
+        Numeral(this.count).value().toString(),
         style: TextStyle(
           color: Colors.white,
-          fontSize: 25.0,
+          fontSize: 20.0,
           fontWeight: FontWeight.w400,
         ),
       );

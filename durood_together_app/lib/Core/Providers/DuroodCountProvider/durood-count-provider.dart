@@ -15,6 +15,7 @@ class DuroodCountProvider extends ChangeNotifier {
 
   void duroodCountFromField(int count) {
     this._duroodCountField = count;
+    this._duroodCount = count;
     notifyListeners();
   }
 
