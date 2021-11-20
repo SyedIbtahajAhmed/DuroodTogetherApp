@@ -1,10 +1,12 @@
 // Local Imports
 import 'package:durood_together_app/Authentication/Authentication.dart';
-import 'package:durood_together_app/Services/LocationService/location_service.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/SnackBar/custom-snackbar.dart';
 import 'package:durood_together_app/Shared/Components/GoogleSigninButton/google-signin-button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/painting.dart';
+import 'package:provider/src/provider.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -20,6 +22,7 @@ class _LoginState extends State<Login> {
 
   // Email SignIn/Register
   bool isEmailSignin = false;
+  bool isLoginPressed = false;
 
   UserCredential googleResult;
   String result;
@@ -103,226 +106,311 @@ class _LoginState extends State<Login> {
                           opacity: !this.isEmailSignin ? 0.0 : 1.0,
                           duration: Duration(
                               milliseconds: this.isEmailSignin ? 300 : 300),
-                          child: AnimatedContainer(
-                            duration: Duration(
-                                milliseconds: this.isEmailSignin ? 1000 : 1000),
-                            curve: Curves.easeInOutCubicEmphasized,
-                            height: this.isEmailSignin ? 340.0 : 0.0,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  // Email Container
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      top: 70.0,
-                                      right: 20.0,
-                                      left: 20.0,
-                                    ),
-                                    child: Container(
-                                      //width: 50.0.w,
-                                      child: TextFormField(
-                                        controller: emailController,
-                                        validator: (input) {
-                                          if (input.isEmpty)
-                                            return 'Please Enter Email.';
-                                        },
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor:
-                                              Colors.teal[900].withOpacity(0.1),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: AnimatedContainer(
+                              duration: Duration(
+                                  milliseconds:
+                                      this.isEmailSignin ? 1000 : 1000),
+                              curve: Curves.easeInOutCubicEmphasized,
+                              height: this.isEmailSignin ? 350.0 : 0.0,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    // Email Container
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 70.0,
+                                        // right: 20.0,
+                                        // left: 20.0,
+                                      ),
+                                      child: Container(
+                                        //width: 50.0.w,
+                                        child: TextFormField(
+                                          controller: emailController,
+                                          validator: (input) {
+                                            if (input.isEmpty)
+                                              return 'Please Enter Email.';
+                                          },
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: Colors.teal[900]
+                                                .withOpacity(0.1),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(40.0),
+                                            ),
+                                            labelText: 'Enter Your Email',
+                                            floatingLabelStyle: TextStyle(
+                                              color: Colors.teal[900],
+                                              fontSize: 20.0,
+                                            ),
+                                            prefixIcon: Icon(
+                                              Icons.email,
+                                              color: Colors.teal[900]
+                                                  .withOpacity(0.8),
+                                            ),
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          labelText: 'Enter Your Email',
-                                          floatingLabelStyle: TextStyle(
-                                            color: Colors.teal[900],
-                                            fontSize: 20.0,
-                                          ),
-                                          prefixIcon: Icon(
-                                            Icons.email,
-                                            color: Colors.teal[900]
-                                                .withOpacity(0.8),
-                                          ),
+                                          onSaved: (input) => _email = input,
                                         ),
-                                        onSaved: (input) => _email = input,
                                       ),
                                     ),
-                                  ),
 
-                                  // Password Container
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 30.0, right: 20.0, left: 20.0),
-                                    child: Container(
-                                      child: TextFormField(
-                                        controller: passwordController,
-                                        validator: (input) {
-                                          if (input.isEmpty)
-                                            return 'Please Enter Minimum 6 Characters.';
-                                        },
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor:
-                                              Colors.teal[900].withOpacity(0.1),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
+                                    // Password Container
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 30.0,
+                                        // right: 20.0,
+                                        // left: 20.0,
+                                      ),
+                                      child: Container(
+                                        child: TextFormField(
+                                          controller: passwordController,
+                                          validator: (input) {
+                                            if (input.isEmpty)
+                                              return 'Please Enter Minimum 6 Characters.';
+                                          },
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: Colors.teal[900]
+                                                .withOpacity(0.1),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(40.0),
+                                            ),
+                                            labelText: 'Enter Your Password',
+                                            floatingLabelStyle: TextStyle(
+                                              color: Colors.teal[900],
+                                              fontSize: 20.0,
+                                            ),
+                                            prefixIcon: Icon(
+                                              Icons.lock,
+                                              color: Colors.teal[900]
+                                                  .withOpacity(0.8),
+                                            ),
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(40.0),
-                                          ),
-                                          labelText: 'Enter Your Password',
-                                          floatingLabelStyle: TextStyle(
-                                            color: Colors.teal[900],
-                                            fontSize: 20.0,
-                                          ),
-                                          prefixIcon: Icon(
-                                            Icons.lock,
-                                            color: Colors.teal[900]
-                                                .withOpacity(0.8),
-                                          ),
+                                          obscureText: true,
+                                          onSaved: (input) => _password = input,
                                         ),
-                                        obscureText: true,
-                                        onSaved: (input) => _password = input,
                                       ),
                                     ),
-                                  ),
 
-                                  // Login Elevated Button
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      top: 40.0,
-                                      bottom: 30.0,
-                                      right: 20.0,
-                                      left: 20.0,
+                                    // Forgot Password Container
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            child: InkWell(
+                                              child: Text(
+                                                "Forgot Password?",
+                                                style: TextStyle(
+                                                  color: Colors.teal[900],
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  letterSpacing: 2.0,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            context
-                                                .read<Authentication>()
-                                                .signIn(
-                                                  email: emailController.text
-                                                      .trim(),
-                                                  password: passwordController
+
+                                    // Login Elevated Button
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 40.0,
+                                        bottom: 30.0,
+                                        right: 20.0,
+                                        left: 20.0,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              if (this
+                                                      .emailController
                                                       .text
-                                                      .trim(),
-                                                );
-                                          },
-                                          child: Text(
-                                            'Login',
-                                            style: TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.white,
-                                              letterSpacing: 2.0,
-                                            ),
-                                          ),
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                    Color>(
-                                              Colors.teal[900].withOpacity(0.9),
-                                            ),
-                                            minimumSize:
-                                                MaterialStateProperty.all<Size>(
-                                              Size(150, 50),
-                                            ),
-                                            shape: MaterialStateProperty.all(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0)),
-                                            ),
-                                          ),
-                                          autofocus: false,
-                                        ),
-
-                                        // Register Elevated Button
-                                        ElevatedButton(
-                                          onPressed: () async {
-                                            country = context
-                                                        .read<LocationService>()
-                                                        .userAddress
-                                                        .length >
-                                                    0
-                                                ? context
-                                                    .read<LocationService>()
-                                                    .userAddress[0]
-                                                    .country
-                                                    .toString()
-                                                : '';
-                                            city = context
-                                                        .read<LocationService>()
-                                                        .userAddress
-                                                        .length >
-                                                    0
-                                                ? context
-                                                    .read<LocationService>()
-                                                    .userAddress[0]
-                                                    .locality
-                                                    .toString()
-                                                : '';
-
-                                            print(country);
-                                            print(city);
-
-                                            result = await context
-                                                .read<Authentication>()
-                                                .signUp(
-                                                  email: emailController.text
-                                                      .trim(),
-                                                  password: passwordController
+                                                      .isEmpty ||
+                                                  this.emailController.text ==
+                                                      '' ||
+                                                  this
+                                                      .passwordController
                                                       .text
-                                                      .trim(),
-                                                  country: country,
-                                                  city: city,
+                                                      .isEmpty ||
+                                                  this
+                                                          .passwordController
+                                                          .text ==
+                                                      '') {
+                                                final snackBar = SnackBar(
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal: 10.0,
+                                                    vertical: 30.0,
+                                                  ),
+                                                  backgroundColor: Colors
+                                                      .teal[900]
+                                                      .withOpacity(0.7),
+                                                  content: CustomSnackbar(
+                                                    text:
+                                                        'Please Enter Details',
+                                                  ),
                                                 );
 
-                                            print(result);
-                                            emailController.clear();
-                                            passwordController.clear();
-                                          },
-                                          child: Text(
-                                            'Register',
-                                            style: TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.white,
-                                              letterSpacing: 2.0,
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(snackBar);
+                                              } else {
+                                                setState(() {
+                                                  this.isLoginPressed =
+                                                      !this.isLoginPressed;
+                                                });
+
+                                                context
+                                                    .read<Authentication>()
+                                                    .signIn(
+                                                      email: emailController
+                                                          .text
+                                                          .trim(),
+                                                      password:
+                                                          passwordController
+                                                              .text
+                                                              .trim(),
+                                                    );
+                                              }
+                                            },
+                                            child: !this.isLoginPressed
+                                                ? Text(
+                                                    'Login',
+                                                    style: TextStyle(
+                                                      fontSize: 20.0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.white,
+                                                      letterSpacing: 2.0,
+                                                    ),
+                                                  )
+                                                : CircularProgressIndicator(
+                                                    color: Colors.white,
+                                                  ),
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                      Color>(
+                                                Colors.teal[900]
+                                                    .withOpacity(0.9),
+                                              ),
+                                              minimumSize: MaterialStateProperty
+                                                  .all<Size>(
+                                                Size(250, 60),
+                                              ),
+                                              maximumSize: MaterialStateProperty
+                                                  .all<Size>(
+                                                Size(250, 60),
+                                              ),
+                                              shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                  40.0,
+                                                )),
+                                              ),
                                             ),
+                                            autofocus: false,
                                           ),
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                    Color>(
-                                              Colors.teal[900].withOpacity(0.9),
-                                            ),
-                                            minimumSize:
-                                                MaterialStateProperty.all<Size>(
-                                              Size(150, 50),
-                                            ),
-                                            shape: MaterialStateProperty.all(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0)),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+
+                                          // Register Elevated Button
+                                          // ElevatedButton(
+                                          //   onPressed: () async {
+                                          //     country = context
+                                          //                 .read<
+                                          //                     LocationService>()
+                                          //                 .userAddress
+                                          //                 .length >
+                                          //             0
+                                          //         ? context
+                                          //             .read<LocationService>()
+                                          //             .userAddress[0]
+                                          //             .country
+                                          //             .toString()
+                                          //         : '';
+                                          //     city = context
+                                          //                 .read<
+                                          //                     LocationService>()
+                                          //                 .userAddress
+                                          //                 .length >
+                                          //             0
+                                          //         ? context
+                                          //             .read<LocationService>()
+                                          //             .userAddress[0]
+                                          //             .locality
+                                          //             .toString()
+                                          //         : '';
+                                          //
+                                          //     print(country);
+                                          //     print(city);
+                                          //
+                                          //     result = await context
+                                          //         .read<Authentication>()
+                                          //         .signUp(
+                                          //           email: emailController.text
+                                          //               .trim(),
+                                          //           password: passwordController
+                                          //               .text
+                                          //               .trim(),
+                                          //           country: country,
+                                          //           city: city,
+                                          //         );
+                                          //
+                                          //     print(result);
+                                          //     emailController.clear();
+                                          //     passwordController.clear();
+                                          //   },
+                                          //   child: Text(
+                                          //     'Register',
+                                          //     style: TextStyle(
+                                          //       fontSize: 20.0,
+                                          //       fontWeight: FontWeight.w600,
+                                          //       color: Colors.white,
+                                          //       letterSpacing: 2.0,
+                                          //     ),
+                                          //   ),
+                                          //   style: ButtonStyle(
+                                          //     backgroundColor:
+                                          //         MaterialStateProperty.all<
+                                          //             Color>(
+                                          //       Colors.teal[900]
+                                          //           .withOpacity(0.9),
+                                          //     ),
+                                          //     minimumSize: MaterialStateProperty
+                                          //         .all<Size>(
+                                          //       Size(150, 50),
+                                          //     ),
+                                          //     shape: MaterialStateProperty.all(
+                                          //       RoundedRectangleBorder(
+                                          //           borderRadius:
+                                          //               BorderRadius.circular(
+                                          //                   20.0)),
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -334,7 +422,9 @@ class _LoginState extends State<Login> {
                           curve: Curves.fastLinearToSlowEaseIn,
                           padding: EdgeInsets.only(bottom: 20.0),
                           margin: EdgeInsets.only(
-                            top: this.isEmailSignin ? 0.0 : 100.0,
+                            top: this.isEmailSignin
+                                ? screenSize.height * 0.005
+                                : screenSize.height * 0.12,
                             left: 20.0,
                             right: 20.0,
                           ),
@@ -345,39 +435,62 @@ class _LoginState extends State<Login> {
                               });
                             },
                             child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 1500),
-                                curve: Curves.easeIn,
-                                child: Text(
-                                  !this.isEmailSignin
-                                      ? 'Email Sign in'
-                                      : 'Close Email Sign in',
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 2.0,
-                                    // color: Colors.white,
-                                  ),
-                                )),
+                              duration: const Duration(milliseconds: 1500),
+                              curve: Curves.easeIn,
+                              child: !this.isEmailSignin
+                                  ? Text(
+                                      'Email Sign in',
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 2.0,
+                                        // color: Colors.white,
+                                      ),
+                                    )
+                                  : Icon(
+                                      Icons.close_rounded,
+                                      // color: Colors.white,
+                                    ),
+                            ),
                             style: ButtonStyle(
                               foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
+                                Colors.white,
+                              ),
                               backgroundColor: MaterialStateProperty.all<Color>(
                                 Colors.teal[900],
                               ),
-                              padding:
-                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                EdgeInsets.all(10.0),
-                              ),
+                              // padding:
+                              //     MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              //   EdgeInsets.all(10.0),
+                              // ),
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0)),
+                                    borderRadius: BorderRadius.circular(
+                                  this.isEmailSignin ? 45.0 : 40.0,
+                                )),
                               ),
                               minimumSize: MaterialStateProperty.all<Size>(
-                                Size(this.isEmailSignin ? 300 : 250, 70),
+                                Size(this.isEmailSignin ? 60.0 : 250, 60),
                               ),
                               maximumSize: MaterialStateProperty.all<Size>(
-                                Size(350, 70),
+                                Size(350, 60),
                               ),
+                            ),
+                          ),
+                        ),
+
+                        // Sign in with Container
+                        Container(
+                          padding: EdgeInsets.only(
+                            top: 10.0,
+                          ),
+                          child: Text(
+                            "Sign in with",
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.teal[900].withOpacity(0.9),
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 2.0,
                             ),
                           ),
                         ),
@@ -385,16 +498,16 @@ class _LoginState extends State<Login> {
                         // Google Sign in Elevated Button
                         Container(
                           padding: EdgeInsets.symmetric(
-                              vertical: 20.0, horizontal: 30.0),
+                              vertical: 10.0, horizontal: 30.0),
                           margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              top: BorderSide(
-                                color: Colors.teal[900].withOpacity(0.2),
-                                width: 2.0,
-                              ),
-                            ),
-                          ),
+                          // decoration: BoxDecoration(
+                          //   border: Border(
+                          //     top: BorderSide(
+                          //       color: Colors.teal[900].withOpacity(0.2),
+                          //       width: 2.0,
+                          //     ),
+                          //   ),
+                          // ),
                           child: GoogleSigninButton(),
                         ),
                       ],

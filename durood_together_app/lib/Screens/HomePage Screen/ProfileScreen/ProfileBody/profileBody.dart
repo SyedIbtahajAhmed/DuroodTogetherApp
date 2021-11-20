@@ -54,12 +54,14 @@ class _ProfileBodyState extends State<ProfileBody> {
                 data: (firebaseUser.displayName != null)
                     ? firebaseUser.displayName
                     : "Name Not Available",
+                icon: Icon(Icons.account_box),
               ),
               // Email Widget
               FieldWidget(
                 data: (firebaseUser.email != null)
                     ? firebaseUser.email
                     : "Email Not Available",
+                icon: Icon(Icons.email),
               ),
               // Country Widget
               FieldWidget(
@@ -81,6 +83,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                         .country
                         .toString()
                     : "Country Not Available",
+                icon: Icon(Icons.home_filled),
               ),
               // City Widget
               FieldWidget(
@@ -102,6 +105,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                         .locality
                         .toString()
                     : "City Not Available",
+                icon: Icon(Icons.home),
               ),
             ],
           ),

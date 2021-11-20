@@ -1,8 +1,8 @@
 import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/ReportScreen/ReportScreenInfoContainer/report-screen-info-container.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
-import 'ReportCountWidget/reportcount.dart';
 import 'ReportHeading/reportheading.dart';
 import 'RerpotHeader/reportheader.dart';
 import 'TotalCountWidget/totalcountwidget.dart';
@@ -22,7 +22,7 @@ class Report extends StatelessWidget {
             ),
 
             // Report Count Total
-            ReportCount(),
+            ReportScreenInfoContainer(),
 
             // Count Heading Container
             ReportHeading(

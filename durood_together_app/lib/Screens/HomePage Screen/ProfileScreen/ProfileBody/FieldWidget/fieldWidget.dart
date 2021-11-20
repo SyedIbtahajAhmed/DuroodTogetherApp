@@ -1,11 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class FieldWidget extends StatelessWidget {
   final String data;
-  const FieldWidget({Key key, this.data}) : super(key: key);
+  final Icon icon;
+  const FieldWidget({Key key, this.data, this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class FieldWidget extends StatelessWidget {
           labelStyle: TextStyle(
             fontWeight: FontWeight.bold,
           ),
-          prefixIcon: Icon(Icons.email),
+          prefixIcon: this.icon,
           enabled: false,
         ),
       ),

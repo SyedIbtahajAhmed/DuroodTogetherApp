@@ -12,15 +12,16 @@ class TotalCountWidget extends StatelessWidget {
     this.tableHeader,
     this.data,
   }) : super(key: key) {
-    if (this.tableHeader != '' || this.tableHeader != null) {
-      // print(Functions().SortDictionary(this.data));
-    }
+    // if (this.tableHeader != '' || this.tableHeader != null) {
+    //   // print(Functions().SortDictionary(this.data));
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
+    print('data Got :' + this.data.toString());
     SplayTreeMap<dynamic, dynamic> sorted;
 
     // Sorting Dictionary
@@ -77,7 +78,7 @@ class TotalCountWidget extends StatelessWidget {
                     ),
                   ),
 
-            for (var item = 0; item < data.keys.length; item++)
+            for (var item = 0; item < sorted.keys.length; item++)
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Row(
@@ -111,10 +112,9 @@ class TotalCountWidget extends StatelessWidget {
                     Container(
                       child: Text(
                         sorted.values.length > 0
-                            ? Numeral(sorted.values.elementAt(item))
-                                .value()
-                                .toString()
-                            : '',
+                            ? Functions().ConvertNumber(
+                                Numeral(sorted.values.elementAt(item)).value())
+                            : '0',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,

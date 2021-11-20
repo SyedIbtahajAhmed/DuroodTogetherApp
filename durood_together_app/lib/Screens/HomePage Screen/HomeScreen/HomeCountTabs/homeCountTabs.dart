@@ -1,5 +1,7 @@
 import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
+import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:flutter/material.dart';
+import 'package:numeral/numeral.dart';
 import 'package:provider/src/provider.dart';
 
 import 'HomeCountTabsText/homeCountTabsText.dart';
@@ -61,10 +63,11 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
                                                 .watch<DuroodCountVM>()
                                                 .userYesterdayCount ==
                                             0
-                                    ? 0
+                                    ? 0.toString()
                                     : context
                                         .watch<DuroodCountVM>()
-                                        .userYesterdayCount,
+                                        .userYesterdayCount
+                                        .toString(),
                               ),
                               // Day
                               HomeCountTabsText(
@@ -110,10 +113,11 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
                                                 .watch<DuroodCountVM>()
                                                 .userTodayCount ==
                                             0
-                                    ? 0
+                                    ? 0.toString()
                                     : context
                                         .watch<DuroodCountVM>()
-                                        .userTodayCount,
+                                        .userTodayCount
+                                        .toString(),
                               ),
                               // Day
                               HomeCountTabsText(
@@ -144,10 +148,11 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
                                                 .watch<DuroodCountVM>()
                                                 .userWeeklyCount ==
                                             0
-                                    ? 0
-                                    : context
-                                        .watch<DuroodCountVM>()
-                                        .userWeeklyCount,
+                                    ? 0.toString()
+                                    : Functions().ConvertNumber(Numeral(context
+                                            .watch<DuroodCountVM>()
+                                            .userWeeklyCount)
+                                        .value()),
                               ),
                               // Day
                               HomeCountTabsText(

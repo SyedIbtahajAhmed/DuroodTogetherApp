@@ -66,13 +66,12 @@ class InfoContainer extends StatelessWidget {
                                       .topCountry
                                       .isEmpty
                               ? 0.toString()
-                              : Numeral(context
+                              : Functions().ConvertNumber(Numeral(context
                                       .watch<DuroodCountVM>()
                                       .topCountry
                                       .values
                                       .elementAt(0))
-                                  .value()
-                                  .toString(),
+                                  .value()),
                         ),
                       ),
                     ],
@@ -109,13 +108,12 @@ class InfoContainer extends StatelessWidget {
                                       null ||
                                   context.watch<DuroodCountVM>().topCity.isEmpty
                               ? 0.toString()
-                              : Numeral(context
+                              : Functions().ConvertNumber(Numeral(context
                                       .watch<DuroodCountVM>()
                                       .topCity
                                       .values
                                       .elementAt(0))
-                                  .value()
-                                  .toString(),
+                                  .value()),
                         ),
                       ),
                     ],
@@ -131,9 +129,9 @@ class InfoContainer extends StatelessWidget {
             totalCount: context.watch<DuroodCountVM>().globalCount.isNaN ||
                     context.watch<DuroodCountVM>().globalCount == 0
                 ? 0.toString()
-                : Numeral(context.watch<DuroodCountVM>().globalCount)
-                    .value()
-                    .toString(),
+                : Functions().ConvertNumber(
+                    Numeral(context.watch<DuroodCountVM>().globalCount)
+                        .value()),
             // Numeral(snapshot.data.elementAt(0)).value().toString(),
           ),
         ],

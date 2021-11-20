@@ -52,31 +52,27 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
       future: Future.wait(
         [
-          Functions().getTopCountry(duroodCount),
-          Functions().getTopCity(duroodCount),
-          Functions().getGlobalCount(duroodCount),
-          Functions().getTopFiveCountries(duroodCount),
-          Functions().getTopFiveCities(duroodCount),
+          Functions().getCurrentMonthData(duroodCount),
           Functions().getUserMonthlyData(firebaseUser.uid, duroodCount),
           Functions().getUserWeeklyCount(firebaseUser.uid, duroodCount),
           Functions().getUserTodayCount(firebaseUser.uid, duroodCount),
           Functions().getUserYesterdayCount(firebaseUser.uid, duroodCount),
+          Functions().getPreviousMonthDuroodCountData(duroodCount),
         ],
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           // Setting Durood Data
           context.watch<DuroodCountVM>().setAttributes(
-                topCountry: snapshot.data[0], // Top Country
-                topCity: snapshot.data[1], // Top City
-                globalCount: snapshot.data[2], // Global Count
-                topFiveCountries: snapshot.data[3], // Top Five Countries
-                topFiveCities: snapshot.data[4], // Top Five Cities
-                userMonthlyData: snapshot.data[5], // User Monthly Data
-                userWeeklyCount: snapshot.data[6], // User Weekly Count
-                userTodayCount: snapshot.data[7], // User Today Count
-                userYesterdayCount: snapshot.data[8], // User Yesterday Count
+                currentMonthData: snapshot.data[0], // Current Month Data
+                userMonthlyData: snapshot.data[1], // User Monthly Data
+                userWeeklyCount: snapshot.data[2], // User Weekly Count
+                userTodayCount: snapshot.data[3], // User Today Count
+                userYesterdayCount: snapshot.data[4], // User Yesterday Count
+                prevMonthData: snapshot.data[5], // Previous Month Data
               );
+
+          // Functions().getPreviousMonthDuroodCountData(duroodCount);
 
           // print(context.watch<DuroodCountVM>().topCountry.toString());
 
@@ -170,6 +166,19 @@ class _HomePageState extends State<HomePage> {
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         } else {
+          // final snackBar = SnackBar(
+          //   padding: EdgeInsets.symmetric(
+          //     horizontal: 10.0,
+          //     vertical: 30.0,
+          //   ),
+          //   backgroundColor: Colors.teal[900].withOpacity(0.7),
+          //   content: CustomSnackbar(
+          //     text: 'Logging In ...',
+          //   ),
+          // );
+          //
+          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
           return Scaffold(
             backgroundColor: Colors.white,
             body: Column(
@@ -182,15 +191,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
+                // ScaffoldMessenger.of(context).showSnackBar(snackBar);
               ],
             ),
           );
-          // return AnimatedContainer(
-          //   duration: Duration(milliseconds: 500),
-          //   child: CountTextConainer(
-          //     text: "Please Wait!",
-          //   ),
-          // );
         }
       },
     );

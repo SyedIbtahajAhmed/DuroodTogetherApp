@@ -49,8 +49,16 @@ class Authentication {
   // SingnOut Function
   Future<String> signOut() async {
     try {
-      await _firebaseAuth.signOut();
-      return 'Signed Out Successfully.';
+      print(_firebaseAuth.currentUser.providerData.elementAt(0).providerId);
+      if (_firebaseAuth.currentUser.providerData.elementAt(0).providerId ==
+          'google.com') {
+        await _firebaseAuth.signOut();
+        await GoogleSignIn().signOut();
+        return 'Signed Out Successfully.';
+      } else {
+        await _firebaseAuth.signOut();
+        return 'Signed Out Successfully.';
+      }
     } on FirebaseAuthException catch (e) {
       return e.message;
     }

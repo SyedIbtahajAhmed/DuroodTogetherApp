@@ -1,7 +1,7 @@
 class AppConst {
-  static const String durrodCountCollection = "DuroodCount";
+  static const String durrodCountCollection = "DruoodCount";
   static const String userCollection = "User";
-  static const String userDuroodCountCollection = "UserDuroodCount";
+  static const String userDuroodCountCollection = "UserDruoodCount";
 
   // static const String topDuroodCounts = "TopDurood";
 }

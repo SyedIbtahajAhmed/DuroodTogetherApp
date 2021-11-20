@@ -29,21 +29,40 @@ class HeaderRow extends StatelessWidget {
               height: this.opacity == 0.0 ? 40 : 0,
               child: ElevatedButton(
                 onPressed: () async {
-                  String result = await Functions().DuroodCountToFirebase(
-                      context, context.read<DuroodCountProvider>().duroodCount);
+                  // // Checking If Durood Count Is Going Null Or Not
+                  if (context.read<DuroodCountProvider>().duroodCount != 0) {
+                    String result = await Functions().DuroodCountToFirebase(
+                        context,
+                        context.read<DuroodCountProvider>().duroodCount);
 
-                  if (result.toString() == 'DuroodCount Added Successfully.') {
-                    final snackBar = SnackBar(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 30.0,
-                      ),
-                      backgroundColor: Colors.teal[900].withOpacity(0.7),
-                      content: CustomSnackbar(
-                        text: 'Durood Count Updated Successfully',
-                      ),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    if (result.toString() ==
+                        'DuroodCount Added Successfully.') {
+                      final snackBar = SnackBar(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 30.0,
+                        ),
+                        backgroundColor: Colors.teal[900].withOpacity(0.7),
+                        content: CustomSnackbar(
+                          text: 'Durood Count Updated Successfully',
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else {
+                      final snackBar = SnackBar(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 30.0,
+                        ),
+                        backgroundColor: Colors.teal[900].withOpacity(0.7),
+                        content: CustomSnackbar(
+                          text: 'Durood Count Updation Unsuccessful',
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+
+                    context.read<DuroodCountProvider>().resetDuroodCount();
                   } else {
                     final snackBar = SnackBar(
                       padding: EdgeInsets.symmetric(
@@ -52,13 +71,12 @@ class HeaderRow extends StatelessWidget {
                       ),
                       backgroundColor: Colors.teal[900].withOpacity(0.7),
                       content: CustomSnackbar(
-                        text: 'Durood Count Updation Unsuccessful',
+                        text: 'Please Add Durood Count',
                       ),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    context.read<DuroodCountProvider>().resetDuroodCount();
                   }
-
-                  context.read<DuroodCountProvider>().resetDuroodCount();
                 },
                 child: Text(
                   'Save Count',

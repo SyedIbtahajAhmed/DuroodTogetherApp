@@ -15,6 +15,9 @@ class DuroodCountVM extends ChangeNotifier {
   Map<String, dynamic> _topCountry = {};
   Map<String, dynamic> _topCity = {};
   int _globalCount = 0;
+  Map<String, dynamic> _prevTopCountry = {};
+  Map<String, dynamic> _prevTopCity = {};
+  int _prevGlobalCount = 0;
   Map<String, dynamic> _topFiveCountries = {};
   Map<String, dynamic> _topFiveCities = {};
   Map<String, dynamic> _userMonthlyData = {};
@@ -30,6 +33,9 @@ class DuroodCountVM extends ChangeNotifier {
   Map<String, dynamic> get topCountry => _topCountry;
   Map<String, dynamic> get topCity => _topCity;
   int get globalCount => _globalCount;
+  Map<String, dynamic> get prevTopCountry => _prevTopCountry;
+  Map<String, dynamic> get prevTopCity => _prevTopCity;
+  int get prevGlobalCount => _prevGlobalCount;
   Map<String, dynamic> get topFiveCountries => _topFiveCountries;
   Map<String, dynamic> get topFiveCities => _topFiveCities;
   Map<String, dynamic> get userMonthlyData => _userMonthlyData;
@@ -44,31 +50,46 @@ class DuroodCountVM extends ChangeNotifier {
   List<DuroodCount> DuroodCounts;
 
   setAttributes({
-    Map<String, dynamic> topCountry,
-    Map<String, dynamic> topCity,
-    int globalCount,
-    Map<String, dynamic> topFiveCountries,
-    Map<String, dynamic> topFiveCities,
+    Map<String, dynamic> currentMonthData,
     Map<String, dynamic> userMonthlyData,
     int userWeeklyCount,
     int userTodayCount,
     int userYesterdayCount,
+    Map<String, dynamic> prevMonthData,
   }) {
-    this._topCountry = topCountry;
-    this._topCity = topCity;
-    this._globalCount = globalCount;
-    this._topFiveCountries = topFiveCountries;
-    this._topFiveCities = topFiveCities;
+    // print(currentMonthData);
+    this._topCountry[currentMonthData.keys.elementAt(0).toString()] =
+        currentMonthData.values.elementAt(0); // Current Month Top Country
+    this._topFiveCountries =
+        currentMonthData.values.elementAt(1); // Current Month Top Five Country
+    this._topCity[currentMonthData.keys.elementAt(2).toString()] =
+        currentMonthData.values.elementAt(2); // Current Month Top City
+    this._topFiveCities =
+        currentMonthData.values.elementAt(3); // Current Month Top Five Cities
+    this._globalCount =
+        currentMonthData.values.elementAt(4); // Current Month Global Count
+
     this._userMonthlyData = userMonthlyData;
     this._userWeeklyCount = userWeeklyCount;
     this._userTodayCount = userTodayCount;
     this._userYesterdayCount = userYesterdayCount;
+
+    // Saving Previous Month Count
+    this._prevTopCountry[prevMonthData.keys.elementAt(0).toString()] =
+        prevMonthData.values.elementAt(0); // Previous Top Country
+    this._prevTopCity[prevMonthData.keys.elementAt(1).toString()] =
+        prevMonthData.values.elementAt(1); // Previous Top City
+    this._prevGlobalCount =
+        prevMonthData.values.elementAt(2); // Previous Global Count
   }
 
   resetAttributes() {
     this._topCountry = {};
     this._topCity = {};
     this._globalCount = 0;
+    this._prevTopCountry = {};
+    this._prevTopCity = {};
+    this._prevGlobalCount = 0;
     this._topFiveCountries = {};
     this._topFiveCities = {};
     this._userMonthlyData = {};
@@ -121,18 +142,12 @@ class DuroodCountVM extends ChangeNotifier {
     DuroodCount mapObject = new DuroodCount();
 
     // City Value
-    mapObject.CityData = {
-      data['City']: FieldValue.increment(data['DuroodCount'])
-    };
+    mapObject.CityData = {data['City']: data['City']};
 
     // Country Value
-    mapObject.CountryData = {
-      data['Country']: FieldValue.increment(data['DuroodCount'])
-    };
+    mapObject.CountryData = {data['Country']: data['Country']};
     // UserData Value
-    mapObject.UserData = {
-      data['User']: FieldValue.increment(data['DuroodCount'])
-    };
+    mapObject.UserData = {data['User']: data['User']};
     // UserMonthlyData
     mapObject.UserMonthlyData = {
       context.read<User>().uid: {

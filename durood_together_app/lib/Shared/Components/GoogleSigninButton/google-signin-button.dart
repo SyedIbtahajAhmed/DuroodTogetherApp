@@ -5,8 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
-class GoogleSigninButton extends StatelessWidget {
-  const GoogleSigninButton({Key key}) : super(key: key);
+class GoogleSigninButton extends StatefulWidget {
+  GoogleSigninButton({Key key}) : super(key: key);
+
+  @override
+  State<GoogleSigninButton> createState() => _GoogleSigninButtonState();
+}
+
+class _GoogleSigninButtonState extends State<GoogleSigninButton> {
+  bool isGooglePressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +24,9 @@ class GoogleSigninButton extends StatelessWidget {
 
     return ElevatedButton(
       onPressed: () async {
+        setState(() {
+          this.isGooglePressed = true;
+        });
         country = context.read<LocationService>().userAddress.length > 0
             ? context.read<LocationService>().userAddress[0].country.toString()
             : '';
@@ -28,6 +38,10 @@ class GoogleSigninButton extends StatelessWidget {
               country: country,
               city: city,
             );
+
+        print('Google Result');
+        print(googleResult);
+
         if (googleResult.user != null) {
           final snackBar = SnackBar(
             padding: EdgeInsets.symmetric(
@@ -68,18 +82,25 @@ class GoogleSigninButton extends StatelessWidget {
               ),
             ),
             // Button Text
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: Text(
-                'Google',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: screenSize.width * 0.01,
-                  // color: Colors.white,
-                ),
-              ),
-            ),
+            !this.isGooglePressed
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      'Google',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: screenSize.width * 0.01,
+                        // color: Colors.white,
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: CircularProgressIndicator(
+                      color: Colors.redAccent[900],
+                    ),
+                  ),
           ],
         ),
       ),
