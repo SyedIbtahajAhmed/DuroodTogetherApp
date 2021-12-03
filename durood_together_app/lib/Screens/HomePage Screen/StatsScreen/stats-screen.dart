@@ -1,5 +1,6 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/ReportScreen/RerpotHeader/reportheader.dart';
+import 'package:durood_together_app/Shared/Components/CircularPercentageIndicator/circular-percentage-indicator.dart';
 import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -127,7 +128,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                 ),
               ),
 
-              SizedBox(height: 150),
+              SizedBox(height: 50.0),
 
               Center(
                 child: Text(
@@ -150,7 +151,55 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                     ),
                   ),
                 ),
-              )
+              ),
+
+              // Progress Indicators
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  //1st Column
+                  Column(
+                    children: [
+                      // First Indicator
+                      CustomCircularPercentageIndicator(
+                        radiusData: 150.0,
+                        percentageData: 0.5,
+                        insideText: '0.5%',
+                        outsideText: 'My Durood Count',
+                      ),
+
+                      // Second Indicator
+                      CustomCircularPercentageIndicator(
+                        radiusData: 150.0,
+                        percentageData: 0.4,
+                        insideText: '0.4%',
+                        outsideText: 'City Count',
+                      ),
+                    ],
+                  ),
+
+                  //2st Column
+                  Column(
+                    children: [
+                      // First Indicator
+                      CustomCircularPercentageIndicator(
+                        radiusData: 150.0,
+                        percentageData: 0.9,
+                        insideText: '0.9%',
+                        outsideText: 'My Monthly Count',
+                      ),
+
+                      // Second Indicator
+                      CustomCircularPercentageIndicator(
+                        radiusData: 150.0,
+                        percentageData: 0.7,
+                        insideText: '0.7%',
+                        outsideText: 'Country Count',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ],
           ),
         ),
