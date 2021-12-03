@@ -1,7 +1,7 @@
 import 'package:durood_together_app/Authentication/Authentication.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/SnackBar/custom-snackbar.dart';
 import 'package:durood_together_app/Services/LocationService/location_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
@@ -18,15 +18,15 @@ class _GoogleSigninButtonState extends State<GoogleSigninButton> {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    UserCredential googleResult;
+    String googleResult;
     String country;
     String city;
 
     return ElevatedButton(
       onPressed: () async {
-        setState(() {
-          this.isGooglePressed = true;
-        });
+        // setState(() {
+        //   this.isGooglePressed = true;
+        // });
         country = context.read<LocationService>().userAddress.length > 0
             ? context.read<LocationService>().userAddress[0].country.toString()
             : '';
@@ -42,13 +42,14 @@ class _GoogleSigninButtonState extends State<GoogleSigninButton> {
         print('Google Result');
         print(googleResult);
 
-        if (googleResult.user != null) {
+        if (googleResult == 'Signed in Successful') {
           final snackBar = SnackBar(
             padding: EdgeInsets.symmetric(
               horizontal: 10.0,
               vertical: 30.0,
             ),
-            backgroundColor: Colors.teal[900].withOpacity(0.7),
+            backgroundColor:
+                Constant.app_primary_contrast_color.withOpacity(0.7),
             content: CustomSnackbar(
               text: 'Signed In Successful',
             ),
@@ -60,7 +61,8 @@ class _GoogleSigninButtonState extends State<GoogleSigninButton> {
               horizontal: 10.0,
               vertical: 30.0,
             ),
-            backgroundColor: Colors.teal[900].withOpacity(0.7),
+            backgroundColor:
+                Constant.app_primary_contrast_color.withOpacity(0.7),
             content: CustomSnackbar(
               text: 'Signed In Unsuccessful',
             ),
@@ -84,42 +86,50 @@ class _GoogleSigninButtonState extends State<GoogleSigninButton> {
             // Button Text
             !this.isGooglePressed
                 ? Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(
+                      left: 8.0,
+                    ),
                     child: Text(
                       'Google',
                       style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: screenSize.width * 0.01,
-                        // color: Colors.white,
+                        fontSize: Constant.app_button_font_size,
+                        fontWeight: Constant.app_font_weight,
+                        letterSpacing: Constant.app_normal_letter_spacing,
+                        // color: Constant.app_primary_color,
                       ),
                     ),
                   )
                 : Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: const EdgeInsets.only(
+                      left: 8.0,
+                    ),
                     child: CircularProgressIndicator(
-                      color: Colors.redAccent[900],
+                      color: Constant.app_primary_contrast_color,
                     ),
                   ),
           ],
         ),
       ),
       style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.teal[900]),
+        foregroundColor: MaterialStateProperty.all<Color>(
+            Constant.app_primary_contrast_color),
         backgroundColor: MaterialStateProperty.all<Color>(
-          Colors.white,
+          Constant.app_primary_color,
         ),
         // padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
         //   EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
         // ),
         shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+          RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(Constant.app_button_border_radius),
+          ),
         ),
         minimumSize: MaterialStateProperty.all<Size>(
-          Size(250, 60),
+          Size(Constant.app_button_min_width, Constant.app_button_height),
         ),
         maximumSize: MaterialStateProperty.all<Size>(
-          Size(300, 60),
+          Size(Constant.app_button_max_width, Constant.app_button_height),
         ),
       ),
     );

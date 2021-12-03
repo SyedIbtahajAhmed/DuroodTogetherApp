@@ -1,12 +1,14 @@
 class UserDuroodCountModel {
+  String Uid = '';
   Map<String, dynamic> CountData = {};
 
   UserDuroodCountModel({
     this.CountData,
   });
 
-  UserDuroodCountModel.fromMap(Map snapshot)
-      : CountData = snapshot['CountData'] ?? '';
+  UserDuroodCountModel.fromMap(Map snapshot, String uid)
+      : this.Uid = uid,
+        CountData = snapshot['CountData'] ?? {};
 
   toJson() {
     return {

@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:numeral/numeral.dart';
@@ -21,7 +22,7 @@ class TotalCountWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    print('data Got :' + this.data.toString());
+    // print('data Got :' + this.data.toString());
     SplayTreeMap<dynamic, dynamic> sorted;
 
     // Sorting Dictionary
@@ -29,11 +30,11 @@ class TotalCountWidget extends StatelessWidget {
 
     return IntrinsicHeight(
       child: Container(
-        width: (screenSize.width / 5) * 4.5,
+        width: screenSize.width < 350 ? 330 : 380,
         // height: (screenSize.height / 2) * 0.88,
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 30.0),
         decoration: BoxDecoration(
-          color: Colors.teal[800],
+          color: Constant.app_primary_contrast_color_light,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(screenSize.width / 20),
             topRight: Radius.circular(screenSize.width / 20),
@@ -42,7 +43,7 @@ class TotalCountWidget extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: Constant.app_primary_contrast_color.withOpacity(0.2),
               spreadRadius: 2,
               blurRadius: 5,
               offset: Offset(3, 5), // changes position of shadow
@@ -62,17 +63,18 @@ class TotalCountWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                            color: Colors.white.withOpacity(0.3), width: 2),
+                            color: Constant.app_primary_color.withOpacity(0.3),
+                            width: 2),
                       ),
                     ),
                     child: Center(
                       child: Text(
                         this.tableHeader,
                         style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                          letterSpacing: 5,
+                          color: Constant.app_primary_color,
+                          fontWeight: Constant.app_font_weight,
+                          fontSize: Constant.h4,
+                          letterSpacing: Constant.app_max_letter_spacing,
                         ),
                       ),
                     ),
@@ -93,8 +95,8 @@ class TotalCountWidget extends StatelessWidget {
                                       data.keys.elementAt(item).toString())
                                   : "",
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
+                                color: Constant.app_primary_color,
+                                fontSize: Constant.h4,
                               ),
                             ),
                           )
@@ -104,8 +106,8 @@ class TotalCountWidget extends StatelessWidget {
                                   ? sorted.keys.elementAt(item).toString()
                                   : '',
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
+                                color: Constant.app_primary_color,
+                                fontSize: Constant.h4,
                               ),
                             ),
                           ),
@@ -116,8 +118,8 @@ class TotalCountWidget extends StatelessWidget {
                                 Numeral(sorted.values.elementAt(item)).value())
                             : '0',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
+                          color: Constant.app_primary_color,
+                          fontSize: Constant.h4,
                         ),
                       ),
                     )

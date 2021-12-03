@@ -37,7 +37,7 @@ class Report extends StatelessWidget {
 
             // Count Heading Container
             ReportHeading(
-              heading: "Location Wise Count",
+              heading: "Location Wise Current Stats",
             ),
 
             // Location Wise Count Widget

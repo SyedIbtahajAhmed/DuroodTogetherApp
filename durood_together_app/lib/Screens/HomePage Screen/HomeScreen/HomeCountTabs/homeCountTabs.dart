@@ -1,4 +1,5 @@
 import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:numeral/numeral.dart';
@@ -24,12 +25,12 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: Colors.teal[700].withOpacity(0.7),
+              color: Constant.app_primary_contrast_color_light.withOpacity(0.7),
               width: 2.0,
               style: BorderStyle.solid,
             ),
             bottom: BorderSide(
-              color: Colors.teal[700].withOpacity(0.7),
+              color: Constant.app_primary_contrast_color_light.withOpacity(0.7),
               width: 2.0,
               style: BorderStyle.solid,
             ),
@@ -41,7 +42,7 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
                   vertical: 10.0,
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     // Yesterday Count Tab
@@ -53,25 +54,26 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
                         child: Center(
                           child: Column(
                             children: <Widget>[
-                              // Count
+                              // Today Count
                               HomeCountTabsText(
                                 count: context
-                                            .watch<DuroodCountVM>()
-                                            .userYesterdayCount
-                                            .isNaN ||
+                                                .watch<DuroodCountVM>()
+                                                .myCountryCount ==
+                                            null ||
                                         context
                                                 .watch<DuroodCountVM>()
-                                                .userYesterdayCount ==
+                                                .myCountryCount ==
                                             0
                                     ? 0.toString()
-                                    : context
-                                        .watch<DuroodCountVM>()
-                                        .userYesterdayCount
-                                        .toString(),
+                                    : Functions().ConvertNumber(Numeral(
+                                        context
+                                            .watch<DuroodCountVM>()
+                                            .myCityCount,
+                                      ).value()),
                               ),
                               // Day
                               HomeCountTabsText(
-                                text: 'Yesterday',
+                                text: 'My City',
                               ),
                             ],
                           ),
@@ -81,16 +83,18 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
 
                     // Today Count Tab
                     Container(
-                      width: 130,
+                      // width: 130,
                       decoration: BoxDecoration(
                         border: Border(
                           left: BorderSide(
-                            color: Colors.teal[700].withOpacity(0.7),
+                            color: Constant.app_primary_contrast_color_light
+                                .withOpacity(0.7),
                             width: 3.0,
                             style: BorderStyle.solid,
                           ),
                           right: BorderSide(
-                            color: Colors.teal[700].withOpacity(0.7),
+                            color: Constant.app_primary_contrast_color_light
+                                .withOpacity(0.7),
                             width: 3.0,
                             style: BorderStyle.solid,
                           ),
@@ -106,9 +110,9 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
                               // Count
                               HomeCountTabsText(
                                 count: context
-                                            .watch<DuroodCountVM>()
-                                            .userTodayCount
-                                            .isNaN ||
+                                                .watch<DuroodCountVM>()
+                                                .userTodayCount ==
+                                            null ||
                                         context
                                                 .watch<DuroodCountVM>()
                                                 .userTodayCount ==
@@ -121,7 +125,7 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
                               ),
                               // Day
                               HomeCountTabsText(
-                                text: 'Today',
+                                text: 'Mine',
                               ),
                             ],
                           ),
@@ -141,22 +145,23 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
                               // Count
                               HomeCountTabsText(
                                 count: context
-                                            .watch<DuroodCountVM>()
-                                            .userWeeklyCount
-                                            .isNaN ||
+                                                .watch<DuroodCountVM>()
+                                                .myCountryCount ==
+                                            null ||
                                         context
                                                 .watch<DuroodCountVM>()
-                                                .userWeeklyCount ==
+                                                .myCountryCount ==
                                             0
                                     ? 0.toString()
-                                    : Functions().ConvertNumber(Numeral(context
+                                    : Functions().ConvertNumber(Numeral(
+                                        context
                                             .watch<DuroodCountVM>()
-                                            .userWeeklyCount)
-                                        .value()),
+                                            .myCountryCount,
+                                      ).value()),
                               ),
                               // Day
                               HomeCountTabsText(
-                                text: 'This Week',
+                                text: 'My Country',
                               ),
                             ],
                           ),

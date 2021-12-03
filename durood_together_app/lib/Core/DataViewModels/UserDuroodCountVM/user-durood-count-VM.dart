@@ -6,17 +6,19 @@ import 'package:durood_together_app/Core/DataServices/API/generic_api.dart';
 import 'package:durood_together_app/Shared/Locator/lcoator.dart';
 import 'package:flutter/cupertino.dart';
 
-class UserDuroodCountVM {
+class UserDuroodCountVM extends ChangeNotifier {
   Api _api = locator<Api>();
 
   List<UserDuroodCountModel> users;
 
   Future<dynamic> fetchUserDuroodCounts() async {
+    // Changing Collection Path
+    _api.changePath(AppConst.userDuroodCountCollection);
     var result = await _api.getDataCollection();
-    List<DuroodCount> items = [];
+    List<UserDuroodCountModel> items = [];
     users = result.docs.map((doc) {
       if (doc.id != null) {
-        var temp = DuroodCount.fromMap(doc.data(), doc.id.toString());
+        var temp = UserDuroodCountModel.fromMap(doc.data(), doc.id.toString());
         items.add(temp);
       }
     }).toList();

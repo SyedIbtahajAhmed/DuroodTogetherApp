@@ -2,25 +2,48 @@ import 'dart:collection';
 import 'dart:math';
 
 import 'package:durood_together_app/Core/DataModels/DuroodCount/duroodCount_model.dart';
+import 'package:durood_together_app/Core/DataModels/UserDuroodCountModel/user-durood-count-model.dart';
 import 'package:durood_together_app/Core/DataModels/UserLocation/user_location.dart';
 import 'package:durood_together_app/Core/DataViewModels/UserDuroodCountVM/user-durood-count-VM.dart';
+import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/SnackBar/custom-snackbar.dart';
 import 'package:durood_together_app/Services/LocationService/location_service.dart';
+import 'package:durood_together_app/Shared/Components/AlertDialog/alert-dialog.dart';
 import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/src/provider.dart';
 
 class Functions {
+  // Fetching Durood Count One Time
+  Future<List<DuroodCount>> fetchDuroodCountFromProvider(
+      BuildContext context, dataDict) async {
+    dynamic duroodCount = await dataDict.fetchDuroodCounts();
+
+    // duroodCount.forEach((element) {
+    //   print(element.Date);
+    // });
+
+    // print(context.read<DuroodCountVM>().DuroodCounts);
+
+    return duroodCount;
+  }
+
   // Get Top Country Count With Name
-  Future<Map<String, dynamic>> getCurrentMonthData(dataDict) async {
+  Future<Map<String, dynamic>> getCurrentMonthData(
+      dataDict, String country, String city) async {
     List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+    // print(duroodCount);
     Map<String, dynamic> returnedDict = {};
     Map<String, dynamic> TopCountry = {};
     Map<String, dynamic> TopFiveCountries = {};
     Map<String, int> TopCity = {};
     Map<String, dynamic> TopFiveCities = {};
     int GlobalCount = 0;
+    int myCountryCount = 0;
+    int myCityCount = 0;
 
     // Iterating dataDict
     duroodCount.forEach((durood) {
@@ -44,8 +67,8 @@ class Functions {
         }
         for (int i = 0; i < count; i++) {
           // Saving First Top Five
-          TopFiveCountries[durood.CountryData.keys.elementAt(i)] =
-              durood.CountryData.values.elementAt(i);
+          TopFiveCountries[sortedResponse.keys.elementAt(i)] =
+              sortedResponse.values.elementAt(i);
         }
 
         // Top City
@@ -67,13 +90,27 @@ class Functions {
         }
         for (int i = 0; i < count; i++) {
           // Saving First Top Five
-          TopFiveCities[durood.CityData.keys.elementAt(i)] =
-              durood.CityData.values.elementAt(i);
+          TopFiveCities[sortedResponse.keys.elementAt(i)] =
+              sortedResponse.values.elementAt(i);
         }
 
         // Global Count
         durood.CountryData.values.forEach((element) {
           GlobalCount += element;
+        });
+
+        // Getting My Country Count
+        durood.CountryData.keys.forEach((element) {
+          if (element == country) {
+            myCountryCount = durood.CountryData[element];
+          }
+        });
+
+        // Getting My City Count
+        durood.CityData.keys.forEach((element) {
+          if (element == city) {
+            myCityCount = durood.CityData[element];
+          }
         });
       }
       ;
@@ -97,6 +134,12 @@ class Functions {
 
     // Adding In Returned Value Dictionary
     returnedDict['GlobalCount'] = GlobalCount; // Index 4 Top City
+
+    // Adding In Returned Value Dictionary
+    returnedDict['myCountryCount'] = myCountryCount; // Index 5 My Country Count
+
+    // Adding In Returned Value Dictionary
+    returnedDict['myCityCount'] = myCityCount; // Index 6 My City Count
 
     // print(returnedValue);
     return returnedDict;
@@ -202,12 +245,8 @@ class Functions {
     List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
     Map<String, dynamic> returnedValue = {};
 
-    int monthlyCount = 0;
-
     // Iterating dataDict
     duroodCount.forEach((durood) {
-      // print(durood.Date.toString());
-      // if (durood.Date == getDateString()) {
       durood.UserMonthlyData.keys.forEach((key) {
         if (key == userId) {
           durood.UserMonthlyData[key].forEach((key, value) {
@@ -217,10 +256,8 @@ class Functions {
               returnedValue[key] = value;
             }
           });
-          // print(monthlyCount);
         }
       });
-      // }
       ;
     });
     // returnedValue[getDateString()] = monthlyCount;
@@ -228,91 +265,90 @@ class Functions {
   }
 
   // Get Weekly Count
-  Future<int> getUserWeeklyCount(userId, dataDict) async {
-    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
-    int returnedValue = 0;
-
-    int count = 0;
-    int weeklyCount = 0;
-
-    // Iterating dataDict
-    duroodCount.forEach((durood) {
-      if (durood.Date == getDateString()) {
-        durood.UserMonthlyData.keys.forEach((key) {
-          if (key == userId) {
-            durood.UserMonthlyData[key].forEach((key, value) {
-              if (key.toString().contains(getCurrentYear().toString())) {
-                // Checking If Day Count is 7 or less for week
-                if (count < 7) {
-                  weeklyCount += value;
-                  count += 1;
-                }
-              }
-            });
-            // print(weeklyCount);
-          }
-        });
-      }
-      ;
-    });
-    returnedValue = weeklyCount;
-    return returnedValue;
-  }
+  // Future<int> getUserWeeklyCount(userId, dataDict) async {
+  //   List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+  //   int returnedValue = 0;
+  //
+  //   int count = 0;
+  //   int weeklyCount = 0;
+  //
+  //   // Iterating dataDict
+  //   duroodCount.forEach((durood) {
+  //     if (durood.Date == getDateString()) {
+  //       durood.UserMonthlyData.keys.forEach((key) {
+  //         if (key == userId) {
+  //           durood.UserMonthlyData[key].forEach((key, value) {
+  //             if (key.toString().contains(getCurrentYear().toString())) {
+  //               // Checking If Day Count is 7 or less for week
+  //               if (count < 7) {
+  //                 weeklyCount += value;
+  //                 count += 1;
+  //               }
+  //             }
+  //           });
+  //           // print(weeklyCount);
+  //         }
+  //       });
+  //     }
+  //     ;
+  //   });
+  //   returnedValue = weeklyCount;
+  //   return returnedValue;
+  // }
 
   // Get Today Count
   Future<int> getUserTodayCount(userId, dataDict) async {
-    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+    // print(userId);
+    List<UserDuroodCountModel> userDuroodCount =
+        await dataDict.fetchUserDuroodCounts();
     int returnedValue = 0;
 
-    int dayCount = 0;
+    int todayCount = 0;
 
     // Iterating dataDict
-    duroodCount.forEach((durood) {
-      if (durood.Date == getDateString()) {
-        durood.UserMonthlyData.keys.forEach((key) {
-          if (key == userId) {
-            durood.UserMonthlyData[key].forEach((key, value) {
-              if (key.toString().contains(getDayDateString().toString())) {
-                dayCount = value;
-              }
+    userDuroodCount.forEach((user) {
+      if (user.Uid == userId) {
+        user.CountData.keys.forEach((key) {
+          if (key == getUserDuroodCountModelDate()) {
+            user.CountData[key].values.forEach((valueDict) {
+              todayCount += valueDict["count"];
             });
-            // print(dayCount);
           }
         });
       }
       ;
     });
-    returnedValue = dayCount;
+    returnedValue = todayCount;
     return returnedValue;
   }
 
   // Get Yesterday Count
-  Future<int> getUserYesterdayCount(userId, dataDict) async {
-    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
-    int returnedValue = 0;
-
-    int dayCount = 0;
-
-    // Iterating dataDict
-    duroodCount.forEach((durood) {
-      if (durood.Date == getDateString()) {
-        durood.UserMonthlyData.keys.forEach((key) {
-          if (key == userId) {
-            durood.UserMonthlyData[key].forEach((key, value) {
-              if (key.toString().contains((getCurrentDay() - 1).toString())) {
-                dayCount = value;
-              }
-            });
-            // print(dayCount);
-          }
-        });
-      }
-      ;
-    });
-    returnedValue = dayCount;
-    // print('Yesterday Count ' + returnedValue.toString());
-    return returnedValue;
-  }
+  // Future<int> getUserYesterdayCount(userId, dataDict) async {
+  //   List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+  //   int returnedValue = 0;
+  //
+  //   int dayCount = 0;
+  //
+  //   // Iterating dataDict
+  //   duroodCount.forEach((durood) {
+  //     if (durood.Date == getDateString()) {
+  //       durood.UserMonthlyData.keys.forEach((key) {
+  //         if (key == userId) {
+  //           durood.UserMonthlyData[key].forEach((key, value) {
+  //             if (key.toString().contains((getCurrentDay() - 1).toString())) {
+  //               dayCount = value;
+  //             }
+  //           });
+  //           // print(dayCount);
+  //         }
+  //       });
+  //     }
+  //     ;
+  //   });
+  //   returnedValue = dayCount;
+  //   // print('Yesterday Count ' + returnedValue.toString());
+  //   return returnedValue;
+  // }
 
   // Get Previous Month Data
   Future<Map<String, dynamic>> getPreviousMonthDuroodCountData(dataDict) async {
@@ -510,6 +546,39 @@ class Functions {
     return sorted;
   }
 
+  // Durood Count Uploading Function
+  void uploadDuroodCount(BuildContext context) async {
+    String result = await DuroodCountToFirebase(
+        context, context.read<DuroodCountProvider>().duroodCount);
+
+    if (result.toString() == 'DuroodCount Added Successfully.') {
+      final snackBar = SnackBar(
+        padding: EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 30.0,
+        ),
+        backgroundColor: Constant.app_primary_contrast_color.withOpacity(0.7),
+        content: CustomSnackbar(
+          text: 'Durood Count Updated Successfully',
+        ),
+      );
+      context.read<DuroodCountProvider>().resetDuroodCount();
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      final snackBar = SnackBar(
+        padding: EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 30.0,
+        ),
+        backgroundColor: Constant.app_primary_contrast_color.withOpacity(0.7),
+        content: CustomSnackbar(
+          text: 'Durood Count Updation Unsuccessful',
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
   // Durood Count Save Function
   Future<String> DuroodCountToFirebase(
       BuildContext context, int duroodCount) async {
@@ -586,4 +655,30 @@ class Functions {
   double truncateToDecimalPlaces(num value, int fractionalDigits) =>
       (value * pow(10, fractionalDigits)).truncate() /
       pow(10, fractionalDigits);
+
+  // Vibration Function
+  int setVibration(int duroodCount) {
+    if (duroodCount == 100 || (duroodCount % 100) == 0) {
+      return 200;
+    }
+    if ((duroodCount + 1) % 33 == 0) {
+      return 90;
+    } else {
+      return 45;
+    }
+  }
+
+  // Show Alert Dialog Function
+  Future<void> showMyDialog(
+      BuildContext context, VoidCallback uploadDurood) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (context) {
+        return CustomAlertDialogBox(
+          uploadDuroodCount: uploadDurood,
+        );
+      },
+    );
+  }
 }

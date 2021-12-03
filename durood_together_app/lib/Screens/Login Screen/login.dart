@@ -2,6 +2,7 @@
 import 'package:durood_together_app/Authentication/Authentication.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/SnackBar/custom-snackbar.dart';
 import 'package:durood_together_app/Shared/Components/GoogleSigninButton/google-signin-button.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Constant.app_primary_color,
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -59,13 +60,15 @@ class _LoginState extends State<Login> {
                 padding: EdgeInsets.only(
                   top: this.isEmailSignin ? 50.0 : screenSize.height * 0.3,
                   left: 20.0,
-                  bottom: 170.0,
+                  bottom: this.isEmailSignin ? 140.0 : 170.0,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.teal[900],
+                  color: Constant.app_primary_contrast_color,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(300),
-                    bottomRight: Radius.circular(800),
+                    bottomRight: this.isEmailSignin
+                        ? Radius.circular(600)
+                        : Radius.circular(800),
                   ),
                 ),
                 child: Column(
@@ -75,19 +78,19 @@ class _LoginState extends State<Login> {
                     Text(
                       "Durood",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 50,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 5.0,
+                        color: Constant.app_primary_color,
+                        fontSize: Constant.h1,
+                        fontWeight: Constant.app_font_weight,
+                        letterSpacing: Constant.app_max_letter_spacing,
                       ),
                     ),
                     Text(
                       "Together",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 50,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 5.0,
+                        color: Constant.app_primary_color,
+                        fontSize: Constant.h1,
+                        fontWeight: Constant.app_font_weight,
+                        letterSpacing: Constant.app_max_letter_spacing,
                       ),
                     ),
                   ],
@@ -135,7 +138,8 @@ class _LoginState extends State<Login> {
                                           },
                                           decoration: InputDecoration(
                                             filled: true,
-                                            fillColor: Colors.teal[900]
+                                            fillColor: Constant
+                                                .app_primary_contrast_color
                                                 .withOpacity(0.1),
                                             border: OutlineInputBorder(
                                               borderRadius:
@@ -147,12 +151,14 @@ class _LoginState extends State<Login> {
                                             ),
                                             labelText: 'Enter Your Email',
                                             floatingLabelStyle: TextStyle(
-                                              color: Colors.teal[900],
-                                              fontSize: 20.0,
+                                              color: Constant
+                                                  .app_primary_contrast_color,
+                                              fontSize: Constant.h4,
                                             ),
                                             prefixIcon: Icon(
                                               Icons.email,
-                                              color: Colors.teal[900]
+                                              color: Constant
+                                                  .app_primary_contrast_color
                                                   .withOpacity(0.8),
                                             ),
                                           ),
@@ -177,7 +183,8 @@ class _LoginState extends State<Login> {
                                           },
                                           decoration: InputDecoration(
                                             filled: true,
-                                            fillColor: Colors.teal[900]
+                                            fillColor: Constant
+                                                .app_primary_contrast_color
                                                 .withOpacity(0.1),
                                             border: OutlineInputBorder(
                                               borderRadius:
@@ -189,12 +196,14 @@ class _LoginState extends State<Login> {
                                             ),
                                             labelText: 'Enter Your Password',
                                             floatingLabelStyle: TextStyle(
-                                              color: Colors.teal[900],
-                                              fontSize: 20.0,
+                                              color: Constant
+                                                  .app_primary_contrast_color,
+                                              fontSize: Constant.h4,
                                             ),
                                             prefixIcon: Icon(
                                               Icons.lock,
-                                              color: Colors.teal[900]
+                                              color: Constant
+                                                  .app_primary_contrast_color
                                                   .withOpacity(0.8),
                                             ),
                                           ),
@@ -216,10 +225,13 @@ class _LoginState extends State<Login> {
                                               child: Text(
                                                 "Forgot Password?",
                                                 style: TextStyle(
-                                                  color: Colors.teal[900],
-                                                  fontSize: 16.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  letterSpacing: 2.0,
+                                                  color: Constant
+                                                      .app_primary_contrast_color,
+                                                  fontSize: Constant.h4,
+                                                  fontWeight:
+                                                      Constant.app_font_weight,
+                                                  letterSpacing: Constant
+                                                      .app_normal_letter_spacing,
                                                 ),
                                               ),
                                             ),
@@ -261,15 +273,14 @@ class _LoginState extends State<Login> {
                                                     horizontal: 10.0,
                                                     vertical: 30.0,
                                                   ),
-                                                  backgroundColor: Colors
-                                                      .teal[900]
+                                                  backgroundColor: Constant
+                                                      .app_primary_contrast_color
                                                       .withOpacity(0.7),
                                                   content: CustomSnackbar(
                                                     text:
                                                         'Please Enter Details',
                                                   ),
                                                 );
-
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(snackBar);
                                               } else {
@@ -295,37 +306,50 @@ class _LoginState extends State<Login> {
                                                 ? Text(
                                                     'Login',
                                                     style: TextStyle(
-                                                      fontSize: 20.0,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: Colors.white,
-                                                      letterSpacing: 2.0,
+                                                      fontSize: Constant
+                                                          .app_button_font_size,
+                                                      fontWeight: Constant
+                                                          .app_font_weight,
+                                                      color: Constant
+                                                          .app_primary_color,
+                                                      letterSpacing: Constant
+                                                          .app_normal_letter_spacing,
                                                     ),
                                                   )
                                                 : CircularProgressIndicator(
-                                                    color: Colors.white,
+                                                    color: Constant
+                                                        .app_primary_color,
                                                   ),
                                             style: ButtonStyle(
                                               backgroundColor:
                                                   MaterialStateProperty.all<
                                                       Color>(
-                                                Colors.teal[900]
+                                                Constant
+                                                    .app_primary_contrast_color
                                                     .withOpacity(0.9),
                                               ),
                                               minimumSize: MaterialStateProperty
                                                   .all<Size>(
-                                                Size(250, 60),
+                                                Size(
+                                                    Constant
+                                                        .app_button_min_width,
+                                                    Constant.app_button_height),
                                               ),
                                               maximumSize: MaterialStateProperty
                                                   .all<Size>(
-                                                Size(250, 60),
+                                                Size(
+                                                    Constant
+                                                        .app_button_max_width,
+                                                    Constant.app_button_height),
                                               ),
                                               shape: MaterialStateProperty.all(
                                                 RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                  40.0,
-                                                )),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                    Constant
+                                                        .app_button_border_radius,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                             autofocus: false,
@@ -383,7 +407,7 @@ class _LoginState extends State<Login> {
                                           //     style: TextStyle(
                                           //       fontSize: 20.0,
                                           //       fontWeight: FontWeight.w600,
-                                          //       color: Colors.white,
+                                          //       color: Constant.app_primary_color,
                                           //       letterSpacing: 2.0,
                                           //     ),
                                           //   ),
@@ -391,7 +415,7 @@ class _LoginState extends State<Login> {
                                           //     backgroundColor:
                                           //         MaterialStateProperty.all<
                                           //             Color>(
-                                          //       Colors.teal[900]
+                                          //       Constant.app_primary_contrast_color
                                           //           .withOpacity(0.9),
                                           //     ),
                                           //     minimumSize: MaterialStateProperty
@@ -441,23 +465,24 @@ class _LoginState extends State<Login> {
                                   ? Text(
                                       'Email Sign in',
                                       style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 2.0,
-                                        // color: Colors.white,
+                                        fontSize: Constant.app_button_font_size,
+                                        fontWeight: Constant.app_font_weight,
+                                        letterSpacing:
+                                            Constant.app_normal_letter_spacing,
+                                        // color: Constant.app_primary_color,
                                       ),
                                     )
                                   : Icon(
                                       Icons.close_rounded,
-                                      // color: Colors.white,
+                                      // color: Constant.app_primary_color,
                                     ),
                             ),
                             style: ButtonStyle(
                               foregroundColor: MaterialStateProperty.all<Color>(
-                                Colors.white,
+                                Constant.app_primary_color,
                               ),
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.teal[900],
+                                Constant.app_primary_contrast_color,
                               ),
                               // padding:
                               //     MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -466,14 +491,21 @@ class _LoginState extends State<Login> {
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
-                                  this.isEmailSignin ? 45.0 : 40.0,
+                                  this.isEmailSignin
+                                      ? 45.0
+                                      : Constant.app_button_border_radius,
                                 )),
                               ),
                               minimumSize: MaterialStateProperty.all<Size>(
-                                Size(this.isEmailSignin ? 60.0 : 250, 60),
+                                Size(
+                                    this.isEmailSignin
+                                        ? 60.0
+                                        : Constant.app_button_min_width,
+                                    Constant.app_button_height),
                               ),
                               maximumSize: MaterialStateProperty.all<Size>(
-                                Size(350, 60),
+                                Size(Constant.app_button_max_width,
+                                    Constant.app_button_height),
                               ),
                             ),
                           ),
@@ -487,10 +519,11 @@ class _LoginState extends State<Login> {
                           child: Text(
                             "Sign in with",
                             style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.teal[900].withOpacity(0.9),
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 2.0,
+                              fontSize: Constant.h6,
+                              color: Constant.app_primary_contrast_color
+                                  .withOpacity(0.9),
+                              fontWeight: Constant.app_font_weight,
+                              letterSpacing: Constant.app_normal_letter_spacing,
                             ),
                           ),
                         ),
@@ -498,12 +531,17 @@ class _LoginState extends State<Login> {
                         // Google Sign in Elevated Button
                         Container(
                           padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 30.0),
-                          margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                            vertical: 10.0,
+                            horizontal: 30.0,
+                          ),
+                          margin: EdgeInsets.only(
+                            left: 20.0,
+                            right: 20.0,
+                          ),
                           // decoration: BoxDecoration(
                           //   border: Border(
                           //     top: BorderSide(
-                          //       color: Colors.teal[900].withOpacity(0.2),
+                          //       color: Constant.app_primary_contrast_color.withOpacity(0.2),
                           //       width: 2.0,
                           //     ),
                           //   ),

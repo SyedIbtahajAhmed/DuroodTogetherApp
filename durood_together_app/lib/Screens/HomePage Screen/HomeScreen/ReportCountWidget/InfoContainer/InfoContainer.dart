@@ -13,10 +13,9 @@ class InfoContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
     return Container(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         // crossAxisAlignment: CrossAxisAlignment.baseline,
         children: <Widget>[
           DateTextContainer(
@@ -80,8 +79,10 @@ class InfoContainer extends StatelessWidget {
 
                 // City Row
                 Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 50.0,
+                    vertical: 10.0,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -130,8 +131,8 @@ class InfoContainer extends StatelessWidget {
                     context.watch<DuroodCountVM>().globalCount == 0
                 ? 0.toString()
                 : Functions().ConvertNumber(
-                    Numeral(context.watch<DuroodCountVM>().globalCount)
-                        .value()),
+                    Numeral(context.watch<DuroodCountVM>().globalCount).value(),
+                  ),
             // Numeral(snapshot.data.elementAt(0)).value().toString(),
           ),
         ],

@@ -1,4 +1,4 @@
-import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/ReportCountWidget/InfoContainer/DateTextContainer/dateTextContainer.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 
 class MonthCountWidget extends StatelessWidget {
@@ -11,18 +11,32 @@ class MonthCountWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Container(
-      width: (screenSize.width / 2) * 1.5,
+      // width: (screenSize.width / 2) * 1.5,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20.0,
+        vertical: 20.0,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           // Text
-          DateTextContainer(
-            text: this.text,
+          Text(
+            this.text,
+            style: TextStyle(
+              color: Constant.app_primary_color,
+              fontSize: Constant.h5,
+              fontWeight: Constant.app_normal_font_weight,
+            ),
           ),
           // Count
           totalCount != null
-              ? DateTextContainer(
-                  date: this.totalCount,
+              ? Text(
+                  this.totalCount,
+                  style: TextStyle(
+                    color: Constant.app_primary_color,
+                    fontSize: Constant.h5,
+                    fontWeight: Constant.app_normal_font_weight,
+                  ),
                 )
               : Container(),
         ],

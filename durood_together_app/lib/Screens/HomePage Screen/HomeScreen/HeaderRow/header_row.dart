@@ -1,5 +1,6 @@
 import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/SnackBar/custom-snackbar.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
@@ -17,9 +18,9 @@ class HeaderRow extends StatelessWidget {
       curve: Curves.easeInExpo,
       width: (screenSize.width / 5) * 4.5,
       height: this.opacity == 0.0 ? 100 : 0,
-      // color: Colors.white,
+      // color: Constant.app_primary_color,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0, left: 10.0, right: 10.0),
+        padding: const EdgeInsets.only(bottom: 15.0, left: 10.0, right: 10.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.end,
@@ -42,7 +43,8 @@ class HeaderRow extends StatelessWidget {
                           horizontal: 10.0,
                           vertical: 30.0,
                         ),
-                        backgroundColor: Colors.teal[900].withOpacity(0.7),
+                        backgroundColor: Constant.app_primary_contrast_color
+                            .withOpacity(0.7),
                         content: CustomSnackbar(
                           text: 'Durood Count Updated Successfully',
                         ),
@@ -54,7 +56,8 @@ class HeaderRow extends StatelessWidget {
                           horizontal: 10.0,
                           vertical: 30.0,
                         ),
-                        backgroundColor: Colors.teal[900].withOpacity(0.7),
+                        backgroundColor: Constant.app_primary_contrast_color
+                            .withOpacity(0.7),
                         content: CustomSnackbar(
                           text: 'Durood Count Updation Unsuccessful',
                         ),
@@ -69,7 +72,8 @@ class HeaderRow extends StatelessWidget {
                         horizontal: 10.0,
                         vertical: 30.0,
                       ),
-                      backgroundColor: Colors.teal[900].withOpacity(0.7),
+                      backgroundColor:
+                          Constant.app_primary_contrast_color.withOpacity(0.7),
                       content: CustomSnackbar(
                         text: 'Please Add Durood Count',
                       ),
@@ -81,17 +85,20 @@ class HeaderRow extends StatelessWidget {
                 child: Text(
                   'Save Count',
                   style: TextStyle(
-                    color: Colors.teal[900],
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600,
+                    color: Constant.app_primary_contrast_color,
+                    fontSize: Constant.h4,
+                    fontWeight: Constant.app_font_weight,
                   ),
                 ),
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Constant.app_primary_color,
+                  ),
+                  shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(
+                        Constant.app_button_border_radius,
+                      ),
                     ),
                   ),
                 ),

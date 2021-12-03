@@ -1,12 +1,13 @@
 import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
+import 'package:durood_together_app/Core/DataViewModels/UserDuroodCountVM/user-durood-count-VM.dart';
+import 'package:durood_together_app/Services/LocationService/location_service.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
+import 'package:durood_together_app/Shared/ScreensRoute/screens-route.dart';
 import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'HomeScreen/home.dart';
-import 'ProfileScreen/profile.dart';
-import 'ReportScreen/report.dart';
 import 'TabButton/tabButton.dart';
 
 class HomePage extends StatefulWidget {
@@ -47,16 +48,27 @@ class _HomePageState extends State<HomePage> {
     // Providers(context).duroodCountVM_provider;
     // final userLocation = Provider.of<UserLocation>(context);
     final dynamic duroodCount = Provider.of<DuroodCountVM>(context);
+    final dynamic userDuroodCount = Provider.of<UserDuroodCountVM>(context);
     final firebaseUser = Provider.of<User>(context);
+    String country;
+    String city;
+
+    country = context.read<LocationService>().userAddress.length > 0
+        ? context.read<LocationService>().userAddress[0].country.toString()
+        : '';
+    city = context.read<LocationService>().userAddress.length > 0
+        ? context.read<LocationService>().userAddress[0].locality.toString()
+        : '';
 
     return FutureBuilder(
       future: Future.wait(
         [
-          Functions().getCurrentMonthData(duroodCount),
+          Functions().fetchDuroodCountFromProvider(context, duroodCount),
+          Functions().getCurrentMonthData(duroodCount, country, city),
           Functions().getUserMonthlyData(firebaseUser.uid, duroodCount),
-          Functions().getUserWeeklyCount(firebaseUser.uid, duroodCount),
-          Functions().getUserTodayCount(firebaseUser.uid, duroodCount),
-          Functions().getUserYesterdayCount(firebaseUser.uid, duroodCount),
+          // Functions().getUserWeeklyCount(firebaseUser.uid, duroodCount),
+          // Functions().getUserTodayCount(firebaseUser.uid, userDuroodCount),
+          // Functions().getUserYesterdayCount(firebaseUser.uid, duroodCount),
           Functions().getPreviousMonthDuroodCountData(duroodCount),
         ],
       ),
@@ -64,20 +76,20 @@ class _HomePageState extends State<HomePage> {
         if (snapshot.hasData) {
           // Setting Durood Data
           context.watch<DuroodCountVM>().setAttributes(
-                currentMonthData: snapshot.data[0], // Current Month Data
-                userMonthlyData: snapshot.data[1], // User Monthly Data
-                userWeeklyCount: snapshot.data[2], // User Weekly Count
-                userTodayCount: snapshot.data[3], // User Today Count
-                userYesterdayCount: snapshot.data[4], // User Yesterday Count
-                prevMonthData: snapshot.data[5], // Previous Month Data
+                currentMonthData: snapshot.data[1], // Current Month Data
+                userMonthlyData: snapshot.data[2], // User Monthly Data
+                // userWeeklyCount: snapshot.data[2], // User Weekly Count
+                // userTodayCount: snapshot.data[1], // User Today Count
+                // userYesterdayCount: snapshot.data[4], // User Yesterday Count
+                prevMonthData: snapshot.data[3], // Previous Month Data
               );
 
           // Functions().getPreviousMonthDuroodCountData(duroodCount);
 
-          // print(context.watch<DuroodCountVM>().topCountry.toString());
+          // print(context.watch<DuroodCountVM>().DuroodCounts);
 
           return Scaffold(
-            backgroundColor: Colors.teal[900],
+            backgroundColor: Constant.app_primary_contrast_color,
             body: Column(
               children: <Widget>[
                 // Going To Change Tabs Here
@@ -90,15 +102,13 @@ class _HomePageState extends State<HomePage> {
                     },
                     controller: _pageController,
                     children: <Widget>[
-                      Container(
-                        child: Home(),
-                      ),
-                      Container(
-                        child: Report(),
-                      ),
-                      Container(
-                        child: Profile(),
-                      ),
+                      for (int i = 0; i < ScreensRoute.Screens.length; i++)
+                        Container(
+                          child: ScreensRoute.Screens[ScreensRoute.Screens.keys
+                                  .elementAt(i)
+                                  .toString()]
+                              .elementAt(0), // Widgets Of All Screens
+                        ),
                     ],
                   ),
                 ),
@@ -106,56 +116,77 @@ class _HomePageState extends State<HomePage> {
                 // Whole Bottom Tab Bar
                 Padding(
                   padding: EdgeInsets.only(
-                    top: 10.0,
+                    // top: 10.0,
                     bottom: MediaQuery.of(context).padding.bottom,
                   ),
                   child: Container(
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Constant.app_primary_color,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(
+                          Constant.app_bottom_bar_border_radius,
+                        ),
+                        topRight: Radius.circular(
+                          Constant.app_bottom_bar_border_radius,
+                        ),
+                      ),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         // Home Button TAB
-                        Container(
-                          child: TabButton(
-                            index: 0,
-                            title: 'Home',
-                            icon: Icons.home_outlined,
-                            selectedPage: _index,
-                            onPressed: () {
-                              changePage(0);
-                            },
+                        for (int i = 0; i < ScreensRoute.Screens.length; i++)
+                          Container(
+                            child: TabButton(
+                              index: ScreensRoute.Screens[ScreensRoute
+                                      .Screens.keys
+                                      .elementAt(i)
+                                      .toString()]
+                                  .elementAt(1), // Indexes Of All Screens,
+                              title: ScreensRoute.Screens.keys
+                                  .elementAt(i)
+                                  .toString(),
+                              icon: ScreensRoute.Screens[ScreensRoute
+                                      .Screens.keys
+                                      .elementAt(i)
+                                      .toString()]
+                                  .elementAt(2), // Icons Of All Screens,,
+                              selectedPage: _index,
+                              onPressed: () {
+                                changePage(i);
+                              },
+                            ),
                           ),
-                        ),
 
                         // Spacer(),
 
                         // Report Button TAB
-                        Container(
-                          child: TabButton(
-                            index: 1,
-                            title: 'Report',
-                            icon: Icons.report_gmailerrorred_outlined,
-                            selectedPage: _index,
-                            onPressed: () {
-                              changePage(1);
-                            },
-                          ),
-                        ),
+                        // Container(
+                        //   child: TabButton(
+                        //     index: 1,
+                        //     title: 'Report',
+                        //     icon: Icons.report_gmailerrorred_outlined,
+                        //     selectedPage: _index,
+                        //     onPressed: () {
+                        //       changePage(1);
+                        //     },
+                        //   ),
+                        // ),
 
                         // Spacer(),
 
                         // Profile Button TAB
-                        Container(
-                          child: TabButton(
-                            index: 2,
-                            title: 'Profile',
-                            icon: Icons.account_circle_outlined,
-                            selectedPage: _index,
-                            onPressed: () {
-                              changePage(2);
-                            },
-                          ),
-                        ),
+                        // Container(
+                        //   child: TabButton(
+                        //     index: 2,
+                        //     title: 'Profile',
+                        //     icon: Icons.account_circle_outlined,
+                        //     selectedPage: _index,
+                        //     onPressed: () {
+                        //       changePage(2);
+                        //     },
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -171,7 +202,7 @@ class _HomePageState extends State<HomePage> {
           //     horizontal: 10.0,
           //     vertical: 30.0,
           //   ),
-          //   backgroundColor: Colors.teal[900].withOpacity(0.7),
+          //   backgroundColor: Constant.app_primary_contrast_color.withOpacity(0.7),
           //   content: CustomSnackbar(
           //     text: 'Logging In ...',
           //   ),
@@ -180,14 +211,14 @@ class _HomePageState extends State<HomePage> {
           // ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Constant.app_primary_color,
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
                   child: Container(
                     child: CircularProgressIndicator(
-                      color: Colors.teal[900],
+                      color: Constant.app_primary_contrast_color,
                     ),
                   ),
                 ),

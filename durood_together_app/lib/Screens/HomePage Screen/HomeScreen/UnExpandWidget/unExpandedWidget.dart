@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'package:durood_together_app/Shared/Const/constant.dart';
+import 'package:flutter/material.dart';
 
 class UnExpandedWidget extends StatelessWidget {
   final Function unExpandedWidget;
@@ -28,16 +30,16 @@ class UnExpandedWidget extends StatelessWidget {
                           angle: -90 * (pi / 180),
                           child: Icon(
                             Icons.double_arrow_rounded,
-                            color: Colors.white.withOpacity(0.8),
-                            size: 50.0,
+                            color: Constant.app_primary_color.withOpacity(0.8),
+                            size: Constant.h1,
                           ),
                         ),
                         Text(
                           'Tasbeeh',
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.8),
-                            fontSize: 35.0,
-                            fontWeight: FontWeight.w500,
+                            color: Constant.app_primary_color.withOpacity(0.8),
+                            fontSize: Constant.h2,
+                            fontWeight: Constant.app_font_weight,
                           ),
                         ),
                       ],

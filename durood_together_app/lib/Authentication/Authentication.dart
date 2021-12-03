@@ -64,41 +64,49 @@ class Authentication {
     }
   }
 
-  Future<UserCredential> signInWithGoogle({String country, String city}) async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+  Future<String> signInWithGoogle({String country, String city}) async {
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
-    // print(googleUser);
+      // print(googleUser);
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser?.authentication;
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser?.authentication;
 
-    // print(googleAuth);
+      // print(googleAuth);
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+      if (googleAuth != null) {
+        // Create a new credential
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
 
-    // print(credential);
+        // print(credential);
 
-    // Once signed in, return the UserCredential
-    UserCredential returned_credential =
-        await _firebaseAuth.signInWithCredential(credential);
+        // Once signed in, return the UserCredential
+        UserCredential returned_credential =
+            await _firebaseAuth.signInWithCredential(credential);
 
-    UserModel data = new UserModel(
-      Country: country,
-      City: city,
-      Email: returned_credential.user.email,
-      Name: returned_credential.user.displayName,
-    );
+        UserModel data = new UserModel(
+          Country: country,
+          City: city,
+          Email: returned_credential.user.email,
+          Name: returned_credential.user.displayName,
+        );
 
-    UserViewModel().addCustomUser(data, returned_credential.user.uid);
+        UserViewModel().addCustomUser(data, returned_credential.user.uid);
 
-    // print('Google Sign in.');
-    // print(returned_credential);
-    return returned_credential;
+        // print('Google Sign in.');
+        print(returned_credential);
+        return 'Signed in Successful';
+      } else {
+        return 'Sign in Cancelled';
+      }
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    }
   }
 }

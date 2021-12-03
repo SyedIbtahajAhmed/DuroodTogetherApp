@@ -1,5 +1,6 @@
 // Local Imports
 import 'package:durood_together_app/Authentication/Authentication.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +40,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Constant.app_primary_color,
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -48,7 +49,7 @@ class _RegisterState extends State<Register> {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.teal[900],
+                  color: Constant.app_primary_contrast_color,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(300),
                     bottomRight: Radius.circular(800),
@@ -61,7 +62,7 @@ class _RegisterState extends State<Register> {
                       child: Text(
                         "Durood Together",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Constant.app_primary_color,
                           fontSize: 60,
                           fontWeight: FontWeight.w700,
                         ),
@@ -94,12 +95,14 @@ class _RegisterState extends State<Register> {
                               },
                               decoration: InputDecoration(
                                 filled: true,
-                                fillColor: Colors.teal[900].withOpacity(0.1),
+                                fillColor: Constant.app_primary_contrast_color
+                                    .withOpacity(0.1),
                                 border: OutlineInputBorder(),
                                 labelText: 'Enter Your Email',
                                 prefixIcon: Icon(
                                   Icons.email,
-                                  color: Colors.teal[900].withOpacity(0.8),
+                                  color: Constant.app_primary_contrast_color
+                                      .withOpacity(0.8),
                                 ),
                               ),
                               onSaved: (input) => _email = input,
@@ -120,12 +123,14 @@ class _RegisterState extends State<Register> {
                               },
                               decoration: InputDecoration(
                                 filled: true,
-                                fillColor: Colors.teal[900].withOpacity(0.1),
+                                fillColor: Constant.app_primary_contrast_color
+                                    .withOpacity(0.1),
                                 border: OutlineInputBorder(),
                                 labelText: 'Enter Your Password',
                                 prefixIcon: Icon(
                                   Icons.lock,
-                                  color: Colors.teal[900].withOpacity(0.8),
+                                  color: Constant.app_primary_contrast_color
+                                      .withOpacity(0.8),
                                 ),
                               ),
                               obscureText: true,
@@ -158,12 +163,13 @@ class _RegisterState extends State<Register> {
                                   style: TextStyle(
                                       fontSize: 30,
                                       fontWeight: FontWeight.w600,
-                                      color: Colors.white),
+                                      color: Constant.app_primary_color),
                                 ),
                                 style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
-                                    Colors.teal[900].withOpacity(0.9),
+                                    Constant.app_primary_contrast_color
+                                        .withOpacity(0.9),
                                   ),
                                   minimumSize: MaterialStateProperty.all<Size>(
                                     Size(150, 50),
@@ -189,12 +195,13 @@ class _RegisterState extends State<Register> {
                                   style: TextStyle(
                                       fontSize: 30,
                                       fontWeight: FontWeight.w600,
-                                      color: Colors.white),
+                                      color: Constant.app_primary_color),
                                 ),
                                 style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
-                                    Colors.teal[900].withOpacity(0.9),
+                                    Constant.app_primary_contrast_color
+                                        .withOpacity(0.9),
                                   ),
                                   minimumSize: MaterialStateProperty.all<Size>(
                                     Size(150, 50),
@@ -229,7 +236,7 @@ class _RegisterState extends State<Register> {
                                   style: TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.w600,
-                                    // color: Colors.white,
+                                    // color: Constant.app_primary_color,
                                   ),
                                 ),
                               ],
@@ -237,9 +244,9 @@ class _RegisterState extends State<Register> {
                           ),
                           style: ButtonStyle(
                             foregroundColor: MaterialStateProperty.all<Color>(
-                                Colors.teal[900]),
+                                Constant.app_primary_contrast_color),
                             backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.white,
+                              Constant.app_primary_color,
                             ),
                             padding:
                                 MaterialStateProperty.all<EdgeInsetsGeometry>(

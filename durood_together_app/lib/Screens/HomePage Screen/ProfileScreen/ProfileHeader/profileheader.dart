@@ -1,3 +1,4 @@
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 
 class ProfileHeader extends StatelessWidget {
@@ -11,7 +12,7 @@ class ProfileHeader extends StatelessWidget {
       width: screenSize.width,
       height: screenSize.height * 0.31,
       decoration: BoxDecoration(
-        color: Colors.teal[700],
+        color: Constant.app_primary_contrast_color_light,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(30.0),
           bottomRight: Radius.circular(30.0),
@@ -29,30 +30,30 @@ class ProfileHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: screenSize.height*0.13),
+            padding: EdgeInsets.only(top: screenSize.height * 0.1),
             child: Container(
               child: Center(
                 child: Text(
                   "BE A PART OF THE BARAKAH CIRCLE OF DUROOD SHAREEF",
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                    color: Constant.app_primary_color,
+                    fontSize: Constant.h7,
+                    fontWeight: Constant.app_font_weight,
                   ),
                 ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20.0, bottom: 30.0),
+            padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
             child: Container(
               child: Center(
                 child: Text(
                   "Your Profile",
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+                    color: Constant.app_primary_color,
+                    fontSize: Constant.h2,
+                    fontWeight: Constant.app_font_weight,
                   ),
                 ),
               ),
