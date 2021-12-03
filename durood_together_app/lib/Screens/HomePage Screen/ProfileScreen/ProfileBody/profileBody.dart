@@ -25,11 +25,8 @@ class _ProfileBodyState extends State<ProfileBody> {
       // height: screenSize.height / 4.5 * 2,
       decoration: BoxDecoration(
         color: Constant.app_primary_contrast_color_light,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(screenSize.width / 30),
-          topRight: Radius.circular(screenSize.width / 30),
-          bottomLeft: Radius.circular(screenSize.width / 30),
-          bottomRight: Radius.circular(screenSize.width / 30),
+        borderRadius: BorderRadius.all(
+          Radius.circular(Constant.app_cards_border_radius),
         ),
         // boxShadow: [
         //   BoxShadow(

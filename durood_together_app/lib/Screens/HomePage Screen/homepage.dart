@@ -63,30 +63,31 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
       future: Future.wait(
         [
-          Functions().fetchDuroodCountFromProvider(context, duroodCount),
-          Functions().getCurrentMonthData(duroodCount, country, city),
-          Functions().getUserMonthlyData(firebaseUser.uid, duroodCount),
+          Functions().fetchDuroodCountFromProvider(duroodCount),
+          Functions().getCurrentMonthData(context, country, city),
+          Functions().getUserMonthlyData(context, firebaseUser.uid),
           // Functions().getUserWeeklyCount(firebaseUser.uid, duroodCount),
-          // Functions().getUserTodayCount(firebaseUser.uid, userDuroodCount),
+          Functions().getUserTodayCount(firebaseUser.uid, userDuroodCount),
           // Functions().getUserYesterdayCount(firebaseUser.uid, duroodCount),
-          Functions().getPreviousMonthDuroodCountData(duroodCount),
+          Functions().getPreviousMonthDuroodCountData(context),
         ],
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           // Setting Durood Data
           context.watch<DuroodCountVM>().setAttributes(
+                duroodCountData: snapshot.data[0],
                 currentMonthData: snapshot.data[1], // Current Month Data
                 userMonthlyData: snapshot.data[2], // User Monthly Data
                 // userWeeklyCount: snapshot.data[2], // User Weekly Count
-                // userTodayCount: snapshot.data[1], // User Today Count
+                userTodayCount: snapshot.data[3], // User Today Count
                 // userYesterdayCount: snapshot.data[4], // User Yesterday Count
-                prevMonthData: snapshot.data[3], // Previous Month Data
+                prevMonthData: snapshot.data[4], // Previous Month Data
               );
 
           // Functions().getPreviousMonthDuroodCountData(duroodCount);
 
-          // print(context.watch<DuroodCountVM>().DuroodCounts);
+          // print(context.read<DuroodCountVM>().DuroodCountsData);
 
           return Scaffold(
             backgroundColor: Constant.app_primary_contrast_color,
@@ -157,36 +158,6 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
                           ),
-
-                        // Spacer(),
-
-                        // Report Button TAB
-                        // Container(
-                        //   child: TabButton(
-                        //     index: 1,
-                        //     title: 'Report',
-                        //     icon: Icons.report_gmailerrorred_outlined,
-                        //     selectedPage: _index,
-                        //     onPressed: () {
-                        //       changePage(1);
-                        //     },
-                        //   ),
-                        // ),
-
-                        // Spacer(),
-
-                        // Profile Button TAB
-                        // Container(
-                        //   child: TabButton(
-                        //     index: 2,
-                        //     title: 'Profile',
-                        //     icon: Icons.account_circle_outlined,
-                        //     selectedPage: _index,
-                        //     onPressed: () {
-                        //       changePage(2);
-                        //     },
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -197,19 +168,6 @@ class _HomePageState extends State<HomePage> {
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         } else {
-          // final snackBar = SnackBar(
-          //   padding: EdgeInsets.symmetric(
-          //     horizontal: 10.0,
-          //     vertical: 30.0,
-          //   ),
-          //   backgroundColor: Constant.app_primary_contrast_color.withOpacity(0.7),
-          //   content: CustomSnackbar(
-          //     text: 'Logging In ...',
-          //   ),
-          // );
-          //
-          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
           return Scaffold(
             backgroundColor: Constant.app_primary_color,
             body: Column(

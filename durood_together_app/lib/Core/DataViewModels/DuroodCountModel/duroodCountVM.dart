@@ -50,10 +50,15 @@ class DuroodCountVM extends ChangeNotifier {
   // Durood Counts
   List<DuroodCount> _DuroodCounts;
 
-  // Getter
-  List<DuroodCount> get DuroodCounts => _DuroodCounts;
+  // All Data Got From Firebase
+  Map<String, dynamic> _DuroodCountsData = {};
 
+  // Getter
+  Map<String, dynamic> get DuroodCountsData => _DuroodCountsData;
+
+  // Setting All The Data
   setAttributes({
+    Map<String, dynamic> duroodCountData,
     Map<String, dynamic> currentMonthData,
     Map<String, dynamic> userMonthlyData,
     int userWeeklyCount,
@@ -61,6 +66,8 @@ class DuroodCountVM extends ChangeNotifier {
     int userYesterdayCount,
     Map<String, dynamic> prevMonthData,
   }) {
+    this._DuroodCountsData = duroodCountData;
+
     // print(currentMonthData);
     if (currentMonthData.isNotEmpty) {
       this._topCountry[currentMonthData.keys.elementAt(0).toString()] =

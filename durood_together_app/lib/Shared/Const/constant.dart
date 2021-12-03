@@ -4,7 +4,9 @@ class Constant {
   // Constant Colors
   static const app_primary_color = Color(0xFFFFFFFF);
   static const app_primary_contrast_color = Color(0xFF004953);
+  // static const app_primary_contrast_color = Color(0xFF669203);
   static const app_primary_contrast_color_light = Color(0xFF008080);
+  // static const app_primary_contrast_color_light = Color(0xFF89C208);
 
   // Font Sizes
   static final double h1 = 50.0;
@@ -33,6 +35,7 @@ class Constant {
   static final double app_button_border_radius = 40.0;
   static final double app_bottom_bar_border_radius = 45.0;
   static final double app_text_fields_border_radius = 20.0;
+  static final double app_cards_border_radius = 20.0;
 
   // Icon Sizes
   static final double app_bottom_bar_icon_size = 25.0;

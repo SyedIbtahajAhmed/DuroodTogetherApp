@@ -8,9 +8,14 @@ import 'CountTextContainer/countTextContainer.dart';
 import 'DateTextContainer/dateTextContainer.dart';
 import 'MonthCountWidget/monthCountWidget.dart';
 
-class InfoContainer extends StatelessWidget {
+class InfoContainer extends StatefulWidget {
   const InfoContainer({Key key}) : super(key: key);
 
+  @override
+  State<InfoContainer> createState() => _InfoContainerState();
+}
+
+class _InfoContainerState extends State<InfoContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -127,11 +132,11 @@ class InfoContainer extends StatelessWidget {
           // Total Count Widget
           MonthCountWidget(
             text: Functions().getCurrentMonth() + ' Global Count',
-            totalCount: context.watch<DuroodCountVM>().globalCount.isNaN ||
+            totalCount: context.watch<DuroodCountVM>().globalCount == null ||
                     context.watch<DuroodCountVM>().globalCount == 0
                 ? 0.toString()
                 : Functions().ConvertNumber(
-                    Numeral(context.watch<DuroodCountVM>().globalCount).value(),
+                    Numeral(context.read<DuroodCountVM>().globalCount).value(),
                   ),
             // Numeral(snapshot.data.elementAt(0)).value().toString(),
           ),

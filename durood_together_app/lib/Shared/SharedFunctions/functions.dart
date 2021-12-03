@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:durood_together_app/Core/DataModels/DuroodCount/duroodCount_model.dart';
 import 'package:durood_together_app/Core/DataModels/UserDuroodCountModel/user-durood-count-model.dart';
 import 'package:durood_together_app/Core/DataModels/UserLocation/user_location.dart';
+import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
 import 'package:durood_together_app/Core/DataViewModels/UserDuroodCountVM/user-durood-count-VM.dart';
 import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/SnackBar/custom-snackbar.dart';
@@ -18,24 +19,32 @@ import 'package:provider/src/provider.dart';
 
 class Functions {
   // Fetching Durood Count One Time
-  Future<List<DuroodCount>> fetchDuroodCountFromProvider(
-      BuildContext context, dataDict) async {
-    dynamic duroodCount = await dataDict.fetchDuroodCounts();
+  Future<Map<String, dynamic>> fetchDuroodCountFromProvider(dataDict) async {
+    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+    Map<String, dynamic> returnedDict = {};
 
-    // duroodCount.forEach((element) {
-    //   print(element.Date);
-    // });
+    duroodCount.forEach((durood) {
+      returnedDict[durood.Date.toString()] = {
+        'CityData': durood.CityData,
+        'CountryData': durood.CountryData,
+        'TopFiveCityData': durood.TopFiveCityData,
+        'TopFiveCountryData': durood.TopFiveCountryData,
+        'UserData': durood.UserData,
+        'UserMonthlyData': durood.UserMonthlyData,
+        'UserWeeklyData': durood.UserWeeklyData,
+      };
+    });
 
     // print(context.read<DuroodCountVM>().DuroodCounts);
 
-    return duroodCount;
+    return returnedDict;
   }
 
   // Get Top Country Count With Name
   Future<Map<String, dynamic>> getCurrentMonthData(
-      dataDict, String country, String city) async {
-    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
-    // print(duroodCount);
+      BuildContext context, String country, String city) async {
+    Map<String, dynamic> duroodCount =
+        context.watch<DuroodCountVM>().DuroodCountsData;
     Map<String, dynamic> returnedDict = {};
     Map<String, dynamic> TopCountry = {};
     Map<String, dynamic> TopFiveCountries = {};
@@ -45,104 +54,112 @@ class Functions {
     int myCountryCount = 0;
     int myCityCount = 0;
 
-    // Iterating dataDict
-    duroodCount.forEach((durood) {
-      if (durood.Date == getDateString()) {
-        // Sorting The All Country Data
-        dynamic response = SortDictionary(durood.CountryData);
-        // Now Country Data Is Sorted
-        // Getting The Top Country
-        // print(response);
-        TopCountry[response.keys.elementAt(0)] = response.values.elementAt(0);
+    if (duroodCount != null && duroodCount.length != 0) {
+      // Iterating dataDict
+      duroodCount.keys.forEach((durood) {
+        if (durood == getDateString()) {
+          // Sorting The All Country Data
+          dynamic response = SortDictionary(duroodCount[durood]['CountryData']);
+          // Now Country Data Is Sorted
+          // Getting The Top Country
+          // print(response);
+          TopCountry[response.keys.elementAt(0)] = response.values.elementAt(0);
 
-        // Top Five Countries
-        // Date Matched
-        int count = 0;
-        dynamic sortedResponse = SortDictionary(durood.CountryData);
-        // Setting Count According To Length Of The Response
-        if (durood.CountryData.length >= 0 && durood.CountryData.length < 5) {
-          count = durood.CountryData.length;
-        } else {
-          count = 5;
-        }
-        for (int i = 0; i < count; i++) {
-          // Saving First Top Five
-          TopFiveCountries[sortedResponse.keys.elementAt(i)] =
-              sortedResponse.values.elementAt(i);
-        }
-
-        // Top City
-        // Sorting The All City Data
-        response = SortDictionary(durood.CityData);
-        // Now City Data Is Sorted
-        // Getting The Top City
-        TopCity[response.keys.elementAt(0)] = response.values.elementAt(0);
-
-        // Top Five Cities
-        // Date Matched
-        count = 0;
-        sortedResponse = SortDictionary(durood.CityData);
-        // Setting Count According To Length Of The Response
-        if (durood.CityData.length >= 0 && durood.CityData.length < 5) {
-          count = durood.CityData.length;
-        } else {
-          count = 5;
-        }
-        for (int i = 0; i < count; i++) {
-          // Saving First Top Five
-          TopFiveCities[sortedResponse.keys.elementAt(i)] =
-              sortedResponse.values.elementAt(i);
-        }
-
-        // Global Count
-        durood.CountryData.values.forEach((element) {
-          GlobalCount += element;
-        });
-
-        // Getting My Country Count
-        durood.CountryData.keys.forEach((element) {
-          if (element == country) {
-            myCountryCount = durood.CountryData[element];
+          // Top Five Countries
+          // Date Matched
+          int count = 0;
+          dynamic sortedResponse =
+              SortDictionary(duroodCount[durood]['CountryData']);
+          // Setting Count According To Length Of The Response
+          if (duroodCount[durood]['CountryData'].length >= 0 &&
+              duroodCount[durood]['CountryData'].length < 5) {
+            count = duroodCount[durood]['CountryData'].length;
+          } else {
+            count = 5;
           }
-        });
-
-        // Getting My City Count
-        durood.CityData.keys.forEach((element) {
-          if (element == city) {
-            myCityCount = durood.CityData[element];
+          for (int i = 0; i < count; i++) {
+            // Saving First Top Five
+            TopFiveCountries[sortedResponse.keys.elementAt(i)] =
+                sortedResponse.values.elementAt(i);
           }
-        });
-      }
-      ;
-    });
 
-    // Adding In Returned Value Dictionary
-    returnedDict[TopCountry.keys.elementAt(0)] =
-        TopCountry.values.elementAt(0); // Index 0 Top Country
+          // Top City
+          // Sorting The All City Data
+          response = SortDictionary(duroodCount[durood]['CityData']);
+          // Now City Data Is Sorted
+          // Getting The Top City
+          TopCity[response.keys.elementAt(0)] = response.values.elementAt(0);
 
-    // Adding In Returned Value Dictionary
-    returnedDict['topFiveCountriesDictionary'] =
-        TopFiveCountries; // Index 1 Top Five Countries
+          // Top Five Cities
+          // Date Matched
+          count = 0;
+          sortedResponse = SortDictionary(duroodCount[durood]['CityData']);
+          // Setting Count According To Length Of The Response
+          if (duroodCount[durood]['CityData'].length >= 0 &&
+              duroodCount[durood]['CityData'].length < 5) {
+            count = duroodCount[durood]['CityData'].length;
+          } else {
+            count = 5;
+          }
+          for (int i = 0; i < count; i++) {
+            // Saving First Top Five
+            TopFiveCities[sortedResponse.keys.elementAt(i)] =
+                sortedResponse.values.elementAt(i);
+          }
 
-    // Adding In Returned Value Dictionary
-    returnedDict[TopCity.keys.elementAt(0)] =
-        TopCity.values.elementAt(0); // Index 2 Top City
+          // Global Count
+          duroodCount[durood]['CountryData'].values.forEach((element) {
+            GlobalCount += element;
+          });
 
-    // Adding In Returned Value Dictionary
-    returnedDict['topFiveCitiesDictionary'] =
-        TopFiveCities; // Index 3 Top Five Cities
+          // Getting My Country Count
+          duroodCount[durood]['CountryData'].keys.forEach((element) {
+            if (element == country) {
+              myCountryCount = duroodCount[durood]['CountryData'][element];
+            }
+          });
 
-    // Adding In Returned Value Dictionary
-    returnedDict['GlobalCount'] = GlobalCount; // Index 4 Top City
+          // Getting My City Count
+          duroodCount[durood]['CityData'].keys.forEach((element) {
+            if (element == city) {
+              myCityCount = duroodCount[durood]['CityData'][element];
+            }
+          });
+        }
+        ;
+      });
 
-    // Adding In Returned Value Dictionary
-    returnedDict['myCountryCount'] = myCountryCount; // Index 5 My Country Count
+      // Adding In Returned Value Dictionary
+      returnedDict[TopCountry.keys.elementAt(0)] =
+          TopCountry.values.elementAt(0); // Index 0 Top Country
 
-    // Adding In Returned Value Dictionary
-    returnedDict['myCityCount'] = myCityCount; // Index 6 My City Count
+      // Adding In Returned Value Dictionary
+      returnedDict['topFiveCountriesDictionary'] =
+          TopFiveCountries; // Index 1 Top Five Countries
 
-    // print(returnedValue);
-    return returnedDict;
+      // Adding In Returned Value Dictionary
+      returnedDict[TopCity.keys.elementAt(0)] =
+          TopCity.values.elementAt(0); // Index 2 Top City
+
+      // Adding In Returned Value Dictionary
+      returnedDict['topFiveCitiesDictionary'] =
+          TopFiveCities; // Index 3 Top Five Cities
+
+      // Adding In Returned Value Dictionary
+      returnedDict['GlobalCount'] = GlobalCount; // Index 4 Top City
+
+      // Adding In Returned Value Dictionary
+      returnedDict['myCountryCount'] =
+          myCountryCount; // Index 5 My Country Count
+
+      // Adding In Returned Value Dictionary
+      returnedDict['myCityCount'] = myCityCount; // Index 6 My City Count
+
+      // print(returnedValue);
+      return returnedDict;
+    } else {
+      return {};
+    }
   }
 
   // Get Top Countries Dictionary
@@ -222,15 +239,17 @@ class Functions {
   // }
 
   // Getting Total Global Count
-  // Future<int> getGlobalCount(dataDict) async {
-  //   List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+  // Future<int> getGlobalCount(BuildContext context, dataDict) async {
+  //   Map<String, dynamic> duroodCount =
+  //       context.watch<DuroodCountVM>().DuroodCountsData;
+  //   // print(duroodCount);
   //   int returnedValue = 0;
   //
   //   // Iterating dataDict
-  //   duroodCount.forEach((durood) {
+  //   duroodCount.keys.forEach((durood) {
   //     // returnedValue = 0;
-  //     if (durood.Date == getDateString()) {
-  //       durood.CountryData.values.forEach((element) {
+  //     if (durood == getDateString()) {
+  //       duroodCount[durood]['CountryData'].values.forEach((element) {
   //         returnedValue += element;
   //       });
   //     }
@@ -241,27 +260,36 @@ class Functions {
   // }
 
   // Get User Monthly Data Dictionary
-  Future<Map<String, dynamic>> getUserMonthlyData(userId, dataDict) async {
-    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+  Future<Map<String, dynamic>> getUserMonthlyData(
+      BuildContext context, userId) async {
+    // List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+    Map<String, dynamic> duroodCount =
+        context.watch<DuroodCountVM>().DuroodCountsData;
     Map<String, dynamic> returnedValue = {};
 
-    // Iterating dataDict
-    duroodCount.forEach((durood) {
-      durood.UserMonthlyData.keys.forEach((key) {
-        if (key == userId) {
-          durood.UserMonthlyData[key].forEach((key, value) {
-            if (key.toString().contains(getCurrentYear().toString())) {
-              // monthlyCount += value;
-              // returnedValue[durood.Date.toString()] = value;
-              returnedValue[key] = value;
-            }
-          });
-        }
+    if (duroodCount != null && duroodCount.length != 0) {
+      // Iterating dataDict
+      duroodCount.keys.forEach((durood) {
+        duroodCount[durood]['UserMonthlyData'].keys.forEach((key) {
+          if (key == userId) {
+            duroodCount[durood]['UserMonthlyData'][key].forEach((key, value) {
+              if (key.toString().contains(getCurrentYear().toString())) {
+                // monthlyCount += value;
+                // returnedValue[durood.Date.toString()] = value;
+                returnedValue[key] = value;
+              }
+            });
+          }
+        });
+        ;
       });
-      ;
-    });
-    // returnedValue[getDateString()] = monthlyCount;
-    return returnedValue;
+      // returnedValue[getDateString()] = monthlyCount;
+
+      // print('Returned User Monthly Data' + returnedValue.toString());
+      return returnedValue;
+    } else {
+      return {};
+    }
   }
 
   // Get Weekly Count
@@ -351,44 +379,54 @@ class Functions {
   // }
 
   // Get Previous Month Data
-  Future<Map<String, dynamic>> getPreviousMonthDuroodCountData(dataDict) async {
-    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+  Future<Map<String, dynamic>> getPreviousMonthDuroodCountData(
+      BuildContext context) async {
+    // List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+    Map<String, dynamic> duroodCount =
+        context.watch<DuroodCountVM>().DuroodCountsData;
     Map<String, dynamic> returnedValue = {};
 
-    // Iterating dataDict
-    duroodCount.forEach((durood) {
-      if (durood.Date == getPreviousMonthDateString()) {
-        // Getting Top Country
-        // Sorting The All Country Data
-        dynamic topCountry = SortDictionary(durood.CountryData);
-        // Now Country Data Is Sorted
-        // Getting The Top Country
-        // print(response);
-        returnedValue[topCountry.keys.elementAt(0)] =
-            topCountry.values.elementAt(0);
+    if (duroodCount != null && duroodCount.length != 0) {
+      // Iterating dataDict
 
-        // Getting Top City
-        // Sorting The All City Data
-        dynamic topCity = SortDictionary(durood.CityData);
-        // Now City Data Is Sorted
-        // Getting The Top City
-        // print(response);
-        returnedValue[topCity.keys.elementAt(0)] = topCity.values.elementAt(0);
+      duroodCount.keys.forEach((durood) {
+        if (durood == getPreviousMonthDateString()) {
+          // Getting Top Country
+          // Sorting The All Country Data
+          dynamic topCountry =
+              SortDictionary(duroodCount[durood]['CountryData']);
+          // Now Country Data Is Sorted
+          // Getting The Top Country
+          // print(response);
+          returnedValue[topCountry.keys.elementAt(0)] =
+              topCountry.values.elementAt(0);
 
-        // Getting Previous Month Global Count
-        int prevGlobalCount = 0;
-        durood.CountryData.values.forEach((element) {
-          prevGlobalCount += element;
-        });
-        // Global Count Generated
-        // Saving In the dictionary
-        returnedValue['PrevGlobalCount'] = prevGlobalCount;
-      }
-      ;
-    });
-    // returnedValue = dayCount;
-    // print(returnedValue);
-    return returnedValue;
+          // Getting Top City
+          // Sorting The All City Data
+          dynamic topCity = SortDictionary(duroodCount[durood]['CityData']);
+          // Now City Data Is Sorted
+          // Getting The Top City
+          // print(response);
+          returnedValue[topCity.keys.elementAt(0)] =
+              topCity.values.elementAt(0);
+
+          // Getting Previous Month Global Count
+          int prevGlobalCount = 0;
+          duroodCount[durood]['CountryData'].values.forEach((element) {
+            prevGlobalCount += element;
+          });
+          // Global Count Generated
+          // Saving In the dictionary
+          returnedValue['PrevGlobalCount'] = prevGlobalCount;
+        }
+        ;
+      });
+      // returnedValue = dayCount;
+      // print(returnedValue);
+      return returnedValue;
+    } else {
+      return {};
+    }
   }
 
   // Getting Date String

@@ -12,11 +12,8 @@ class ReportScreenInfoContainer extends StatelessWidget {
       child: Container(
         width: screenSize.width < 350 ? 330 : 380,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-            bottomLeft: Radius.circular(20.0),
-            bottomRight: Radius.circular(20.0),
+          borderRadius: BorderRadius.all(
+            Radius.circular(Constant.app_cards_border_radius),
           ),
           boxShadow: [
             BoxShadow(

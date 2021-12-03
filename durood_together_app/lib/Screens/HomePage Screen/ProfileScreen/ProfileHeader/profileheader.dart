@@ -13,9 +13,9 @@ class ProfileHeader extends StatelessWidget {
       height: screenSize.height * 0.31,
       decoration: BoxDecoration(
         color: Constant.app_primary_contrast_color_light,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30.0),
-          bottomRight: Radius.circular(30.0),
+        borderRadius: BorderRadius.horizontal(
+          left: Radius.circular(Constant.app_cards_border_radius + 20.0),
+          right: Radius.circular(Constant.app_cards_border_radius + 20.0),
         ),
         // boxShadow: [
         //   BoxShadow(

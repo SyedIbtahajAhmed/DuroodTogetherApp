@@ -57,24 +57,38 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
                     color: Constant.app_primary_color,
                     width: 5.0,
                   )),
-                  primary: Constant.app_primary_color.withOpacity(0.4),
+                  primary: Constant.app_primary_color.withOpacity(0.5),
                 ),
                 child: Container(
                   width: screenSize.width < 350 ? 250 : 300,
                   height: screenSize.width < 350 ? 250 : 300,
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Text(
-                      context
-                          .watch<DuroodCountProvider>()
-                          .duroodCount
-                          .toString(),
-                      style: TextStyle(
-                        fontSize: Constant.h1,
-                        color: Constant.app_primary_color,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(
+                          side: BorderSide(
+                            color: Constant.app_primary_color,
+                            width: 5.0,
+                          ),
+                        ),
+                        primary: Constant.app_primary_color.withOpacity(0.4),
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Center(
+                          child: Text(
+                            context
+                                .watch<DuroodCountProvider>()
+                                .duroodCount
+                                .toString(),
+                            style: TextStyle(
+                              fontSize: Constant.h1,
+                              color: Constant.app_primary_color,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),

@@ -31,41 +31,16 @@ class HeaderRow extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () async {
                   // // Checking If Durood Count Is Going Null Or Not
-                  if (context.read<DuroodCountProvider>().duroodCount != 0) {
-                    String result = await Functions().DuroodCountToFirebase(
-                        context,
-                        context.read<DuroodCountProvider>().duroodCount);
-
-                    if (result.toString() ==
-                        'DuroodCount Added Successfully.') {
-                      final snackBar = SnackBar(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 30.0,
-                        ),
-                        backgroundColor: Constant.app_primary_contrast_color
-                            .withOpacity(0.7),
-                        content: CustomSnackbar(
-                          text: 'Durood Count Updated Successfully',
-                        ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else {
-                      final snackBar = SnackBar(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 30.0,
-                        ),
-                        backgroundColor: Constant.app_primary_contrast_color
-                            .withOpacity(0.7),
-                        content: CustomSnackbar(
-                          text: 'Durood Count Updation Unsuccessful',
-                        ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    }
-
+                  if (context.read<DuroodCountProvider>().duroodCount > 0 &&
+                      context.read<DuroodCountProvider>().duroodCount < 100) {
+                    // Uploading Durood Count
+                    await Functions().uploadDuroodCount(context);
                     context.read<DuroodCountProvider>().resetDuroodCount();
+                  } else if (context.read<DuroodCountProvider>().duroodCount >=
+                      100) {
+                    Functions().showMyDialog(context, () {
+                      Functions().uploadDuroodCount(context);
+                    });
                   } else {
                     final snackBar = SnackBar(
                       padding: EdgeInsets.symmetric(
@@ -81,6 +56,58 @@ class HeaderRow extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     context.read<DuroodCountProvider>().resetDuroodCount();
                   }
+
+                  // // // Checking If Durood Count Is Going Null Or Not
+                  // if (context.read<DuroodCountProvider>().duroodCount != 0) {
+                  //   String result = await Functions().DuroodCountToFirebase(
+                  //       context,
+                  //       context.read<DuroodCountProvider>().duroodCount);
+                  //
+                  //   if (result.toString() ==
+                  //       'DuroodCount Added Successfully.') {
+                  //     final snackBar = SnackBar(
+                  //       padding: EdgeInsets.symmetric(
+                  //         horizontal: 10.0,
+                  //         vertical: 30.0,
+                  //       ),
+                  //       backgroundColor: Constant.app_primary_contrast_color
+                  //           .withOpacity(0.7),
+                  //       content: CustomSnackbar(
+                  //         text: 'Durood Count Updated Successfully',
+                  //       ),
+                  //     );
+                  //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  //   } else {
+                  //     final snackBar = SnackBar(
+                  //       padding: EdgeInsets.symmetric(
+                  //         horizontal: 10.0,
+                  //         vertical: 30.0,
+                  //       ),
+                  //       backgroundColor: Constant.app_primary_contrast_color
+                  //           .withOpacity(0.7),
+                  //       content: CustomSnackbar(
+                  //         text: 'Durood Count Updation Unsuccessful',
+                  //       ),
+                  //     );
+                  //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  //   }
+                  //
+                  //   context.read<DuroodCountProvider>().resetDuroodCount();
+                  // } else {
+                  //   final snackBar = SnackBar(
+                  //     padding: EdgeInsets.symmetric(
+                  //       horizontal: 10.0,
+                  //       vertical: 30.0,
+                  //     ),
+                  //     backgroundColor:
+                  //         Constant.app_primary_contrast_color.withOpacity(0.7),
+                  //     content: CustomSnackbar(
+                  //       text: 'Please Add Durood Count',
+                  //     ),
+                  //   );
+                  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  //   context.read<DuroodCountProvider>().resetDuroodCount();
+                  // }
                 },
                 child: Text(
                   'Save Count',
