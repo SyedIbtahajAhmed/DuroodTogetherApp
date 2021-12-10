@@ -1,4 +1,5 @@
 import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,11 +24,11 @@ class _CountFieldState extends State<CountField> {
   //       TextEditingController(text: duroodCount.duroodCount.toString());
   // }
 
-  @override
-  void dispose() {
-    _textController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _textController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +36,18 @@ class _CountFieldState extends State<CountField> {
 
     final DuroodCountProvider duroodCount =
         Provider.of<DuroodCountProvider>(context, listen: false);
-    TextEditingController _textController =
-        TextEditingController(text: duroodCount.duroodCountField.toString());
+    TextEditingController _textController = TextEditingController(
+        text: duroodCount.duroodCountField != 0
+            ? duroodCount.duroodCountField.toString()
+            : '');
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
       // width: (screenSize.width / 5) * 4.5,
-      width: 350,
+      width: screenSize.width < 350 ? 200 : 350,
       height: this.widget.opacity == 1.0 ? 100 : 0,
       child: Padding(
-        padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+        padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
         child: Container(
           child: TextFormField(
             controller: _textController,
@@ -56,14 +59,15 @@ class _CountFieldState extends State<CountField> {
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.white,
+              fillColor: Constant.app_primary_color,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(
+                    Constant.app_text_fields_border_radius),
                 borderSide: BorderSide.none,
               ),
               hintText: 'Enter Your Durood Shareef Count',
               hintStyle: TextStyle(
-                fontSize: 20,
+                fontSize: screenSize.width < 350 ? Constant.h5 : Constant.h4,
               ),
               // prefixIcon: Icon(Icons.email),
               enabled: true,

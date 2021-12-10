@@ -1,4 +1,7 @@
 import 'package:durood_together_app/Authentication/Authentication.dart';
+import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
+import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,30 +26,50 @@ class Profile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(top: screenSize.height * 0.08),
+                  padding: EdgeInsets.only(top: screenSize.height * 0.06),
                   child: Column(
                     children: [
                       ProfileBody(),
                       IntrinsicHeight(
                         child: Container(
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 30.0),
+                            padding: const EdgeInsets.only(top: 50.0),
                             child: ElevatedButton(
                               onPressed: () {
+                                context.read<DuroodCountVM>().resetAttributes();
+                                context
+                                    .read<DuroodCountProvider>()
+                                    .resetDuroodCount();
                                 context.read<Authentication>().signOut();
                               },
                               child: Text(
                                 'SIGNOUT',
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green[900]),
+                                  fontSize: Constant.app_button_font_size,
+                                  fontWeight: Constant.app_font_weight,
+                                  color: Constant.app_primary_contrast_color,
+                                  letterSpacing:
+                                      Constant.app_normal_letter_spacing,
+                                ),
                               ),
                               style: ButtonStyle(
                                 backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                                minimumSize:
-                                MaterialStateProperty.all<Size>(Size(60, 50)),
+                                    MaterialStateProperty.all<Color>(
+                                        Constant.app_primary_color),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                    Constant.app_button_border_radius,
+                                  )),
+                                ),
+                                minimumSize: MaterialStateProperty.all<Size>(
+                                  Size(Constant.app_button_min_width,
+                                      Constant.app_button_height),
+                                ),
+                                maximumSize: MaterialStateProperty.all<Size>(
+                                  Size(Constant.app_button_max_width,
+                                      Constant.app_button_height),
+                                ),
                               ),
                             ),
                           ),

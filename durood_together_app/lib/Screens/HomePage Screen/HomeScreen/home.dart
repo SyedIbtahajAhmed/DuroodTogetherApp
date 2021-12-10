@@ -1,5 +1,5 @@
-import 'package:durood_together_app/Screens/HomePage%20Screen/ReportScreen/ReportCountWidget/reportcount.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/ReportScreen/RerpotHeader/reportheader.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 
 import 'CountFieldWidget/countField.dart';
@@ -7,6 +7,7 @@ import 'CountSaveButton/countSaveButton.dart';
 import 'ExpandedWidget/expandedWidget.dart';
 import 'HeaderRow/header_row.dart';
 import 'HomeCountTabs/homeCountTabs.dart';
+import 'ReportCountWidget/reportcount.dart';
 import 'UnExpandWidget/unExpandedWidget.dart';
 
 class Home extends StatefulWidget {
@@ -47,7 +48,44 @@ class _HomeState extends State<Home> {
             ),
 
             // Report Count Total
-            ReportCount(),
+            AnimatedOpacity(
+              opacity: this.expanded ? 0.0 : 1.0,
+              duration: Duration(milliseconds: 1000),
+              child: ReportCount(
+                expanded: this.expanded,
+              ),
+            ),
+
+            // Heading
+            AnimatedOpacity(
+              opacity: this.expanded ? 0.0 : 1.0,
+              duration: Duration(milliseconds: 1000),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                curve: Curves.easeInExpo,
+                height: this.expanded ? 0.0 : 70,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                  child: Text(
+                    'Durood Shareef Count',
+                    style: TextStyle(
+                      fontSize: Constant.h2,
+                      color: Constant.app_primary_color,
+                      fontWeight: Constant.app_font_weight,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // Count Tabs Row
+            AnimatedOpacity(
+              opacity: this.expanded ? 0.0 : 1.0,
+              duration: Duration(milliseconds: 300),
+              child: HomeCountTabs(
+                opacity: this.expanded ? 0.0 : 1.0,
+              ),
+            ),
 
             // Count Field Widget
             AnimatedOpacity(
@@ -67,40 +105,9 @@ class _HomeState extends State<Home> {
               ),
             ),
 
-            // Heading
-            AnimatedOpacity(
-              opacity: this.expanded ? 0.0 : 1.0,
-              duration: Duration(milliseconds: 1000),
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                curve: Curves.easeInExpo,
-                height: this.expanded ? 0.0 : 40,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 0.0, bottom: 10.0),
-                  child: Text(
-                    'Your Durood Shareef Count',
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            // Count Tabs Row
-            AnimatedOpacity(
-              opacity: this.expanded ? 0.0 : 1.0,
-              duration: Duration(milliseconds: 300),
-              child: HomeCountTabs(
-                opacity: this.expanded ? 0.0 : 1.0,
-              ),
-            ),
-
             !this.expanded
                 ? SizedBox(
-                    height: screenSize.height * 0.18,
+                    height: screenSize.height / 2 * 0.25,
                   )
                 : Container(),
 

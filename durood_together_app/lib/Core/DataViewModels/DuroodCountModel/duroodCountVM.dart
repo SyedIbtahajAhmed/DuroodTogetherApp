@@ -15,9 +15,15 @@ class DuroodCountVM extends ChangeNotifier {
   Map<String, dynamic> _topCountry = {};
   Map<String, dynamic> _topCity = {};
   int _globalCount = 0;
+  Map<String, dynamic> _prevTopCountry = {};
+  Map<String, dynamic> _prevTopCity = {};
+  int _prevGlobalCount = 0;
   Map<String, dynamic> _topFiveCountries = {};
   Map<String, dynamic> _topFiveCities = {};
   Map<String, dynamic> _userMonthlyData = {};
+  int _userTodayCount = 0;
+  int _myCountryCount = 0;
+  int _myCityCount = 0;
 
   String _dateString = '';
   String _currentMonth = '';
@@ -27,30 +33,85 @@ class DuroodCountVM extends ChangeNotifier {
   Map<String, dynamic> get topCountry => _topCountry;
   Map<String, dynamic> get topCity => _topCity;
   int get globalCount => _globalCount;
+  Map<String, dynamic> get prevTopCountry => _prevTopCountry;
+  Map<String, dynamic> get prevTopCity => _prevTopCity;
+  int get prevGlobalCount => _prevGlobalCount;
   Map<String, dynamic> get topFiveCountries => _topFiveCountries;
   Map<String, dynamic> get topFiveCities => _topFiveCities;
   Map<String, dynamic> get userMonthlyData => _userMonthlyData;
+  int get userTodayCount => _userTodayCount;
+  int get myCountryCount => _myCountryCount;
+  int get myCityCount => _myCityCount;
 
   String get dateString => _dateString;
   String get currentMonth => _currentMonth;
   int get currentYear => _currentYear;
 
-  List<DuroodCount> DuroodCounts;
+  // Durood Counts
+  List<DuroodCount> _DuroodCounts;
 
+  // All Data Got From Firebase
+  Map<String, dynamic> _DuroodCountsData = {};
+
+  // Getter
+  Map<String, dynamic> get DuroodCountsData => _DuroodCountsData;
+
+  // Setting All The Data
   setAttributes({
-    Map<String, dynamic> topCountry,
-    Map<String, dynamic> topCity,
-    int globalCount,
-    Map<String, dynamic> topFiveCountries,
-    Map<String, dynamic> topFiveCities,
+    Map<String, dynamic> duroodCountData,
+    Map<String, dynamic> currentMonthData,
     Map<String, dynamic> userMonthlyData,
+    int userWeeklyCount,
+    int userTodayCount,
+    int userYesterdayCount,
+    Map<String, dynamic> prevMonthData,
   }) {
-    this._topCountry = topCountry;
-    this._topCity = topCity;
-    this._globalCount = globalCount;
-    this._topFiveCountries = topFiveCountries;
-    this._topFiveCities = topFiveCities;
+    this._DuroodCountsData = duroodCountData;
+
+    // print(currentMonthData);
+    // if (currentMonthData.isNotEmpty) {
+    this._topCountry[currentMonthData.keys.elementAt(0).toString()] =
+        currentMonthData.values.elementAt(0); // Current Month Top Country
+    this._topFiveCountries =
+        currentMonthData.values.elementAt(1); // Current Month Top Five Country
+    this._topCity[currentMonthData.keys.elementAt(2).toString()] =
+        currentMonthData.values.elementAt(2); // Current Month Top City
+    this._topFiveCities =
+        currentMonthData.values.elementAt(3); // Current Month Top Five Cities
+    this._globalCount =
+        currentMonthData.values.elementAt(4); // Current Month Global Count
+    this._myCountryCount =
+        currentMonthData.values.elementAt(5); // My Country Count
+    this._myCityCount = currentMonthData.values.elementAt(6); // My City Count
+    // }
+
     this._userMonthlyData = userMonthlyData;
+    this._userTodayCount = userTodayCount;
+
+    // Saving Previous Month Count
+    if (prevMonthData.isNotEmpty) {
+    this._prevTopCountry[prevMonthData.keys.elementAt(0).toString()] =
+        prevMonthData.values.elementAt(0); // Previous Top Country
+    this._prevTopCity[prevMonthData.keys.elementAt(1).toString()] =
+        prevMonthData.values.elementAt(1); // Previous Top City
+    this._prevGlobalCount =
+        prevMonthData.values.elementAt(2); // Previous Global Count
+    }
+  }
+
+  resetAttributes() {
+    this._topCountry = {};
+    this._topCity = {};
+    this._globalCount = 0;
+    this._prevTopCountry = {};
+    this._prevTopCity = {};
+    this._prevGlobalCount = 0;
+    this._topFiveCountries = {};
+    this._topFiveCities = {};
+    this._userMonthlyData = {};
+    this._myCountryCount = 0;
+    this._userTodayCount = 0;
+    this._myCityCount = 0;
   }
 
   Future<dynamic> fetchDuroodCounts() async {
@@ -58,12 +119,14 @@ class DuroodCountVM extends ChangeNotifier {
     _api.changePath(AppConst.durrodCountCollection);
     var result = await _api.getDataCollection();
     List<DuroodCount> items = [];
-    DuroodCounts = result.docs.map((doc) {
+    _DuroodCounts = result.docs.map((doc) {
       if (doc.id != null) {
         var temp = DuroodCount.fromMap(doc.data(), doc.id.toString());
         items.add(temp);
       }
     }).toList();
+    // print(items);
+    notifyListeners();
     return items;
   }
 
@@ -87,7 +150,7 @@ class DuroodCountVM extends ChangeNotifier {
     return;
   }
 
-  Future addCustomDuroodCount(
+  Future<String> addCustomDuroodCount(
       BuildContext context, Map<String, dynamic> data, String date) async {
     // Changing Collection Path
     _api.changePath(AppConst.durrodCountCollection);
@@ -97,22 +160,17 @@ class DuroodCountVM extends ChangeNotifier {
     DuroodCount mapObject = new DuroodCount();
 
     // City Value
-    mapObject.CityData = {
-      data['City']: FieldValue.increment(data['DuroodCount'])
-    };
+    mapObject.CityData = {data['City']: data['City']};
 
     // Country Value
-    mapObject.CountryData = {
-      data['Country']: FieldValue.increment(data['DuroodCount'])
-    };
+    mapObject.CountryData = {data['Country']: data['Country']};
     // UserData Value
-    mapObject.UserData = {
-      data['User']: FieldValue.increment(data['DuroodCount'])
-    };
+    mapObject.UserData = {data['User']: data['User']};
     // UserMonthlyData
     mapObject.UserMonthlyData = {
       context.read<User>().uid: {
-        Functions().getDateString(): FieldValue.increment(data['DuroodCount'])
+        Functions().getDayDateString():
+            FieldValue.increment(data['DuroodCount'])
       }
     };
     // TopFiveCities
@@ -121,8 +179,7 @@ class DuroodCountVM extends ChangeNotifier {
     // Getting Data
     await _api.addCustomDocument(mapObject.toJson(), date);
     // print(result);
-    print('DuroodCount Added Successfully At ' + date);
-    return;
+    return 'DuroodCount Added Successfully.';
   }
 
   Future addDuroodCount(DuroodCount data) async {

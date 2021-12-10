@@ -49,38 +49,64 @@ class Authentication {
   // SingnOut Function
   Future<String> signOut() async {
     try {
-      await _firebaseAuth.signOut();
-      return 'Signed Out Successfully.';
+      print(_firebaseAuth.currentUser.providerData.elementAt(0).providerId);
+      if (_firebaseAuth.currentUser.providerData.elementAt(0).providerId ==
+          'google.com') {
+        await _firebaseAuth.signOut();
+        await GoogleSignIn().signOut();
+        return 'Signed Out Successfully.';
+      } else {
+        await _firebaseAuth.signOut();
+        return 'Signed Out Successfully.';
+      }
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
   }
 
-  Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+  Future<String> signInWithGoogle({String country, String city}) async {
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
-    print(googleUser);
+      // print(googleUser);
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser?.authentication;
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser?.authentication;
 
-    print(googleAuth);
+      // print(googleAuth);
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+      if (googleAuth != null) {
+        // Create a new credential
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
 
-    print(credential);
+        // print(credential);
 
-    // Once signed in, return the UserCredential
-    UserCredential returned_credential =
-        await _firebaseAuth.signInWithCredential(credential);
-    print('Google Sign in.');
-    print(returned_credential);
-    return returned_credential;
+        // Once signed in, return the UserCredential
+        UserCredential returned_credential =
+            await _firebaseAuth.signInWithCredential(credential);
+
+        UserModel data = new UserModel(
+          Country: country,
+          City: city,
+          Email: returned_credential.user.email,
+          Name: returned_credential.user.displayName,
+        );
+
+        UserViewModel().addCustomUser(data, returned_credential.user.uid);
+
+        // print('Google Sign in.');
+        print(returned_credential);
+        return 'Signed in Successful';
+      } else {
+        return 'Sign in Cancelled';
+      }
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    }
   }
 }

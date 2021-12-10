@@ -1,6 +1,6 @@
 //Local Imports
-import 'package:durood_together_app/Authentication/Authentication Wrapper/AuthenticationWrapper.dart';
 import 'package:durood_together_app/Authentication/Authentication.dart';
+import 'package:durood_together_app/Screens/SplashScreen/splash-screen.dart';
 import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:durood_together_app/Shared/Locator/lcoator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
+import 'Core/DataViewModels/UserDuroodCountVM/user-durood-count-VM.dart';
 import 'Core/Providers/DuroodCountProvider/durood-count-provider.dart';
+import 'Shared/Const/constant.dart';
 
 void main() async {
   setupLocator();
@@ -36,6 +38,9 @@ class DuroodApp extends StatelessWidget {
           create: (_) => locator<DuroodCountVM>(),
         ),
         ChangeNotifierProvider(
+          create: (_) => locator<UserDuroodCountVM>(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => locator<DuroodCountProvider>(),
         ),
         // ChangeNotifierProvider(
@@ -44,7 +49,7 @@ class DuroodApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(
-          primaryColor: Colors.teal[900],
+          primaryColor: Constant.app_primary_contrast_color,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           //primaryColor: Color.fromARGB(1, 0, 132, 111)
         ),
@@ -53,7 +58,7 @@ class DuroodApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
 
         //Home
-        home: AuthenticationWrapper(),
+        home: SplashScreen(),
       ),
     );
   }

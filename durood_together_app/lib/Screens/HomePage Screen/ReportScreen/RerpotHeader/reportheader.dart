@@ -1,3 +1,4 @@
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 
 class ReportHeader extends StatelessWidget {
@@ -13,14 +14,16 @@ class ReportHeader extends StatelessWidget {
       width: screenSize.width,
       height: this.opacity == 1.0 ? 80 : 0,
       child: Container(
-        padding: const EdgeInsets.only(top: 30.0),
+        padding: const EdgeInsets.only(
+          top: 30.0,
+        ),
         child: Center(
           child: Text(
             "BE A PART OF THE BARAKAH CIRCLE OF DUROOD SHAREEF",
             style: TextStyle(
-              color: Colors.white,
-              fontSize: 13,
-              fontWeight: FontWeight.w400,
+              color: Constant.app_primary_color,
+              fontSize: Constant.h7,
+              fontWeight: Constant.app_font_weight,
             ),
           ),
         ),

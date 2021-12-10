@@ -1,15 +1,14 @@
 import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/ReportCountWidget/InfoContainer/CountTextContainer/countTextContainer.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/ReportCountWidget/InfoContainer/DateTextContainer/dateTextContainer.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/ReportCountWidget/InfoContainer/MonthCountWidget/monthCountWidget.dart';
 import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:numeral/numeral.dart';
 import 'package:provider/provider.dart';
 
-import 'CountTextContainer/countTextContainer.dart';
-import 'DateTextContainer/dateTextContainer.dart';
-import 'MonthCountWidget/monthCountWidget.dart';
-
-class InfoContainer extends StatelessWidget {
-  const InfoContainer({Key key}) : super(key: key);
+class ReportInfoContainer extends StatelessWidget {
+  const ReportInfoContainer({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class InfoContainer extends StatelessWidget {
         // crossAxisAlignment: CrossAxisAlignment.baseline,
         children: <Widget>[
           DateTextContainer(
-            date: Functions().getCurrentMonth() +
+            date: Functions().getPreviousMonth() +
                 ' ' +
                 Functions().getCurrentYear().toString(),
             text: 'Top Durood Contributing Country and City',
@@ -40,31 +39,38 @@ class InfoContainer extends StatelessWidget {
                       // Country Name
                       Container(
                         child: CountTextContainer(
-                          text:
-                              context.watch<DuroodCountVM>().topCountry == null
-                                  ? 'Nan'
-                                  : context
+                          text: context.watch<DuroodCountVM>().prevTopCountry ==
+                                      null ||
+                                  context
                                       .watch<DuroodCountVM>()
-                                      .topCountry
-                                      .keys
-                                      .elementAt(0)
-                                      .toString(),
+                                      .prevTopCountry
+                                      .isEmpty
+                              ? 'Nan'
+                              : context
+                                  .watch<DuroodCountVM>()
+                                  .prevTopCountry
+                                  .keys
+                                  .elementAt(0)
+                                  .toString(),
                         ),
                       ),
 
                       // Country Count Value
                       Container(
                         child: CountTextContainer(
-                          text:
-                              context.watch<DuroodCountVM>().topCountry == null
-                                  ? 0.toString()
-                                  : Numeral(context
-                                          .watch<DuroodCountVM>()
-                                          .topCountry
-                                          .values
-                                          .elementAt(0))
-                                      .value()
-                                      .toString(),
+                          text: context.watch<DuroodCountVM>().prevTopCountry ==
+                                      null ||
+                                  context
+                                      .watch<DuroodCountVM>()
+                                      .prevTopCountry
+                                      .isEmpty
+                              ? 0.toString()
+                              : Functions().ConvertNumber(Numeral(context
+                                      .watch<DuroodCountVM>()
+                                      .prevTopCountry
+                                      .values
+                                      .elementAt(0))
+                                  .value()),
                         ),
                       ),
                     ],
@@ -81,11 +87,16 @@ class InfoContainer extends StatelessWidget {
                       // Country Name
                       Container(
                         child: CountTextContainer(
-                          text: context.watch<DuroodCountVM>().topCity == null
+                          text: context.watch<DuroodCountVM>().prevTopCity ==
+                                      null ||
+                                  context
+                                      .watch<DuroodCountVM>()
+                                      .prevTopCity
+                                      .isEmpty
                               ? 'Nan'
                               : context
                                   .watch<DuroodCountVM>()
-                                  .topCity
+                                  .prevTopCity
                                   .keys
                                   .elementAt(0)
                                   .toString(),
@@ -95,15 +106,19 @@ class InfoContainer extends StatelessWidget {
                       // Country Count Value
                       Container(
                         child: CountTextContainer(
-                          text: context.watch<DuroodCountVM>().topCity == null
-                              ? 0.toString()
-                              : Numeral(context
+                          text: context.watch<DuroodCountVM>().prevTopCity ==
+                                      null ||
+                                  context
                                       .watch<DuroodCountVM>()
-                                      .topCity
+                                      .prevTopCity
+                                      .isEmpty
+                              ? 0.toString()
+                              : Functions().ConvertNumber(Numeral(context
+                                      .watch<DuroodCountVM>()
+                                      .prevTopCity
                                       .values
                                       .elementAt(0))
-                                  .value()
-                                  .toString(),
+                                  .value()),
                         ),
                       ),
                     ],
@@ -115,12 +130,13 @@ class InfoContainer extends StatelessWidget {
 
           // Total Count Widget
           MonthCountWidget(
-            text: Functions().getCurrentMonth() + ' Global Count',
-            totalCount: context.watch<DuroodCountVM>().globalCount.isNaN
+            text: Functions().getPreviousMonth() + ' Global Count',
+            totalCount: context.watch<DuroodCountVM>().prevGlobalCount.isNaN ||
+                    context.watch<DuroodCountVM>().prevGlobalCount == 0
                 ? 0.toString()
-                : Numeral(context.watch<DuroodCountVM>().globalCount)
-                    .value()
-                    .toString(),
+                : Functions().ConvertNumber(
+                    Numeral(context.watch<DuroodCountVM>().prevGlobalCount)
+                        .value()),
             // Numeral(snapshot.data.elementAt(0)).value().toString(),
           ),
         ],

@@ -1,3 +1,4 @@
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 
 class TabButton extends StatefulWidget {
@@ -29,7 +30,7 @@ class _TabButtonState extends State<TabButton> {
         curve: Curves.fastLinearToSlowEaseIn,
         decoration: BoxDecoration(
           // color: widget.index == widget.selectedPage
-          //     ? Colors.teal[900]
+          //     ? Constant.app_primary_contrast_color
           //     : Colors.transparent,
           borderRadius: widget.index == widget.selectedPage
               ? BorderRadius.only(
@@ -49,9 +50,9 @@ class _TabButtonState extends State<TabButton> {
                 Icon(
                   widget.icon,
                   color: widget.index == widget.selectedPage
-                      ? Colors.teal[900]
-                      : Colors.teal[900],
-                  size: 25,
+                      ? Constant.app_primary_contrast_color
+                      : Constant.app_primary_contrast_color,
+                  size: Constant.app_bottom_bar_icon_size,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 0),
@@ -59,9 +60,9 @@ class _TabButtonState extends State<TabButton> {
                       ? Text(
                           widget.title,
                           style: TextStyle(
-                            color: Colors.teal[900],
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
+                            color: Constant.app_primary_contrast_color,
+                            fontSize: Constant.h4,
+                            fontWeight: Constant.app_font_weight,
                           ),
                         )
                       : Container(),

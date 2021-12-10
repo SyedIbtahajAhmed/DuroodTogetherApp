@@ -1,3 +1,4 @@
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 
 class CountTextContainer extends StatelessWidget {
@@ -9,9 +10,9 @@ class CountTextContainer extends StatelessWidget {
     return Text(
       this.text,
       style: TextStyle(
-        color: Colors.white,
-        fontSize: 22.0,
-        fontWeight: FontWeight.w300,
+        color: Constant.app_primary_color,
+        fontSize: Constant.h3,
+        fontWeight: Constant.app_normal_font_weight,
       ),
     );
   }

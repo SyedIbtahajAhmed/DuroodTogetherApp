@@ -1,3 +1,4 @@
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 
 class ReportHeading extends StatelessWidget {
@@ -20,9 +21,9 @@ class ReportHeading extends StatelessWidget {
                 child: Text(
                   this.heading,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w500,
+                    color: Constant.app_primary_color,
+                    fontSize: Constant.h3,
+                    fontWeight: Constant.app_font_weight,
                   ),
                 ),
               ),

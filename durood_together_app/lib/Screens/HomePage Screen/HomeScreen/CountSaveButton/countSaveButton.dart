@@ -1,8 +1,7 @@
-import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
 import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
-import 'package:durood_together_app/Services/LocationService/location_service.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/SnackBar/custom-snackbar.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
@@ -24,43 +23,50 @@ class CountSaveButton extends StatelessWidget {
           duration: Duration(milliseconds: 500),
           child: Center(
             child: ElevatedButton(
-              onPressed: () {
-                Map<String, dynamic> dataObject = new Map<String, dynamic>();
-
-                // Storing Data
-                dataObject['City'] = context
-                    .read<LocationService>()
-                    .userAddress[0]
-                    .locality
-                    .toString();
-                dataObject['Country'] = context
-                    .read<LocationService>()
-                    .userAddress[0]
-                    .country
-                    .toString();
-                dataObject['User'] = context.read<User>().uid;
-                dataObject['DuroodCount'] =
-                    context.read<DuroodCountProvider>().duroodCountField;
-
-                print(dataObject);
-                DuroodCountVM().addCustomDuroodCount(
-                    context, dataObject, Functions().getDateString());
-
-                context.read<DuroodCountProvider>().resetDuroodCount();
+              onPressed: () async {
+                // // Checking If Durood Count Is Going Null Or Not
+                if (context.read<DuroodCountProvider>().duroodCount > 0 &&
+                    context.read<DuroodCountProvider>().duroodCount < 100) {
+                  // Uploading Durood Count
+                  await Functions().uploadDuroodCount(context);
+                  context.read<DuroodCountProvider>().resetDuroodCount();
+                } else if (context.read<DuroodCountProvider>().duroodCount >=
+                    100) {
+                  Functions().showMyDialog(context, () {
+                    Functions().uploadDuroodCount(context);
+                  });
+                } else {
+                  final snackBar = SnackBar(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 30.0,
+                    ),
+                    backgroundColor:
+                        Constant.app_primary_contrast_color.withOpacity(0.7),
+                    content: CustomSnackbar(
+                      text: 'Please Add Durood Count',
+                    ),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  context.read<DuroodCountProvider>().resetDuroodCount();
+                }
               },
               child: Text(
                 'Save Count',
                 style: TextStyle(
-                  color: Colors.teal[900],
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
+                  color: Constant.app_primary_contrast_color,
+                  fontSize: Constant.app_button_font_size,
+                  fontWeight: Constant.app_font_weight,
                 ),
               ),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Constant.app_primary_color),
+                shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(
+                      Constant.app_button_border_radius,
+                    ),
                   ),
                 ),
               ),

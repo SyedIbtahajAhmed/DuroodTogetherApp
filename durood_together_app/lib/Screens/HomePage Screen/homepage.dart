@@ -1,12 +1,13 @@
 import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
+import 'package:durood_together_app/Core/DataViewModels/UserDuroodCountVM/user-durood-count-VM.dart';
+import 'package:durood_together_app/Services/LocationService/location_service.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
+import 'package:durood_together_app/Shared/ScreensRoute/screens-route.dart';
 import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'HomeScreen/home.dart';
-import 'ProfileScreen/profile.dart';
-import 'ReportScreen/report.dart';
 import 'TabButton/tabButton.dart';
 
 class HomePage extends StatefulWidget {
@@ -47,35 +48,50 @@ class _HomePageState extends State<HomePage> {
     // Providers(context).duroodCountVM_provider;
     // final userLocation = Provider.of<UserLocation>(context);
     final dynamic duroodCount = Provider.of<DuroodCountVM>(context);
+    final dynamic userDuroodCount = Provider.of<UserDuroodCountVM>(context);
     final firebaseUser = Provider.of<User>(context);
+    String country;
+    String city;
+
+    country = context.read<LocationService>().userAddress.length > 0
+        ? context.read<LocationService>().userAddress[0].country.toString()
+        : '';
+    city = context.read<LocationService>().userAddress.length > 0
+        ? context.read<LocationService>().userAddress[0].locality.toString()
+        : '';
 
     return FutureBuilder(
       future: Future.wait(
         [
-          Functions().getTopCountry(duroodCount),
-          Functions().getTopCity(duroodCount),
-          Functions().getGlobalCount(duroodCount),
-          Functions().getTopFiveCountries(duroodCount),
-          Functions().getTopFiveCities(duroodCount),
-          Functions().getUserMonthlyData(firebaseUser.uid, duroodCount),
+          Functions().fetchDuroodCountFromProvider(context, duroodCount,
+              userDuroodCount, country, city, firebaseUser.uid),
+          // Functions().getCurrentMonthData(context, country, city),
+          // Functions().getUserMonthlyData(context, firebaseUser.uid),
+          // Functions().getUserWeeklyCount(firebaseUser.uid, duroodCount),
+          // Functions().getUserTodayCount(firebaseUser.uid, userDuroodCount),
+          // Functions().getUserYesterdayCount(firebaseUser.uid, duroodCount),
+          // Functions().getPreviousMonthDuroodCountData(context),
         ],
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           // Setting Durood Data
-          context.watch<DuroodCountVM>().setAttributes(
-                topCountry: snapshot.data[0], // Top Country
-                topCity: snapshot.data[1], // Top City
-                globalCount: snapshot.data[2], // Global Count
-                topFiveCountries: snapshot.data[3], // Top Five Countries
-                topFiveCities: snapshot.data[4], // Top Five Cities
-                userMonthlyData: snapshot.data[5], // User Monthly Data
-              );
+          // context.watch<DuroodCountVM>().setAttributes(
+          //       duroodCountData: snapshot.data[0],
+          //       // currentMonthData: snapshot.data[1], // Current Month Data
+          //       userMonthlyData: snapshot.data[1], // User Monthly Data
+          //       // userWeeklyCount: snapshot.data[2], // User Weekly Count
+          //       // userTodayCount: snapshot.data[3], // User Today Count
+          //       // userYesterdayCount: snapshot.data[4], // User Yesterday Count
+          //       prevMonthData: snapshot.data[2], // Previous Month Data
+          //     );
 
-          // print(context.watch<DuroodCountVM>().topCountry.toString());
+          // Functions().getPreviousMonthDuroodCountData(duroodCount);
+
+          // print(context.read<DuroodCountVM>().DuroodCountsData);
 
           return Scaffold(
-            backgroundColor: Colors.teal[900],
+            backgroundColor: Constant.app_primary_contrast_color,
             body: Column(
               children: <Widget>[
                 // Going To Change Tabs Here
@@ -88,15 +104,13 @@ class _HomePageState extends State<HomePage> {
                     },
                     controller: _pageController,
                     children: <Widget>[
-                      Container(
-                        child: Home(),
-                      ),
-                      Container(
-                        child: Report(),
-                      ),
-                      Container(
-                        child: Profile(),
-                      ),
+                      for (int i = 0; i < ScreensRoute.Screens.length; i++)
+                        Container(
+                          child: ScreensRoute.Screens[ScreensRoute.Screens.keys
+                                  .elementAt(i)
+                                  .toString()]
+                              .elementAt(0), // Widgets Of All Screens
+                        ),
                     ],
                   ),
                 ),
@@ -104,56 +118,47 @@ class _HomePageState extends State<HomePage> {
                 // Whole Bottom Tab Bar
                 Padding(
                   padding: EdgeInsets.only(
-                    top: 10.0,
+                    // top: 10.0,
                     bottom: MediaQuery.of(context).padding.bottom,
                   ),
                   child: Container(
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Constant.app_primary_color,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(
+                          Constant.app_bottom_bar_border_radius,
+                        ),
+                        topRight: Radius.circular(
+                          Constant.app_bottom_bar_border_radius,
+                        ),
+                      ),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         // Home Button TAB
-                        Container(
-                          child: TabButton(
-                            index: 0,
-                            title: 'Home',
-                            icon: Icons.home_outlined,
-                            selectedPage: _index,
-                            onPressed: () {
-                              changePage(0);
-                            },
+                        for (int i = 0; i < ScreensRoute.Screens.length; i++)
+                          Container(
+                            child: TabButton(
+                              index: ScreensRoute.Screens[ScreensRoute
+                                      .Screens.keys
+                                      .elementAt(i)
+                                      .toString()]
+                                  .elementAt(1), // Indexes Of All Screens,
+                              title: ScreensRoute.Screens.keys
+                                  .elementAt(i)
+                                  .toString(),
+                              icon: ScreensRoute.Screens[ScreensRoute
+                                      .Screens.keys
+                                      .elementAt(i)
+                                      .toString()]
+                                  .elementAt(2), // Icons Of All Screens,,
+                              selectedPage: _index,
+                              onPressed: () {
+                                changePage(i);
+                              },
+                            ),
                           ),
-                        ),
-
-                        // Spacer(),
-
-                        // Report Button TAB
-                        Container(
-                          child: TabButton(
-                            index: 1,
-                            title: 'Report',
-                            icon: Icons.report_gmailerrorred_outlined,
-                            selectedPage: _index,
-                            onPressed: () {
-                              changePage(1);
-                            },
-                          ),
-                        ),
-
-                        // Spacer(),
-
-                        // Profile Button TAB
-                        Container(
-                          child: TabButton(
-                            index: 2,
-                            title: 'Profile',
-                            icon: Icons.account_circle_outlined,
-                            selectedPage: _index,
-                            onPressed: () {
-                              changePage(2);
-                            },
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -165,26 +170,21 @@ class _HomePageState extends State<HomePage> {
           return Text('${snapshot.error}');
         } else {
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Constant.app_primary_color,
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
                   child: Container(
                     child: CircularProgressIndicator(
-                      color: Colors.teal[900],
+                      color: Constant.app_primary_contrast_color,
                     ),
                   ),
                 ),
+                // ScaffoldMessenger.of(context).showSnackBar(snackBar);
               ],
             ),
           );
-          // return AnimatedContainer(
-          //   duration: Duration(milliseconds: 500),
-          //   child: CountTextConainer(
-          //     text: "Please Wait!",
-          //   ),
-          // );
         }
       },
     );

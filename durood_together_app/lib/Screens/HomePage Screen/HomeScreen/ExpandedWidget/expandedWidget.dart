@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
+import 'package:durood_together_app/Shared/Const/constant.dart';
+import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:vibration/vibration.dart';
@@ -17,78 +19,89 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     // final product = Provider.of<CRUDModel>(context);
     // final duroodCount = Provider.of<DuroodCountVM>(context);
 
-    return IntrinsicHeight(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20.0),
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: 500),
-          child: GestureDetector(
-            onTap: () {
-              this.widget.expandedWidget();
-            },
-            child: Container(
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    // Button Container
-                    IntrinsicHeight(
-                      child: Transform.rotate(
-                        angle: 90 * (pi / 180),
-                        child: Icon(
-                          Icons.double_arrow_rounded,
-                          color: Colors.white,
-                          size: 60.0,
-                        ),
-                      ),
-                    ),
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
+      width: double.infinity,
+      padding: const EdgeInsets.only(top: 20.0),
+      child: GestureDetector(
+        onTap: () {
+          this.widget.expandedWidget();
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            // Button Container
+            IntrinsicHeight(
+              child: Transform.rotate(
+                angle: 90 * (pi / 180),
+                child: Icon(
+                  Icons.double_arrow_rounded,
+                  color: Constant.app_primary_color,
+                  size: Constant.h1,
+                ),
+              ),
+            ),
 
-                    // Rounded Button
-                    Padding(
-                      padding: const EdgeInsets.only(top: 50.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(
-                              side: BorderSide(
-                            color: Colors.white,
-                            width: 2.0,
-                          )),
-                          primary: Colors.white.withOpacity(0.4),
-                        ),
-                        child: Container(
-                          width: 300,
-                          height: 300,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
+            // Rounded Button
+            Padding(
+              padding: EdgeInsets.only(top: screenSize.height * 0.15),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: CircleBorder(
+                      side: BorderSide(
+                    color: Constant.app_primary_color,
+                    width: 5.0,
+                  )),
+                  primary: Constant.app_primary_color.withOpacity(0.5),
+                ),
+                child: Container(
+                  width: screenSize.width < 350 ? 250 : 300,
+                  height: screenSize.width < 350 ? 250 : 300,
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(
+                          side: BorderSide(
+                            color: Constant.app_primary_color,
+                            width: 5.0,
                           ),
+                        ),
+                        primary: Constant.app_primary_color.withOpacity(0.4),
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Center(
                           child: Text(
                             context
                                 .watch<DuroodCountProvider>()
                                 .duroodCount
                                 .toString(),
                             style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.white,
+                              fontSize: Constant.h1,
+                              color: Constant.app_primary_color,
                             ),
                           ),
                         ),
-                        onPressed: () {
-                          Vibration.vibrate(duration: 35);
-                          context.read<DuroodCountProvider>().addDuroodCount();
-                        },
                       ),
-                    )
-                  ],
+                    ),
+                  ),
                 ),
+                onPressed: () {
+                  Vibration.vibrate(
+                      duration: Functions().setVibration(
+                          context.read<DuroodCountProvider>().duroodCount));
+                  context.read<DuroodCountProvider>().addDuroodCount();
+                },
               ),
-            ),
-          ),
+            )
+          ],
         ),
       ),
     );

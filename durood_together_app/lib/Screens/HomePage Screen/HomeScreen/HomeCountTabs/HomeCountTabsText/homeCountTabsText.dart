@@ -1,8 +1,9 @@
+import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 
 class HomeCountTabsText extends StatelessWidget {
   final String text;
-  final int count;
+  final String count;
 
   const HomeCountTabsText({Key key, this.text, this.count}) : super(key: key);
 
@@ -10,20 +11,20 @@ class HomeCountTabsText extends StatelessWidget {
   Widget build(BuildContext context) {
     if (this.count != null) {
       return Text(
-        this.count.toString(),
+        this.count,
         style: TextStyle(
-          color: Colors.white,
-          fontSize: 25.0,
-          fontWeight: FontWeight.w400,
+          color: Constant.app_primary_color,
+          fontSize: Constant.h4,
+          fontWeight: Constant.app_normal_font_weight,
         ),
       );
     } else if (this.text != null) {
       return Text(
         this.text,
         style: TextStyle(
-          color: Colors.white,
-          fontSize: 15.0,
-          fontWeight: FontWeight.w400,
+          color: Constant.app_primary_color,
+          fontSize: Constant.h6,
+          fontWeight: Constant.app_normal_font_weight,
         ),
       );
     } else {
