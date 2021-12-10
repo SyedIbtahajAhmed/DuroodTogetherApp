@@ -19,7 +19,14 @@ import 'package:provider/src/provider.dart';
 
 class Functions {
   // Fetching Durood Count One Time
-  Future<Map<String, dynamic>> fetchDuroodCountFromProvider(dataDict) async {
+  Future<Map<String, dynamic>> fetchDuroodCountFromProvider(
+    BuildContext context,
+    dataDict,
+    userDataDict,
+    String country,
+    String city,
+    userId,
+  ) async {
     List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
     Map<String, dynamic> returnedDict = {};
 
@@ -35,16 +42,38 @@ class Functions {
       };
     });
 
-    // print(context.read<DuroodCountVM>().DuroodCounts);
+    // Setting Data From The Durood Counts Got
 
+    // Current Month Data
+    Map<String, dynamic> currentMonthDataGot =
+        await getCurrentMonthData(returnedDict, country, city);
+    // Previous Month Data
+    Map<String, dynamic> previousMonthDataGot =
+        await getPreviousMonthDuroodCountData(returnedDict);
+    // User Monthly Data
+    Map<String, dynamic> userMonthlyDataGot =
+        await getUserMonthlyData(returnedDict, userId);
+
+    // User Durood Count Provider Data
+    // int userTodayCountGot = await getUserTodayCount(userDataDict, userId);
+
+    // Setting The Attributes
+    context.read<DuroodCountVM>().setAttributes(
+          currentMonthData: currentMonthDataGot, // Current Month Data
+          prevMonthData: previousMonthDataGot, // Previous Month Data
+          userMonthlyData: userMonthlyDataGot, // User Monthly Data Got
+          // userTodayCount: userTodayCountGot, // User Today Count Got
+        );
+
+    // print(context.read<DuroodCountVM>().DuroodCounts);
     return returnedDict;
   }
 
   // Get Top Country Count With Name
   Future<Map<String, dynamic>> getCurrentMonthData(
-      BuildContext context, String country, String city) async {
-    Map<String, dynamic> duroodCount =
-        context.watch<DuroodCountVM>().DuroodCountsData;
+      Map<String, dynamic> duroodCount, String country, String city) async {
+    // Map<String, dynamic> duroodCount =
+    //     context.watch<DuroodCountVM>().DuroodCountsData;
     Map<String, dynamic> returnedDict = {};
     Map<String, dynamic> TopCountry = {};
     Map<String, dynamic> TopFiveCountries = {};
@@ -261,10 +290,10 @@ class Functions {
 
   // Get User Monthly Data Dictionary
   Future<Map<String, dynamic>> getUserMonthlyData(
-      BuildContext context, userId) async {
+      Map<String, dynamic> duroodCount, userId) async {
     // List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
-    Map<String, dynamic> duroodCount =
-        context.watch<DuroodCountVM>().DuroodCountsData;
+    // Map<String, dynamic> duroodCount =
+    //     context.watch<DuroodCountVM>().DuroodCountsData;
     Map<String, dynamic> returnedValue = {};
 
     if (duroodCount != null && duroodCount.length != 0) {
@@ -325,7 +354,7 @@ class Functions {
   // }
 
   // Get Today Count
-  Future<int> getUserTodayCount(userId, dataDict) async {
+  Future<int> getUserTodayCount(dataDict, userId) async {
     // print(userId);
     List<UserDuroodCountModel> userDuroodCount =
         await dataDict.fetchUserDuroodCounts();
@@ -380,10 +409,10 @@ class Functions {
 
   // Get Previous Month Data
   Future<Map<String, dynamic>> getPreviousMonthDuroodCountData(
-      BuildContext context) async {
+      Map<String, dynamic> duroodCount) async {
     // List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
-    Map<String, dynamic> duroodCount =
-        context.watch<DuroodCountVM>().DuroodCountsData;
+    // Map<String, dynamic> duroodCount =
+    //     context.watch<DuroodCountVM>().DuroodCountsData;
     Map<String, dynamic> returnedValue = {};
 
     if (duroodCount != null && duroodCount.length != 0) {

@@ -130,7 +130,7 @@ class ReportInfoContainer extends StatelessWidget {
 
           // Total Count Widget
           MonthCountWidget(
-            text: Functions().getCurrentMonth() + ' Global Count',
+            text: Functions().getPreviousMonth() + ' Global Count',
             totalCount: context.watch<DuroodCountVM>().prevGlobalCount.isNaN ||
                     context.watch<DuroodCountVM>().prevGlobalCount == 0
                 ? 0.toString()

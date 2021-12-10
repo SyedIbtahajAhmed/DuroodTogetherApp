@@ -63,27 +63,28 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
       future: Future.wait(
         [
-          Functions().fetchDuroodCountFromProvider(duroodCount),
-          Functions().getCurrentMonthData(context, country, city),
-          Functions().getUserMonthlyData(context, firebaseUser.uid),
+          Functions().fetchDuroodCountFromProvider(context, duroodCount,
+              userDuroodCount, country, city, firebaseUser.uid),
+          // Functions().getCurrentMonthData(context, country, city),
+          // Functions().getUserMonthlyData(context, firebaseUser.uid),
           // Functions().getUserWeeklyCount(firebaseUser.uid, duroodCount),
-          Functions().getUserTodayCount(firebaseUser.uid, userDuroodCount),
+          // Functions().getUserTodayCount(firebaseUser.uid, userDuroodCount),
           // Functions().getUserYesterdayCount(firebaseUser.uid, duroodCount),
-          Functions().getPreviousMonthDuroodCountData(context),
+          // Functions().getPreviousMonthDuroodCountData(context),
         ],
       ),
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           // Setting Durood Data
-          context.watch<DuroodCountVM>().setAttributes(
-                duroodCountData: snapshot.data[0],
-                currentMonthData: snapshot.data[1], // Current Month Data
-                userMonthlyData: snapshot.data[2], // User Monthly Data
-                // userWeeklyCount: snapshot.data[2], // User Weekly Count
-                userTodayCount: snapshot.data[3], // User Today Count
-                // userYesterdayCount: snapshot.data[4], // User Yesterday Count
-                prevMonthData: snapshot.data[4], // Previous Month Data
-              );
+          // context.watch<DuroodCountVM>().setAttributes(
+          //       duroodCountData: snapshot.data[0],
+          //       // currentMonthData: snapshot.data[1], // Current Month Data
+          //       userMonthlyData: snapshot.data[1], // User Monthly Data
+          //       // userWeeklyCount: snapshot.data[2], // User Weekly Count
+          //       // userTodayCount: snapshot.data[3], // User Today Count
+          //       // userYesterdayCount: snapshot.data[4], // User Yesterday Count
+          //       prevMonthData: snapshot.data[2], // Previous Month Data
+          //     );
 
           // Functions().getPreviousMonthDuroodCountData(duroodCount);
 
