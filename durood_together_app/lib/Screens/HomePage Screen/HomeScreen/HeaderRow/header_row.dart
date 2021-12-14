@@ -23,8 +23,38 @@ class HeaderRow extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 15.0, left: 10.0, right: 10.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+            // Clear Button
+            SizedBox(
+              height: this.opacity == 0.0 ? 40 : 0,
+              child: ElevatedButton(
+                onPressed: () async {
+                  context.read<DuroodCountProvider>().resetDuroodCount();
+                },
+                child: Text(
+                  'Clear Count',
+                  style: TextStyle(
+                    color: Constant.app_primary_contrast_color,
+                    fontSize: Constant.h4,
+                    fontWeight: Constant.app_font_weight,
+                  ),
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Constant.app_primary_color,
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        Constant.app_button_border_radius,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
             // Save Button
             SizedBox(
               height: this.opacity == 0.0 ? 40 : 0,

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
+import 'package:durood_together_app/Shared/Components/CircularPercentageIndicator/circular-percentage-indicator.dart';
 import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:flutter/material.dart';
@@ -50,50 +51,32 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
             // Rounded Button
             Padding(
               padding: EdgeInsets.only(top: screenSize.height * 0.15),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(
-                      side: BorderSide(
-                    color: Constant.app_primary_color,
-                    width: 5.0,
-                  )),
-                  primary: Constant.app_primary_color.withOpacity(0.5),
+              child: GestureDetector(
+                // style: ElevatedButton.styleFrom(
+                //   shape: CircleBorder(
+                //       side: BorderSide(
+                //     color: Constant.app_primary_color,
+                //     width: 5.0,
+                //   )),
+                //   primary: Constant.app_primary_color.withOpacity(0.5),
+                // ),
+                child: CustomCircularPercentageIndicator(
+                  radiusData: screenSize.width * 0.9,
+                  percentageData:
+                      context.watch<DuroodCountProvider>().duroodCount /
+                          Functions().percentageDivider(
+                              context.watch<DuroodCountProvider>().duroodCount),
+                  insideText: context
+                      .read<DuroodCountProvider>()
+                      .duroodCount
+                      .toString(),
+                  outsideText: '',
+                  lineWidth: 30.0,
+                  shouldAnimate: false,
+                  progressColor: Constant.app_primary_color,
+                  backgroundColor: Constant.app_primary_contrast_color_light,
                 ),
-                child: Container(
-                  width: screenSize.width < 350 ? 250 : 300,
-                  height: screenSize.width < 350 ? 250 : 300,
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            color: Constant.app_primary_color,
-                            width: 5.0,
-                          ),
-                        ),
-                        primary: Constant.app_primary_color.withOpacity(0.4),
-                      ),
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Center(
-                          child: Text(
-                            context
-                                .watch<DuroodCountProvider>()
-                                .duroodCount
-                                .toString(),
-                            style: TextStyle(
-                              fontSize: Constant.h1,
-                              color: Constant.app_primary_color,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                onPressed: () {
+                onTap: () {
                   Vibration.vibrate(
                       duration: Functions().setVibration(
                           context.read<DuroodCountProvider>().duroodCount));
@@ -107,3 +90,19 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
     );
   }
 }
+
+// Container(
+// alignment: Alignment.center,
+// child: Center(
+// child: Text(
+// context
+//     .watch<DuroodCountProvider>()
+// .duroodCount
+//     .toString(),
+// style: TextStyle(
+// fontSize: Constant.h1,
+// color: Constant.app_primary_color,
+// ),
+// ),
+// ),
+// ),

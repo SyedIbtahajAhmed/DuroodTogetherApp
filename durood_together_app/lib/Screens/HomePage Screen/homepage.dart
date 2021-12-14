@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _index = 0;
+  int _index = 2;
   PageController _pageController;
 
   void changePage(int page) {
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _pageController = PageController();
+    _pageController = PageController(initialPage: _index);
     super.initState();
   }
 

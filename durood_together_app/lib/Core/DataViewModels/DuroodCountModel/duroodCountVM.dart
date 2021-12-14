@@ -58,7 +58,7 @@ class DuroodCountVM extends ChangeNotifier {
 
   // Setting All The Data
   setAttributes({
-    Map<String, dynamic> duroodCountData,
+    // Map<String, dynamic> duroodCountData,
     Map<String, dynamic> currentMonthData,
     Map<String, dynamic> userMonthlyData,
     int userWeeklyCount,
@@ -66,10 +66,10 @@ class DuroodCountVM extends ChangeNotifier {
     int userYesterdayCount,
     Map<String, dynamic> prevMonthData,
   }) {
-    this._DuroodCountsData = duroodCountData;
+    // this._DuroodCountsData = duroodCountData;
 
     // print(currentMonthData);
-    // if (currentMonthData.isNotEmpty) {
+    if (currentMonthData.isNotEmpty) {
     this._topCountry[currentMonthData.keys.elementAt(0).toString()] =
         currentMonthData.values.elementAt(0); // Current Month Top Country
     this._topFiveCountries =
@@ -83,7 +83,7 @@ class DuroodCountVM extends ChangeNotifier {
     this._myCountryCount =
         currentMonthData.values.elementAt(5); // My Country Count
     this._myCityCount = currentMonthData.values.elementAt(6); // My City Count
-    // }
+    }
 
     this._userMonthlyData = userMonthlyData;
     this._userTodayCount = userTodayCount;

@@ -26,7 +26,13 @@ class TotalCountWidget extends StatelessWidget {
     SplayTreeMap<dynamic, dynamic> sorted;
 
     // Sorting Dictionary
-    sorted = Functions().SortDictionary(this.data);
+    if (this.tableHeader != null && this.tableHeader != '') {
+      sorted = Functions().SortDictionary(this.data);
+    } else {
+      sorted = Functions().SortUserMonthlyDataDictionary(this.data);
+    }
+
+    // print(sorted);
 
     return IntrinsicHeight(
       child: Container(
@@ -91,8 +97,7 @@ class TotalCountWidget extends StatelessWidget {
                             child: Text(
                               // data.keys.elementAt(item),
                               data.keys.length > 0
-                                  ? Functions().getUserDuroodMonthDate(
-                                      data.keys.elementAt(item).toString())
+                                  ? sorted.keys.elementAt(item).toString()
                                   : "",
                               style: TextStyle(
                                 color: Constant.app_primary_color,

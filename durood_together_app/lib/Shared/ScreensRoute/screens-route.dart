@@ -1,4 +1,5 @@
 import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/home.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/LeaderBoardScreen/leader-board-screen.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/ProfileScreen/profile.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/ReportScreen/report.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/StatsScreen/stats-screen.dart';
@@ -7,9 +8,10 @@ import 'package:flutter/material.dart';
 class ScreensRoute {
   static final Map<String, dynamic> Screens = {
     // Screens With Indexes and Icons
-    'Home': [Home(), 0, Icons.home_outlined],
+    'Stats': [StatisticsScreen(), 0, Icons.backup_table],
     'Report': [Report(), 1, Icons.report_gmailerrorred_outlined],
-    'Stats': [StatisticsScreen(), 2, Icons.info_outlined],
-    'Profile': [Profile(), 3, Icons.account_circle_outlined],
+    'Home': [Home(), 2, Icons.home_outlined],
+    'Boards': [LeaderBoardScreen(), 3, Icons.leaderboard],
+    'Profile': [Profile(), 4, Icons.account_circle_outlined],
   };
 }

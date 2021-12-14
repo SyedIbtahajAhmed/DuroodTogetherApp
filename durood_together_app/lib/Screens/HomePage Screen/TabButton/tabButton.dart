@@ -43,7 +43,7 @@ class _TabButtonState extends State<TabButton> {
                 ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
           child: Center(
             child: Column(
               children: <Widget>[

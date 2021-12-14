@@ -1,5 +1,4 @@
 import 'package:durood_together_app/Authentication/Authentication.dart';
-import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/SnackBar/custom-snackbar.dart';
 import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
@@ -39,36 +38,36 @@ class _GoogleSigninButtonState extends State<GoogleSigninButton> {
               city: city,
             );
 
-        print('Google Result');
-        print(googleResult);
+        // print('Google Result');
+        // print(googleResult);
 
-        if (googleResult == 'Signed in Successful') {
-          final snackBar = SnackBar(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 30.0,
-            ),
-            backgroundColor:
-                Constant.app_primary_contrast_color.withOpacity(0.7),
-            content: CustomSnackbar(
-              text: 'Signed In Successful',
-            ),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        } else {
-          final snackBar = SnackBar(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 30.0,
-            ),
-            backgroundColor:
-                Constant.app_primary_contrast_color.withOpacity(0.7),
-            content: CustomSnackbar(
-              text: 'Signed In Unsuccessful',
-            ),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
+        // if (googleResult == 'Signed in Successful') {
+        //   final snackBar = SnackBar(
+        //     padding: EdgeInsets.symmetric(
+        //       horizontal: 10.0,
+        //       vertical: 30.0,
+        //     ),
+        //     backgroundColor:
+        //         Constant.app_primary_contrast_color.withOpacity(0.7),
+        //     content: CustomSnackbar(
+        //       text: 'Signed In Successful',
+        //     ),
+        //   );
+        //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        // } else {
+        //   final snackBar = SnackBar(
+        //     padding: EdgeInsets.symmetric(
+        //       horizontal: 10.0,
+        //       vertical: 30.0,
+        //     ),
+        //     backgroundColor:
+        //         Constant.app_primary_contrast_color.withOpacity(0.7),
+        //     content: CustomSnackbar(
+        //       text: 'Signed In Unsuccessful',
+        //     ),
+        //   );
+        //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        // }
       },
       child: Container(
         child: Row(

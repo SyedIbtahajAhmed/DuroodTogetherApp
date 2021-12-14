@@ -31,6 +31,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     return SingleChildScrollView(
       child: Center(
         child: Container(
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -39,53 +40,97 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                 opacity: 1.0,
               ),
 
-              // Calendar Heading
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  'Calendar Timeline',
-                  style: TextStyle(
-                    color: Constant.app_primary_color,
-                    fontSize: Constant.h2,
-                    fontWeight: Constant.app_font_weight,
-                    letterSpacing: Constant.app_normal_letter_spacing,
+              Container(
+                width: screenSize.width < 350 ? 330 : 380,
+                decoration: BoxDecoration(
+                  // color: Constant.app_primary_color,
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [
+                      0.3,
+                      1.0,
+                    ],
+                    colors: [
+                      Constant.app_primary_color.withAlpha(200),
+                      Constant.app_primary_contrast_color,
+                    ],
                   ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(Constant.app_cards_border_radius),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color:
+                          Constant.app_primary_contrast_color.withOpacity(0.1),
+                      spreadRadius: 4,
+                      blurRadius: 5,
+                      offset: Offset(3, 5), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    // Calendar Heading
+                    Padding(
+                      padding:
+                          const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+                      child: Text(
+                        'Calendar Timeline',
+                        style: TextStyle(
+                          color: Constant.app_primary_contrast_color,
+                          fontSize: Constant.h2,
+                          fontWeight: Constant.app_font_weight,
+                          letterSpacing: Constant.app_normal_letter_spacing,
+                        ),
+                      ),
+                    ),
+
+                    // Calendar
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 10.0,
+                        left: 20.0,
+                        right: 20.0,
+                      ),
+                      child: CalendarTimeline(
+                        showYears: true,
+                        initialDate: _selectedDate,
+                        firstDate: DateTime.now().subtract(
+                          Duration(
+                            days: 1460,
+                          ),
+                        ),
+                        lastDate: DateTime.now().add(
+                          Duration(
+                            days: 1825,
+                          ),
+                        ),
+                        onDateSelected: (date) {
+                          setState(() {
+                            _selectedDate = date;
+                          });
+                        },
+                        leftMargin: screenSize.width / 2 - 30.0,
+                        monthColor: Constant.app_primary_contrast_color,
+                        dayColor: Constant.app_primary_contrast_color
+                            .withOpacity(0.6),
+                        dayNameColor:
+                            Constant.app_primary_color.withOpacity(0.8),
+                        activeDayColor:
+                            Constant.app_primary_contrast_color_light,
+                        activeBackgroundDayColor:
+                            Constant.app_primary_contrast_color,
+                        dotsColor: Constant.app_primary_color,
+                        selectableDayPredicate: (date) => date.day != 23,
+                        locale: 'en',
+                      ),
+                    ),
+                  ],
                 ),
               ),
 
-              // Calendar
-              CalendarTimeline(
-                showYears: true,
-                initialDate: _selectedDate,
-                firstDate: DateTime.now().subtract(
-                  Duration(
-                    days: 1460,
-                  ),
-                ),
-                lastDate: DateTime.now().add(
-                  Duration(
-                    days: 1825,
-                  ),
-                ),
-                onDateSelected: (date) {
-                  setState(() {
-                    _selectedDate = date;
-                  });
-                },
-                leftMargin: screenSize.width / 2 - 30.0,
-                monthColor: Constant.app_primary_color,
-                dayColor: Constant.app_primary_contrast_color_light,
-                dayNameColor:
-                    Constant.app_primary_contrast_color.withOpacity(0.8),
-                activeDayColor: Constant.app_primary_color,
-                activeBackgroundDayColor:
-                    Constant.app_primary_contrast_color_light,
-                dotsColor: Constant.app_primary_contrast_color,
-                selectableDayPredicate: (date) => date.day != 23,
-                locale: 'en',
-              ),
-
-              SizedBox(height: 20),
+              SizedBox(height: 10),
 
               // Resetting Button
               AnimatedContainer(
@@ -128,75 +173,69 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                 ),
               ),
 
-              SizedBox(height: 50.0),
-
-              Center(
-                child: Text(
-                  'Selected date is $_selectedDate',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
+              // SizedBox(height: 50.0),
+              //
+              // Center(
+              //   child: Text(
+              //     'Selected date is $_selectedDate',
+              //     style: TextStyle(color: Colors.white),
+              //   ),
+              // ),
 
               // Text
-              Padding(
-                padding: const EdgeInsets.only(top: 50.0),
-                child: Container(
-                  child: Text(
-                    'Statistics',
-                    style: TextStyle(
-                      color: Constant.app_primary_color,
-                      fontSize: Constant.h1,
-                      fontWeight: Constant.app_font_weight,
-                      letterSpacing: Constant.app_max_letter_spacing,
-                    ),
+              Container(
+                child: Text(
+                  'Statistics',
+                  style: TextStyle(
+                    color: Constant.app_primary_color,
+                    fontSize: Constant.h1,
+                    fontWeight: Constant.app_font_weight,
+                    letterSpacing: Constant.app_max_letter_spacing,
                   ),
                 ),
               ),
 
-              // Progress Indicators
+              Center(
+                child: Container(
+                  child: // First Indicator
+                      CustomCircularPercentageIndicator(
+                    radiusData: screenSize.width / 2 * 1.5,
+                    percentageData: 0.5,
+                    insideText: '0.5%',
+                    outsideText: 'My Durood Count',
+                    lineWidth: 20.0,
+                    shouldAnimate: true,
+                    progressColor: Constant.app_primary_contrast_color_light,
+                    backgroundColor: Constant.app_primary_color,
+                  ),
+                ),
+              ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  //1st Column
-                  Column(
-                    children: [
-                      // First Indicator
-                      CustomCircularPercentageIndicator(
-                        radiusData: 150.0,
-                        percentageData: 0.5,
-                        insideText: '0.5%',
-                        outsideText: 'My Durood Count',
-                      ),
-
-                      // Second Indicator
-                      CustomCircularPercentageIndicator(
-                        radiusData: 150.0,
-                        percentageData: 0.4,
-                        insideText: '0.4%',
-                        outsideText: 'City Count',
-                      ),
-                    ],
+                  // Second Indicator
+                  CustomCircularPercentageIndicator(
+                    radiusData: 150.0,
+                    percentageData: 0.4,
+                    insideText: '0.4%',
+                    outsideText: 'City Count',
+                    lineWidth: 20.0,
+                    shouldAnimate: true,
+                    progressColor: Constant.app_primary_contrast_color_light,
+                    backgroundColor: Constant.app_primary_color,
                   ),
 
-                  //2st Column
-                  Column(
-                    children: [
-                      // First Indicator
-                      CustomCircularPercentageIndicator(
-                        radiusData: 150.0,
-                        percentageData: 0.9,
-                        insideText: '0.9%',
-                        outsideText: 'My Monthly Count',
-                      ),
-
-                      // Second Indicator
-                      CustomCircularPercentageIndicator(
-                        radiusData: 150.0,
-                        percentageData: 0.7,
-                        insideText: '0.7%',
-                        outsideText: 'Country Count',
-                      ),
-                    ],
+                  // Fourth Indicator
+                  CustomCircularPercentageIndicator(
+                    radiusData: 150.0,
+                    percentageData: 0.7,
+                    insideText: '0.7%',
+                    outsideText: 'Country Count',
+                    lineWidth: 20.0,
+                    shouldAnimate: true,
+                    progressColor: Constant.app_primary_contrast_color_light,
+                    backgroundColor: Constant.app_primary_color,
                   ),
                 ],
               ),

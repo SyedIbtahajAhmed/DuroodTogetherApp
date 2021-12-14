@@ -36,6 +36,7 @@ class Constant {
   static final double app_bottom_bar_border_radius = 45.0;
   static final double app_text_fields_border_radius = 20.0;
   static final double app_cards_border_radius = 20.0;
+  static final double app_headers_border_radius = 50.0;
 
   // Icon Sizes
   static final double app_bottom_bar_icon_size = 25.0;

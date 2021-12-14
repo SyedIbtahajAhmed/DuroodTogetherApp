@@ -30,50 +30,55 @@ class Profile extends StatelessWidget {
                   child: Column(
                     children: [
                       ProfileBody(),
-                      IntrinsicHeight(
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 50.0),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                context.read<DuroodCountVM>().resetAttributes();
-                                context
-                                    .read<DuroodCountProvider>()
-                                    .resetDuroodCount();
-                                context.read<Authentication>().signOut();
-                              },
-                              child: Text(
-                                'SIGNOUT',
-                                style: TextStyle(
-                                  fontSize: Constant.app_button_font_size,
-                                  fontWeight: Constant.app_font_weight,
-                                  color: Constant.app_primary_contrast_color,
-                                  letterSpacing:
-                                      Constant.app_normal_letter_spacing,
-                                ),
+                      TweenAnimationBuilder<double>(
+                        tween: Tween(begin: 1.0, end: 0.0),
+                        duration: Duration(milliseconds: 1500),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 50.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              context.read<DuroodCountVM>().resetAttributes();
+                              context
+                                  .read<DuroodCountProvider>()
+                                  .resetDuroodCount();
+                              context.read<Authentication>().signOut();
+                            },
+                            child: Text(
+                              'SIGNOUT',
+                              style: TextStyle(
+                                fontSize: Constant.app_button_font_size,
+                                fontWeight: Constant.app_font_weight,
+                                color: Constant.app_primary_contrast_color,
+                                letterSpacing:
+                                    Constant.app_normal_letter_spacing,
                               ),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Constant.app_primary_color),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                    Constant.app_button_border_radius,
-                                  )),
-                                ),
-                                minimumSize: MaterialStateProperty.all<Size>(
-                                  Size(Constant.app_button_min_width,
-                                      Constant.app_button_height),
-                                ),
-                                maximumSize: MaterialStateProperty.all<Size>(
-                                  Size(Constant.app_button_max_width,
-                                      Constant.app_button_height),
-                                ),
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Constant.app_primary_color),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                  Constant.app_button_border_radius,
+                                )),
+                              ),
+                              minimumSize: MaterialStateProperty.all<Size>(
+                                Size(Constant.app_button_min_width,
+                                    Constant.app_button_height),
+                              ),
+                              maximumSize: MaterialStateProperty.all<Size>(
+                                Size(Constant.app_button_max_width,
+                                    Constant.app_button_height),
                               ),
                             ),
                           ),
                         ),
+                        builder: (context, value, Widget child) {
+                          return Transform.translate(
+                            offset: Offset(0.0, 50.0 * value),
+                            child: child,
+                          );
+                        },
                       ),
                     ],
                   ),

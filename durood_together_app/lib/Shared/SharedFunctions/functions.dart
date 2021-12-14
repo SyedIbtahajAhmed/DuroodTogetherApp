@@ -299,18 +299,26 @@ class Functions {
     if (duroodCount != null && duroodCount.length != 0) {
       // Iterating dataDict
       duroodCount.keys.forEach((durood) {
-        duroodCount[durood]['UserMonthlyData'].keys.forEach((key) {
-          if (key == userId) {
-            duroodCount[durood]['UserMonthlyData'][key].forEach((key, value) {
-              if (key.toString().contains(getCurrentYear().toString())) {
-                // monthlyCount += value;
-                // returnedValue[durood.Date.toString()] = value;
-                returnedValue[key] = value;
-              }
-            });
-          }
-        });
-        ;
+        if (durood == getDateString()) {
+          duroodCount[durood]['UserMonthlyData'].keys.forEach((key) {
+            if (key == userId) {
+              duroodCount[durood]['UserMonthlyData'][key]
+                  .keys
+                  .forEach((innerKey) {
+                // print(innerKey);
+                returnedValue[innerKey] =
+                    duroodCount[durood]['UserMonthlyData'][key][innerKey];
+                // if (key.toString().contains(getCurrentYear().toString())) {
+                //   // monthlyCount += value;
+                //   // returnedValue[durood.Date.toString()] = value;
+                //   // returnedValue[key] = value;
+                //   // print('fetched');
+                // }
+              });
+            }
+          });
+          ;
+        }
       });
       // returnedValue[getDateString()] = monthlyCount;
 
@@ -480,14 +488,22 @@ class Functions {
     DateTime now = new DateTime.now();
     // Extracting Month And Year
     int month = now.month;
-    month = month - 1;
-    String year = now.year.toString();
+    String yearString = "";
+    if (month == 1) {
+      month = 12;
+      int year = now.year - 1;
+      yearString = year.toString();
+    } else {
+      month = month - 1;
+      yearString = now.year.toString();
+    }
+
     // Declaring Month String Variable
     String monthString = "";
     // Getting Month String
     monthString = Constant().month[month - 1];
     // Formatting The Date String
-    String formattedDate = monthString + "_" + year;
+    String formattedDate = monthString + "_" + yearString;
     // print(formattedDate);
     return formattedDate;
   }
@@ -580,37 +596,60 @@ class Functions {
   }
 
   // User Durood Count Date Maker
-  String getUserDuroodMonthDate(date) {
-    // Getting Year From The String
-    String slicedString = date.replaceAll(new RegExp(r'_'), '');
-
-    // print(slicedString);
-
-    String numberString = date.replaceAll(new RegExp(r'^_|[^0-9]'), '');
-    // print(numberString);
-
-    String finalString;
-
-    int index = 0;
-    Constant().month.forEach((element) {
-      // print(element);
-      if (date.contains(element)) {
-        // print(Constant().month[index]);
-        finalString = Constant().months[index] + ' ' + numberString;
-        // print(finalString);
-      } else {
-        index += 1;
-      }
-    });
-    // print(finalString);
-    return finalString;
-  }
+  // String getUserDuroodMonthDate(date) {
+  //   // Getting Year From The String
+  //   String slicedString = date.replaceAll(new RegExp(r'_'), '');
+  //
+  //   // print(slicedString);
+  //
+  //   String numberString = date.replaceAll(new RegExp(r'^_|[^0-9]'), '');
+  //   // print(numberString);
+  //
+  //   String finalString;
+  //
+  //   int index = 0;
+  //   Constant().month.forEach((element) {
+  //     // print(element);
+  //     if (date.contains(element)) {
+  //       // print(Constant().month[index]);
+  //       finalString = Constant().months[index] + ' ' + numberString;
+  //       // print(finalString);
+  //     } else {
+  //       index += 1;
+  //     }
+  //   });
+  //   // print(finalString);
+  //   return finalString;
+  // }
 
   // Dictionary Sorting
   SplayTreeMap<dynamic, dynamic> SortDictionary(dictionary) {
     final sorted = SplayTreeMap.from(dictionary,
         (key2, key1) => dictionary[key1].compareTo(dictionary[key2]));
     return sorted;
+  }
+
+  // Dictionary Sorting
+  SplayTreeMap<dynamic, dynamic> SortUserMonthlyDataDictionary(dictionary) {
+    int elementCount = 5; // Elements To Get
+    Map<String, dynamic> slicedDictionary = {};
+
+    if (dictionary.keys.length > elementCount) {
+      for (int i = -1; i >= -elementCount; i--) {
+        slicedDictionary[dictionary.keys.elementat(i).toString()] =
+            dictionary.values.elementat(i).toString();
+      }
+
+      // Sotring Whole Dictionary
+      final sorted = SplayTreeMap.from(dictionary,
+          (key2, key1) => dictionary[key1].compareTo(dictionary[key2]));
+
+      return sorted;
+    } else {
+      final sorted = SplayTreeMap.from(dictionary,
+          (key2, key1) => dictionary[key1].compareTo(dictionary[key2]));
+      return sorted;
+    }
   }
 
   // Durood Count Uploading Function
@@ -747,5 +786,15 @@ class Functions {
         );
       },
     );
+  }
+
+  // Percentage Divider Function
+  int percentageDivider(int duroodCount) {
+    // Calculating Percentage Based On Durood Count
+    if (duroodCount <= 100) {
+      return 100;
+    } else {
+      return duroodCount + 100;
+    }
   }
 }

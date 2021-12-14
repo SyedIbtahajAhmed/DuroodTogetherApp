@@ -1,8 +1,8 @@
 import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class CustomCircularPercentageIndicator extends StatelessWidget {
+class PositionsWidget extends StatelessWidget {
   final double radiusData;
   final double percentageData;
   final String insideText;
@@ -11,7 +11,7 @@ class CustomCircularPercentageIndicator extends StatelessWidget {
   final bool shouldAnimate;
   final Color progressColor;
   final Color backgroundColor;
-  const CustomCircularPercentageIndicator({
+  const PositionsWidget({
     Key key,
     this.radiusData,
     this.percentageData,
