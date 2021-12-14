@@ -27,7 +27,6 @@ class PositionsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        vertical: 10.0,
         horizontal: 10.0,
       ),
       child: CircularPercentIndicator(
@@ -45,17 +44,17 @@ class PositionsWidget extends StatelessWidget {
             letterSpacing: Constant.app_normal_letter_spacing,
           ),
         ),
-        footer: Padding(
-          padding: const EdgeInsets.only(top: 10.0),
-          child: new Text(
-            this.outsideText != null ? this.outsideText : '',
-            style: TextStyle(
-              color: Constant.app_primary_color,
-              fontSize: Constant.h4,
-              fontWeight: Constant.app_font_weight,
-            ),
-          ),
-        ),
+        // footer: Padding(
+        //   padding: const EdgeInsets.only(top: 10.0),
+        //   child: new Text(
+        //     this.outsideText != null ? this.outsideText : '',
+        //     style: TextStyle(
+        //       color: Constant.app_primary_color,
+        //       fontSize: Constant.h4,
+        //       fontWeight: Constant.app_font_weight,
+        //     ),
+        //   ),
+        // ),
         progressColor: this.progressColor,
         backgroundColor: this.backgroundColor.withAlpha(200),
         circularStrokeCap: CircularStrokeCap.round,
