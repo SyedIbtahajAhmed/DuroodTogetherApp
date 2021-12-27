@@ -100,6 +100,7 @@ class _LeaderBoardBodyChildState extends State<LeaderBoardBodyChild> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5.0),
               child: LeaderBoardRowEntry(
+                name: 'Syed Ibtahaj',
                 position: i,
               ),
             ),

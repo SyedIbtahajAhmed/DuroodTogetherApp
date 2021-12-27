@@ -17,9 +17,17 @@ class Report extends StatelessWidget {
         child: Column(
           children: <Widget>[
             // Report Header Line
-            ReportHeader(
-              opacity: 1.0,
-            ),
+            TweenAnimationBuilder(
+                tween: Tween(begin: 0.0, end: 1.0),
+                duration: Duration(milliseconds: 1000),
+                builder: (context, value, _) {
+                  return Transform.translate(
+                    offset: Offset(0.0, 10.0 * value),
+                    child: ReportHeader(
+                      opacity: 1.0,
+                    ),
+                  );
+                }),
 
             // Report Count Total
             ReportScreenInfoContainer(),

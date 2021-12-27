@@ -43,6 +43,7 @@ dependencies:
   flutter_launcher_icons: ^0.9.2
   calendar_timeline: ^1.0.4
   percent_indicator: ^3.4.0
+  flutter_facebook_auth: ^3.5.7
 
 dev_dependencies:
   flutter_test:
@@ -69,7 +70,10 @@ flutter:
   assets:
     - images/ReportCount_Pic.jpg
     - images/google_logo.png
+    - images/facebook_logo.png
     - images/logo.png
+    - images/islahenafs_logo.png
+    - images/durrod.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

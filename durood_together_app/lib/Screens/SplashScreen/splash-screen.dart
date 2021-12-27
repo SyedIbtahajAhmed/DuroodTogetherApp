@@ -31,128 +31,158 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Constant.app_primary_color,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-// Image Container
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(top: screenSize.height / 2 * 0.35),
-              child: Container(
-                width: 250,
-                height: 250,
-                child: Image(
-                  image: AssetImage('images/logo.png'),
-                  fit: BoxFit.fill,
+      // backgroundColor: Constant.app_primary_contrast_color,
+      body: Container(
+        // color: Constant.app_primary_contrast_color,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            stops: [
+              0.2,
+              1.0,
+            ],
+            colors: [
+              Constant.app_primary_contrast_color,
+              Constant.app_primary_contrast_color_light,
+            ],
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Image Container
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(top: screenSize.height / 2 * 0.35),
+                child: Container(
+                  width: 250,
+                  height: 250,
+                  decoration: BoxDecoration(
+                    color: Constant.app_primary_color,
+                    borderRadius: BorderRadius.all(Radius.circular(250 / 2)),
+                  ),
+                  child: Image(
+                    image: AssetImage('images/islahenafs_logo.png'),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
-          ),
 
-          Spacer(),
-
-          Container(
-            // padding: EdgeInsets.only(
-            //   top: 150.0,
-            // ),
-            decoration: BoxDecoration(
-              color: Constant.app_primary_contrast_color,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(screenSize.width / 2 * 3.0),
-                topRight: Radius.circular(screenSize.width / 2 * 3.0),
-              ),
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: Constant.app_primary_contrast_color.withOpacity(0.7),
-              //     spreadRadius: 4,
-              //     blurRadius: 5,
-              //     offset: Offset(3, 5), // changes position of shadow
-              //   ),
-              // ],
-            ),
-            child: Container(
+            Container(
               width: double.infinity,
               height: screenSize.height * 0.45,
               child: Padding(
-                padding: EdgeInsets.only(top: screenSize.height * 0.25),
+                padding: EdgeInsets.only(top: screenSize.height * 0.09),
                 child: Column(
                   children: [
                     Text(
-                      "Be a part of the barakah",
+                      "Uniting Believers",
                       style: TextStyle(
                         color: Constant.app_primary_color,
-                        fontSize: Constant.h2,
-                        fontWeight: Constant.app_font_weight,
+                        fontSize: 35.0,
+                        fontWeight: Constant.app_medium_font_weight,
                         letterSpacing: Constant.app_normal_letter_spacing,
                       ),
                     ),
-                    Text(
-                      "cricle of durood shareef",
-                      style: TextStyle(
-                        color: Constant.app_primary_color,
-                        fontSize: Constant.h3,
-                        fontWeight: Constant.app_font_weight,
-                        letterSpacing: Constant.app_normal_letter_spacing,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Text(
+                        "in Salutation of our Beloved",
+                        style: TextStyle(
+                          color: Constant.app_primary_color.withOpacity(0.7),
+                          fontSize: Constant.h5,
+                          fontWeight: Constant.app_font_weight,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        "Prophet Muhammad (S.A.W)",
+                        style: TextStyle(
+                          color: Constant.app_primary_color,
+                          fontSize: Constant.h3,
+                          fontWeight: Constant.app_font_weight,
+                          letterSpacing: Constant.app_normal_letter_spacing,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-          ),
-          // Container(
-          //   child: CircularProgressIndicator(
-          //     color: Constant.app_primary_contrast_color,
-          //   ),
-          // ),
-          // Center(
-          //   child: Container(
-          //     padding: const EdgeInsets.only(
-          //       top: 20.0,
-          //     ),
-          //     child: ElevatedButton(
-          //       child: Text(
-          //         "Go To Login Page",
-          //         style: TextStyle(
-          //           fontSize: Constant.app_button_font_size,
-          //           fontWeight: Constant.app_font_weight,
-          //           letterSpacing: Constant.app_normal_letter_spacing,
-          //         ),
-          //       ),
-          //       onPressed: () {
-          //         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          //             builder: (_) => AuthenticationWrapper()));
-          //       },
-          //       style: ButtonStyle(
-          //         foregroundColor: MaterialStateProperty.all<Color>(
-          //             Constant.app_primary_color),
-          //         backgroundColor: MaterialStateProperty.all<Color>(
-          //           Constant.app_primary_contrast_color,
-          //         ),
-          //         padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-          //           EdgeInsets.all(10.0),
-          //         ),
-          //         minimumSize: MaterialStateProperty.all<Size>(
-          //           Size(Constant.app_button_min_width,
-          //               Constant.app_button_height),
-          //         ),
-          //         maximumSize: MaterialStateProperty.all<Size>(
-          //           Size(Constant.app_button_max_width,
-          //               Constant.app_button_height),
-          //         ),
-          //         shape: MaterialStateProperty.all(
-          //           RoundedRectangleBorder(
-          //             borderRadius: BorderRadius.circular(
-          //               Constant.app_button_border_radius,
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-        ],
+
+            Spacer(),
+
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: Container(
+                child: Text(
+                  'Powered by AKS iQ',
+                  style: TextStyle(
+                    fontWeight: Constant.app_font_weight,
+                    fontSize: Constant.h6,
+                    color: Constant.app_primary_color.withOpacity(0.5),
+                  ),
+                ),
+              ),
+            ),
+            // Container(
+            //   child: CircularProgressIndicator(
+            //     color: Constant.app_primary_contrast_color,
+            //   ),
+            // ),
+            // Center(
+            //   child: Container(
+            //     padding: const EdgeInsets.only(
+            //       top: 20.0,
+            //     ),
+            //     child: ElevatedButton(
+            //       child: Text(
+            //         "Go To Login Page",
+            //         style: TextStyle(
+            //           fontSize: Constant.app_button_font_size,
+            //           fontWeight: Constant.app_font_weight,
+            //           letterSpacing: Constant.app_normal_letter_spacing,
+            //         ),
+            //       ),
+            //       onPressed: () {
+            //         Navigator.of(context).pushReplacement(MaterialPageRoute(
+            //             builder: (_) => AuthenticationWrapper()));
+            //       },
+            //       style: ButtonStyle(
+            //         foregroundColor: MaterialStateProperty.all<Color>(
+            //             Constant.app_primary_color),
+            //         backgroundColor: MaterialStateProperty.all<Color>(
+            //           Constant.app_primary_contrast_color,
+            //         ),
+            //         padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+            //           EdgeInsets.all(10.0),
+            //         ),
+            //         minimumSize: MaterialStateProperty.all<Size>(
+            //           Size(Constant.app_button_min_width,
+            //               Constant.app_button_height),
+            //         ),
+            //         maximumSize: MaterialStateProperty.all<Size>(
+            //           Size(Constant.app_button_max_width,
+            //               Constant.app_button_height),
+            //         ),
+            //         shape: MaterialStateProperty.all(
+            //           RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(
+            //               Constant.app_button_border_radius,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }

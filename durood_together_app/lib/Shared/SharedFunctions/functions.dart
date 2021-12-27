@@ -764,11 +764,13 @@ class Functions {
 
   // Vibration Function
   int setVibration(int duroodCount) {
-    if (duroodCount == 100 || (duroodCount % 100) == 0) {
+    print(duroodCount);
+    if (duroodCount == 0 || duroodCount == 1) {
+      return 45;
+    } else if ((duroodCount) % 33 == 0) {
+      return 100;
+    } else if (((duroodCount) % 100) == 0) {
       return 200;
-    }
-    if ((duroodCount + 1) % 33 == 0) {
-      return 90;
     } else {
       return 45;
     }

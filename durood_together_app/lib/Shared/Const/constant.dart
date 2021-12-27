@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class Constant {
   // Constant Colors
   static const app_primary_color = Color(0xFFFFFFFF);
-  static const app_primary_contrast_color = Color(0xFF004953);
+  static const app_primary_contrast_color = Color(0xFF16915d);
   // static const app_primary_contrast_color = Color(0xFF669203);
-  static const app_primary_contrast_color_light = Color(0xFF008080);
+  static const app_primary_contrast_color_light = Color(0xFF37c3b4);
   // static const app_primary_contrast_color_light = Color(0xFF89C208);
 
   // Font Sizes
@@ -19,13 +19,14 @@ class Constant {
 
   // Button Font Sizes
   static final double app_button_font_size = 20.0;
-  static final double app_button_height = 60.0;
-  static final double app_button_min_width = 250.0;
-  static final double app_button_max_width = 300.0;
+  static final double app_button_height = 50.0;
+  static final double app_button_min_width = 50.0;
+  static final double app_button_max_width = 50.0;
 
   // Font Weight If Bold
   static final FontWeight app_font_weight = FontWeight.w600;
   static final FontWeight app_normal_font_weight = FontWeight.w300;
+  static final FontWeight app_medium_font_weight = FontWeight.w400;
 
   // Text Letter Spacing
   static final double app_max_letter_spacing = 5.0;

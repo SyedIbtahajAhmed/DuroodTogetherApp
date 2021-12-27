@@ -91,6 +91,23 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
   }
 }
 
+// CustomCircularPercentageIndicator(
+// radiusData: screenSize.width * 0.9,
+// percentageData:
+// context.watch<DuroodCountProvider>().duroodCount /
+// Functions().percentageDivider(
+// context.watch<DuroodCountProvider>().duroodCount),
+// insideText: context
+//     .read<DuroodCountProvider>()
+// .duroodCount
+//     .toString(),
+// outsideText: '',
+// lineWidth: 30.0,
+// shouldAnimate: false,
+// progressColor: Constant.app_primary_color,
+// backgroundColor: Constant.app_primary_contrast_color_light,
+// ),
+
 // Container(
 // alignment: Alignment.center,
 // child: Center(

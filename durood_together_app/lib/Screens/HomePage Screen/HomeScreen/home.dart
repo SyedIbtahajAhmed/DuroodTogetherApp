@@ -43,8 +43,17 @@ class _HomeState extends State<Home> {
             ),
 
             // Report Header Line
-            ReportHeader(
-              opacity: this.expanded ? 0.0 : 1.0,
+            TweenAnimationBuilder(
+              tween: Tween(begin: 0.0, end: 1.0),
+              duration: Duration(milliseconds: 1000),
+              builder: (context, value, _) {
+                return Transform.translate(
+                  offset: Offset(0.0, 10.0 * value),
+                  child: ReportHeader(
+                    opacity: this.expanded ? 0.0 : 1.0,
+                  ),
+                );
+              },
             ),
 
             // Report Count Total
@@ -88,22 +97,47 @@ class _HomeState extends State<Home> {
             ),
 
             // Count Field Widget
-            AnimatedOpacity(
-              opacity: this.expanded ? 0.0 : 1.0,
-              duration: const Duration(milliseconds: 300),
-              child: CountField(
-                opacity: this.expanded ? 0.0 : 1.0,
-              ),
-            ),
+            TweenAnimationBuilder(
+                tween: Tween(begin: 1.0, end: 0.0),
+                duration: Duration(milliseconds: 1000),
+                builder: (context, value, _) {
+                  return Transform.translate(
+                    offset: Offset(0.0, 150.0 * value),
+                    child: AnimatedOpacity(
+                      opacity: this.expanded ? 0.0 : 1.0,
+                      duration: const Duration(milliseconds: 300),
+                      child: CountField(
+                        opacity: this.expanded ? 0.0 : 1.0,
+                      ),
+                    ),
+                  );
+                }),
+
+            TweenAnimationBuilder(
+                tween: Tween(begin: 1.0, end: 0.0),
+                duration: Duration(milliseconds: 3000),
+                curve: Curves.easeInOutCubicEmphasized,
+                builder: (context, value, Widget child) {
+                  return Transform.translate(
+                    offset: Offset(0.0, 200.0 * value),
+                    child: AnimatedOpacity(
+                      opacity: this.expanded ? 0.0 : 1.0,
+                      duration: const Duration(milliseconds: 500),
+                      child: CountSaveButton(
+                        opacity: this.expanded ? 0.0 : 1.0,
+                      ),
+                    ),
+                  );
+                }),
 
             // Save Button
-            AnimatedOpacity(
-              opacity: this.expanded ? 0.0 : 1.0,
-              duration: const Duration(milliseconds: 1000),
-              child: CountSaveButton(
-                opacity: this.expanded ? 0.0 : 1.0,
-              ),
-            ),
+            // AnimatedOpacity(
+            //   opacity: this.expanded ? 0.0 : 1.0,
+            //   duration: const Duration(milliseconds: 1000),
+            //   child: CountSaveButton(
+            //     opacity: this.expanded ? 0.0 : 1.0,
+            //   ),
+            // ),
 
             !this.expanded
                 ? SizedBox(

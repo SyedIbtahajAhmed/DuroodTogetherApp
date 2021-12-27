@@ -1,23 +1,22 @@
 import 'package:durood_together_app/Authentication/Authentication.dart';
-import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
-class GoogleSigninButton extends StatefulWidget {
-  GoogleSigninButton({Key key}) : super(key: key);
+class FacebookSigninButton extends StatefulWidget {
+  const FacebookSigninButton({Key key}) : super(key: key);
 
   @override
-  State<GoogleSigninButton> createState() => _GoogleSigninButtonState();
+  State<FacebookSigninButton> createState() => _FacebookSigninButtonState();
 }
 
-class _GoogleSigninButtonState extends State<GoogleSigninButton> {
+class _FacebookSigninButtonState extends State<FacebookSigninButton> {
   bool isGooglePressed = false;
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    String googleResult;
+    dynamic googleResult;
     String country;
     String city;
 
@@ -26,17 +25,17 @@ class _GoogleSigninButtonState extends State<GoogleSigninButton> {
         // setState(() {
         //   this.isGooglePressed = true;
         // });
-        country = context.read<LocationService>().userAddress.length > 0
-            ? context.read<LocationService>().userAddress[0].country.toString()
-            : '';
-        city = context.read<LocationService>().userAddress.length > 0
-            ? context.read<LocationService>().userAddress[0].locality.toString()
-            : '';
+        // country = context.read<LocationService>().userAddress.length > 0
+        //     ? context.read<LocationService>().userAddress[0].country.toString()
+        //     : '';
+        // city = context.read<LocationService>().userAddress.length > 0
+        //     ? context.read<LocationService>().userAddress[0].locality.toString()
+        //     : '';
 
-        googleResult = await context.read<Authentication>().signInWithGoogle(
-              country: country,
-              city: city,
-            );
+        googleResult =
+            await context.read<Authentication>().signInWithFacebook();
+
+        print('Facebook Login Successful');
 
         // print('Google Result');
         // print(googleResult);
@@ -70,15 +69,15 @@ class _GoogleSigninButtonState extends State<GoogleSigninButton> {
         // }
       },
       child: Container(
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         child: Image(
-          image: AssetImage('images/google_logo.png'),
+          image: AssetImage('images/facebook_logo.png'),
         ),
       ),
       style: ButtonStyle(
         elevation: MaterialStateProperty.all<double>(10),
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.red[900]),
+        foregroundColor: MaterialStateProperty.all<Color>(Colors.blue[900]),
         backgroundColor: MaterialStateProperty.all<Color>(
           Constant.app_primary_color,
         ),

@@ -15,7 +15,7 @@ class ReportHeader extends StatelessWidget {
       height: this.opacity == 1.0 ? 80 : 0,
       child: Container(
         padding: const EdgeInsets.only(
-          top: 30.0,
+          top: 10.0,
         ),
         child: Center(
           child: Text(

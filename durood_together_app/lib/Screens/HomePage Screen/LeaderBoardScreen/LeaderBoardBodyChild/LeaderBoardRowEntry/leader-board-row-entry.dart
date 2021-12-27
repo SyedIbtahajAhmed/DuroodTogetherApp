@@ -65,19 +65,72 @@ class _LeaderBoardRowEntryState extends State<LeaderBoardRowEntry> {
                   width: 1.5,
                 ),
               ),
-              child: Row(
-                children: [
-                  // Name
-                  Text(
-                    this.widget.name,
-                    style: TextStyle(
-                      color: Constant.app_primary_color,
-                      fontSize: Constant.h4,
-                      fontWeight: Constant.app_normal_font_weight,
-                      letterSpacing: Constant.app_normal_letter_spacing,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Name
+                    Text(
+                      this.widget.name,
+                      style: TextStyle(
+                        color: Constant.app_primary_color,
+                        fontSize: Constant.h4,
+                        fontWeight: Constant.app_normal_font_weight,
+                        letterSpacing: Constant.app_normal_letter_spacing,
+                      ),
                     ),
-                  ),
-                ],
+
+                    // Points And Picture Container
+                    Container(
+                      child: Row(
+                        children: [
+                          // Points Container
+                          Container(
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: Row(
+                              children: [
+                                // Text(
+                                //   '*',
+                                //   style: TextStyle(
+                                //     color: Constant.app_primary_color,
+                                //     fontSize: Constant.h2,
+                                //     fontWeight: Constant.app_font_weight,
+                                //   ),
+                                // ),
+                                Text(
+                                  '4520',
+                                  style: TextStyle(
+                                    color: Constant.app_primary_color,
+                                    fontSize: Constant.h5,
+                                    fontWeight: Constant.app_font_weight,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Picture Container
+                          Container(
+                            width: 60.0,
+                            height: 60.0,
+                            decoration: BoxDecoration(
+                              color: Constant.app_primary_color.withAlpha(150),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(60.0),
+                              ),
+                              border: Border.all(
+                                color:
+                                    Constant.app_primary_color.withOpacity(0.7),
+                                width: 3.0,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

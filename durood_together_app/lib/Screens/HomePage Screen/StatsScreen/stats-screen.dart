@@ -1,8 +1,10 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/ReportScreen/RerpotHeader/reportheader.dart';
+import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:durood_together_app/Shared/Components/CircularPercentageIndicator/circular-percentage-indicator.dart';
 import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 class StatisticsScreen extends StatefulWidget {
   const StatisticsScreen({Key key}) : super(key: key);
@@ -31,14 +33,22 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     return SingleChildScrollView(
       child: Center(
         child: Container(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Report Header Line
-              ReportHeader(
-                opacity: 1.0,
-              ),
+              TweenAnimationBuilder(
+                  tween: Tween(begin: 0.0, end: 1.0),
+                  duration: Duration(milliseconds: 1000),
+                  builder: (context, value, _) {
+                    return Transform.translate(
+                      offset: Offset(0.0, 10.0 * value),
+                      child: ReportHeader(
+                        opacity: 1.0,
+                      ),
+                    );
+                  }),
 
               Container(
                 width: screenSize.width < 350 ? 330 : 380,
@@ -183,62 +193,121 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
               // ),
 
               // Text
-              Container(
-                child: Text(
-                  'Statistics',
-                  style: TextStyle(
-                    color: Constant.app_primary_color,
-                    fontSize: Constant.h1,
-                    fontWeight: Constant.app_font_weight,
-                    letterSpacing: Constant.app_max_letter_spacing,
-                  ),
-                ),
-              ),
+              TweenAnimationBuilder(
+                  tween: Tween(begin: 1.0, end: 0.0),
+                  duration: Duration(milliseconds: 1000),
+                  builder: (context, value, _) {
+                    return Transform.translate(
+                      offset: Offset(0.0, 200 * value),
+                      child: Container(
+                        child: Text(
+                          'Statistics',
+                          style: TextStyle(
+                            color: Constant.app_primary_color,
+                            fontSize: Constant.h1,
+                            fontWeight: Constant.app_font_weight,
+                            letterSpacing: Constant.app_max_letter_spacing,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+              TweenAnimationBuilder(
+                  tween: Tween(begin: 1.0, end: 0.0),
+                  duration: Duration(milliseconds: 1000),
+                  builder: (context, value, _) {
+                    return Transform.translate(
+                      offset: Offset(0.0, 200 * value),
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Center(
+                              child: Container(
+                                child: // First Indicator
+                                    CustomCircularPercentageIndicator(
+                                  radiusData: screenSize.width / 2 * 1.5,
+                                  percentageData: 0.5,
+                                  insideText: '0.5%',
+                                  outsideText: 'My Durood Count',
+                                  lineWidth: 20.0,
+                                  shouldAnimate: true,
+                                  progressColor:
+                                      Constant.app_primary_contrast_color_light,
+                                  backgroundColor: Constant.app_primary_color,
+                                ),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // Second Indicator
+                                CustomCircularPercentageIndicator(
+                                  radiusData: 150.0,
+                                  percentageData: 0.4,
+                                  insideText: '0.4%',
+                                  outsideText: (context
+                                                  .watch<LocationService>()
+                                                  .userAddress[0]
+                                                  .locality
+                                                  .toString() !=
+                                              null ||
+                                          context
+                                                  .watch<LocationService>()
+                                                  .userAddress[0]
+                                                  .locality
+                                                  .toString() !=
+                                              "")
+                                      ? context
+                                              .watch<LocationService>()
+                                              .userAddress[0]
+                                              .locality
+                                              .toString() +
+                                          ' Count'
+                                      : "City " + 'Count',
+                                  lineWidth: 20.0,
+                                  shouldAnimate: true,
+                                  progressColor:
+                                      Constant.app_primary_contrast_color_light,
+                                  backgroundColor: Constant.app_primary_color,
+                                ),
 
-              Center(
-                child: Container(
-                  child: // First Indicator
-                      CustomCircularPercentageIndicator(
-                    radiusData: screenSize.width / 2 * 1.5,
-                    percentageData: 0.5,
-                    insideText: '0.5%',
-                    outsideText: 'My Durood Count',
-                    lineWidth: 20.0,
-                    shouldAnimate: true,
-                    progressColor: Constant.app_primary_contrast_color_light,
-                    backgroundColor: Constant.app_primary_color,
-                  ),
-                ),
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Second Indicator
-                  CustomCircularPercentageIndicator(
-                    radiusData: 150.0,
-                    percentageData: 0.4,
-                    insideText: '0.4%',
-                    outsideText: 'City Count',
-                    lineWidth: 20.0,
-                    shouldAnimate: true,
-                    progressColor: Constant.app_primary_contrast_color_light,
-                    backgroundColor: Constant.app_primary_color,
-                  ),
-
-                  // Fourth Indicator
-                  CustomCircularPercentageIndicator(
-                    radiusData: 150.0,
-                    percentageData: 0.7,
-                    insideText: '0.7%',
-                    outsideText: 'Country Count',
-                    lineWidth: 20.0,
-                    shouldAnimate: true,
-                    progressColor: Constant.app_primary_contrast_color_light,
-                    backgroundColor: Constant.app_primary_color,
-                  ),
-                ],
-              ),
+                                // Fourth Indicator
+                                CustomCircularPercentageIndicator(
+                                  radiusData: 150.0,
+                                  percentageData: 0.7,
+                                  insideText: '0.7%',
+                                  outsideText: (context
+                                                  .watch<LocationService>()
+                                                  .userAddress[0]
+                                                  .country
+                                                  .toString() !=
+                                              null ||
+                                          context
+                                                  .watch<LocationService>()
+                                                  .userAddress[0]
+                                                  .country
+                                                  .toString() !=
+                                              "")
+                                      ? context
+                                              .watch<LocationService>()
+                                              .userAddress[0]
+                                              .country
+                                              .toString() +
+                                          ' Count'
+                                      : "Country " + 'Count',
+                                  lineWidth: 20.0,
+                                  shouldAnimate: true,
+                                  progressColor:
+                                      Constant.app_primary_contrast_color_light,
+                                  backgroundColor: Constant.app_primary_color,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
             ],
           ),
         ),

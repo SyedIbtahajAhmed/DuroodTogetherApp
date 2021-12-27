@@ -1,14 +1,15 @@
 import 'package:durood_together_app/Core/DataModels/UserModel/user-model.dart';
 import 'package:durood_together_app/Core/DataViewModels/UserViewModel/user-view-model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart' as fb;
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
-  final FirebaseAuth _firebaseAuth;
+  final auth.FirebaseAuth _firebaseAuth;
 
   Authentication(this._firebaseAuth);
 
-  Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
+  Stream<auth.User> get authStateChanges => _firebaseAuth.authStateChanges();
 
   // SignIn Function
   Future<String> signIn({String email, String password}) async {
@@ -16,7 +17,7 @@ class Authentication {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       return 'Signed In Successfully.';
-    } on FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       return e.message;
     }
   }
@@ -41,7 +42,7 @@ class Authentication {
       UserViewModel().addCustomUser(data, user.uid);
 
       return 'SignedUp Successfully.';
-    } on FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       return e.message;
     }
   }
@@ -55,11 +56,18 @@ class Authentication {
         await _firebaseAuth.signOut();
         await GoogleSignIn().signOut();
         return 'Signed Out Successfully.';
+      } else if (_firebaseAuth.currentUser.providerData
+              .elementAt(0)
+              .providerId ==
+          'facebook.com') {
+        await _firebaseAuth.signOut();
+        await fb.FacebookAuth.instance.logOut();
+        return 'Signed Out Successfully.';
       } else {
         await _firebaseAuth.signOut();
         return 'Signed Out Successfully.';
       }
-    } on FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       return e.message;
     }
   }
@@ -79,7 +87,7 @@ class Authentication {
 
       if (googleAuth != null) {
         // Create a new credential
-        final credential = GoogleAuthProvider.credential(
+        final credential = auth.GoogleAuthProvider.credential(
           accessToken: googleAuth?.accessToken,
           idToken: googleAuth?.idToken,
         );
@@ -87,7 +95,7 @@ class Authentication {
         // print(credential);
 
         // Once signed in, return the UserCredential
-        UserCredential returned_credential =
+        auth.UserCredential returned_credential =
             await _firebaseAuth.signInWithCredential(credential);
 
         UserModel data = new UserModel(
@@ -105,7 +113,39 @@ class Authentication {
       } else {
         return 'Sign in Cancelled';
       }
-    } on FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
+      return e.message;
+    }
+  }
+
+  // Facebook Login
+  Future<String> signInWithFacebook({String country, String city}) async {
+    try {
+      // Trigger the sign-in flow
+      final fb.LoginResult loginResult = await fb.FacebookAuth.instance.login();
+
+// Create a credential from the access token
+      final auth.OAuthCredential facebookAuthCredential =
+          auth.FacebookAuthProvider.credential(loginResult.accessToken.token);
+// print(credential);
+
+// Once signed in, return the UserCredential
+      auth.UserCredential returned_credential =
+          await _firebaseAuth.signInWithCredential(facebookAuthCredential);
+
+      UserModel data = new UserModel(
+        Country: country,
+        City: city,
+        Email: returned_credential.user.email,
+        Name: returned_credential.user.displayName,
+      );
+
+      UserViewModel().addCustomUser(data, returned_credential.user.uid);
+
+// print('Google Sign in.');
+      print(returned_credential);
+      return 'Signed in Successful';
+    } on auth.FirebaseAuthException catch (e) {
       return e.message;
     }
   }
