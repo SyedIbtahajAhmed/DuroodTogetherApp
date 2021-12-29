@@ -3,7 +3,7 @@ import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodC
 import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
 import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/src/provider.dart';
 
 import 'ProfileBody/profileBody.dart';
 import 'ProfileHeader/profileheader.dart';
@@ -34,33 +34,43 @@ class Profile extends StatelessWidget {
                         tween: Tween(begin: 1.0, end: 0.0),
                         duration: Duration(milliseconds: 1500),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 50.0),
+                          padding:
+                              const EdgeInsets.only(top: 30.0, bottom: 10.0),
                           child: ElevatedButton(
-                            onPressed: () {
-                              context.read<DuroodCountVM>().resetAttributes();
-                              context
+                            onPressed: () async {
+                              await context
+                                  .read<DuroodCountVM>()
+                                  .resetAttributes();
+                              await context
                                   .read<DuroodCountProvider>()
                                   .resetDuroodCount();
-                              context.read<Authentication>().signOut();
+                              await context.read<Authentication>().signOut();
                             },
-                            child: Text(
-                              'SIGNOUT',
-                              style: TextStyle(
-                                fontSize: Constant.app_button_font_size,
-                                fontWeight: Constant.app_font_weight,
-                                color: Constant.app_primary_contrast_color,
-                                letterSpacing:
-                                    Constant.app_normal_letter_spacing,
-                              ),
-                            ),
+                            child: Icon(Icons.logout),
                             style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                Constant.app_primary_contrast_color,
+                              ),
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                  Constant.app_primary_color),
+                                Constant.app_primary_color,
+                              ),
+                              elevation:
+                                  MaterialStateProperty.all<double>(20.0),
+                              // padding:
+                              //     MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              //   EdgeInsets.all(10.0),
+                              // ),
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                  Constant.app_button_border_radius,
-                                )),
+                                  side: BorderSide(
+                                    color: Constant
+                                        .app_primary_contrast_color_light,
+                                    width: 1.5,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    Constant.app_button_border_radius,
+                                  ),
+                                ),
                               ),
                               minimumSize: MaterialStateProperty.all<Size>(
                                 Size(Constant.app_button_min_width,

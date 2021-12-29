@@ -61,12 +61,12 @@ class _LoginState extends State<Login> {
           children: <Widget>[
             TweenAnimationBuilder(
               tween: Tween(begin: 0.0, end: 1.0),
-              duration: Duration(milliseconds: 1000),
+              duration: Duration(milliseconds: 3000),
               builder: (context, value, _) {
                 return Transform.translate(
                   offset: Offset(0.0, 0.0 * value),
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 1000),
+                    duration: const Duration(milliseconds: 3000),
                     width: double.infinity,
                     height: 480.0 * value,
                     // padding: EdgeInsets.only(
@@ -111,17 +111,21 @@ class _LoginState extends State<Login> {
                       // Durood Picture Top
                       TweenAnimationBuilder(
                         tween: Tween(begin: 0.0, end: 1.0),
-                        duration: Duration(milliseconds: 5000),
+                        duration: Duration(milliseconds: 3000),
                         curve: Curves.easeInOutCubicEmphasized,
                         builder: (context, value, Widget child) {
                           return Transform.translate(
-                            offset: Offset(0.0, -200.0 * value),
-                            child: Container(
-                              width: 380,
-                              height: 60 * value,
-                              child: Image(
-                                image: AssetImage('images/durrod.png'),
-                                fit: BoxFit.fill,
+                            offset: Offset(0.0, 10.0 * value),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: 50.0 * value, bottom: 10.0 * value),
+                              child: Container(
+                                width: 380,
+                                height: 60 * value,
+                                child: Image(
+                                  image: AssetImage('images/durrod.png'),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
                           );
@@ -138,7 +142,7 @@ class _LoginState extends State<Login> {
                             offset: Offset(0.0, 200.0 * value),
                             child: AnimatedOpacity(
                               opacity: 0.0 * value + 1,
-                              duration: const Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 3000),
                               child: Padding(
                                 padding: EdgeInsets.only(
                                     top: screenSize.height * 0.02),
@@ -172,7 +176,7 @@ class _LoginState extends State<Login> {
                             offset: Offset(0.0, 200.0 * value),
                             child: AnimatedOpacity(
                               opacity: 0.0 * value + 1,
-                              duration: const Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 3000),
                               child: Stack(
                                 // fit: StackFit.expand,
                                 children: [
@@ -343,7 +347,7 @@ class _LoginState extends State<Login> {
                                               );
                                         }
                                       },
-                                      child: Icon(Icons.forward),
+                                      child: Icon(Icons.arrow_forward),
                                       style: ButtonStyle(
                                         foregroundColor:
                                             MaterialStateProperty.all<Color>(
@@ -402,7 +406,7 @@ class _LoginState extends State<Login> {
                             offset: Offset(0.0, 200.0 * value),
                             child: AnimatedOpacity(
                               opacity: 0.0 * value + 1,
-                              duration: const Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 3000),
                               child: Container(
                                 child: Text(
                                   "or login using",
@@ -422,14 +426,14 @@ class _LoginState extends State<Login> {
                       // Login Options Button Row
                       TweenAnimationBuilder(
                         tween: Tween(begin: 1.0, end: 0.0),
-                        duration: Duration(milliseconds: 3000),
+                        duration: Duration(milliseconds: 4000),
                         curve: Curves.easeInOutCubicEmphasized,
                         builder: (context, value, Widget child) {
                           return Transform.translate(
                             offset: Offset(0.0, 200.0 * value),
                             child: AnimatedOpacity(
                               opacity: 0.0 * value + 1,
-                              duration: const Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 3000),
                               child: Container(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Row(
@@ -450,36 +454,59 @@ class _LoginState extends State<Login> {
                         },
                       ),
 
-                      Container(
-                        padding: const EdgeInsets.only(top: 15.0),
-                        child: Text(
-                          "Join the Barakah Circle of",
-                          style: TextStyle(
-                            color: Constant.app_primary_contrast_color_light,
-                            fontSize: Constant.h4,
-                            fontWeight: Constant.app_medium_font_weight,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: Text(
-                          "Durood Shareef",
-                          style: TextStyle(
-                            color: Constant.app_primary_contrast_color_light,
-                            fontSize: 40.0,
-                            fontWeight: Constant.app_font_weight,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: Text(
-                          "to maximize blessings",
-                          style: TextStyle(
-                            color: Constant.app_primary_contrast_color_light,
-                            fontSize: Constant.h4,
-                            fontWeight: Constant.app_font_weight,
-                          ),
-                        ),
+                      // Message Punch Line Container
+                      TweenAnimationBuilder(
+                        tween: Tween(begin: 1.0, end: 0.0),
+                        duration: Duration(milliseconds: 5000),
+                        curve: Curves.easeInOutCubicEmphasized,
+                        builder: (context, value, Widget child) {
+                          return Transform.translate(
+                            offset: Offset(0.0, 200.0 * value),
+                            child: AnimatedOpacity(
+                              opacity: 0.0 * value + 1,
+                              duration: const Duration(milliseconds: 3000),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.only(top: 15.0),
+                                    child: Text(
+                                      "Join the Barakah Circle of",
+                                      style: TextStyle(
+                                        color: Constant
+                                            .app_primary_contrast_color_light,
+                                        fontSize: Constant.h4,
+                                        fontWeight:
+                                            Constant.app_medium_font_weight,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "Durood Shareef",
+                                      style: TextStyle(
+                                        color: Constant
+                                            .app_primary_contrast_color_light,
+                                        fontSize: 40.0,
+                                        fontWeight: Constant.app_font_weight,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "to maximize blessings",
+                                      style: TextStyle(
+                                        color: Constant
+                                            .app_primary_contrast_color_light,
+                                        fontSize: Constant.h4,
+                                        fontWeight: Constant.app_font_weight,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                       ),
 
                       // Sign in with Container

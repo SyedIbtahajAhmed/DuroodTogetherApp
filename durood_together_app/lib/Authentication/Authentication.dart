@@ -18,7 +18,11 @@ class Authentication {
           email: email, password: password);
       return 'Signed In Successfully.';
     } on auth.FirebaseAuthException catch (e) {
-      return e.message;
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
     }
   }
 
@@ -47,28 +51,46 @@ class Authentication {
     }
   }
 
+  // Password Reset Function
+  Future<String> sendResetPasswordEmail({String email}) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+
+      // print('Signing Up User');
+      return 'Email Sent Successfully.';
+    } on auth.FirebaseAuthException catch (e) {
+      return e.message;
+    }
+  }
+
   // SingnOut Function
   Future<String> signOut() async {
     try {
       print(_firebaseAuth.currentUser.providerData.elementAt(0).providerId);
       if (_firebaseAuth.currentUser.providerData.elementAt(0).providerId ==
           'google.com') {
-        await _firebaseAuth.signOut();
         await GoogleSignIn().signOut();
+        await _firebaseAuth.signOut();
         return 'Signed Out Successfully.';
       } else if (_firebaseAuth.currentUser.providerData
               .elementAt(0)
               .providerId ==
           'facebook.com') {
-        await _firebaseAuth.signOut();
         await fb.FacebookAuth.instance.logOut();
+        await _firebaseAuth.signOut();
         return 'Signed Out Successfully.';
       } else {
         await _firebaseAuth.signOut();
         return 'Signed Out Successfully.';
       }
     } on auth.FirebaseAuthException catch (e) {
-      return e.message;
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
     }
   }
 

@@ -18,7 +18,7 @@ class CustomSnackbar extends StatelessWidget {
           Text(
             this.text,
             style: TextStyle(
-              fontSize: Constant.h4,
+              fontSize: Constant.h7,
               fontWeight: Constant.app_font_weight,
               letterSpacing: Constant.app_normal_letter_spacing,
               color: Constant.app_primary_color,

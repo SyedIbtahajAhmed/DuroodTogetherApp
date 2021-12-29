@@ -42,14 +42,15 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
                   vertical: 10.0,
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     // Yesterday Count Tab
                     Container(
+                      width: 125.0,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 30.0,
+                          horizontal: 20.0,
                         ),
                         child: Center(
                           child: Column(
@@ -72,8 +73,11 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
                                       ).value()),
                               ),
                               // Day
-                              HomeCountTabsText(
-                                text: 'My City',
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: HomeCountTabsText(
+                                  text: 'My City',
+                                ),
                               ),
                             ],
                           ),
@@ -82,52 +86,57 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
                     ),
 
                     // Today Count Tab
-                    Container(
-                      // width: 130,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          left: BorderSide(
-                            color: Constant.app_primary_contrast_color_light
-                                .withOpacity(0.7),
-                            width: 3.0,
-                            style: BorderStyle.solid,
-                          ),
-                          right: BorderSide(
-                            color: Constant.app_primary_contrast_color_light
-                                .withOpacity(0.7),
-                            width: 3.0,
-                            style: BorderStyle.solid,
+                    Expanded(
+                      child: Container(
+                        // width: 130,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            left: BorderSide(
+                              color: Constant.app_primary_contrast_color_light
+                                  .withOpacity(0.7),
+                              width: 3.0,
+                              style: BorderStyle.solid,
+                            ),
+                            right: BorderSide(
+                              color: Constant.app_primary_contrast_color_light
+                                  .withOpacity(0.7),
+                              width: 3.0,
+                              style: BorderStyle.solid,
+                            ),
                           ),
                         ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 30.0,
-                        ),
-                        child: Center(
-                          child: Column(
-                            children: <Widget>[
-                              // Count
-                              HomeCountTabsText(
-                                count: context
-                                                .watch<DuroodCountVM>()
-                                                .userTodayCount ==
-                                            null ||
-                                        context
-                                                .watch<DuroodCountVM>()
-                                                .userTodayCount ==
-                                            0
-                                    ? 0.toString()
-                                    : context
-                                        .watch<DuroodCountVM>()
-                                        .userTodayCount
-                                        .toString(),
-                              ),
-                              // Day
-                              HomeCountTabsText(
-                                text: 'Mine',
-                              ),
-                            ],
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30.0,
+                          ),
+                          child: Center(
+                            child: Column(
+                              children: <Widget>[
+                                // Count
+                                HomeCountTabsText(
+                                  count: context
+                                                  .watch<DuroodCountVM>()
+                                                  .userTodayCount ==
+                                              null ||
+                                          context
+                                                  .watch<DuroodCountVM>()
+                                                  .userTodayCount ==
+                                              0
+                                      ? 0.toString()
+                                      : context
+                                          .watch<DuroodCountVM>()
+                                          .userTodayCount
+                                          .toString(),
+                                ),
+                                // Day
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: HomeCountTabsText(
+                                    text: 'Mine',
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -135,9 +144,10 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
 
                     // This Week Count Tab
                     Container(
+                      width: 125.0,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 30.0,
+                          horizontal: 20.0,
                         ),
                         child: Center(
                           child: Column(
@@ -160,8 +170,11 @@ class _HomeCountTabsState extends State<HomeCountTabs> {
                                       ).value()),
                               ),
                               // Day
-                              HomeCountTabsText(
-                                text: 'My Country',
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: HomeCountTabsText(
+                                  text: 'My Country',
+                                ),
                               ),
                             ],
                           ),

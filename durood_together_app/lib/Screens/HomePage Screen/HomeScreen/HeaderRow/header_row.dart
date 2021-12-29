@@ -68,7 +68,12 @@ class HeaderRow extends StatelessWidget {
                     context.read<DuroodCountProvider>().resetDuroodCount();
                   } else if (context.read<DuroodCountProvider>().duroodCount >=
                       100) {
-                    Functions().showMyDialog(context, () {
+                    Functions().showMyDialog(
+                        context,
+                        'Warning',
+                        Text('Do you wish to upload Durood Count?'),
+                        'Upload',
+                        false, () {
                       Functions().uploadDuroodCount(context);
                     });
                   } else {

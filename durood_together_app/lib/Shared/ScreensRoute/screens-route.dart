@@ -12,6 +12,6 @@ class ScreensRoute {
     'Report': [Report(), 1, Icons.report_gmailerrorred_outlined],
     'Home': [Home(), 2, Icons.home_outlined],
     'Boards': [LeaderBoardScreen(), 3, Icons.leaderboard],
-    'Profile': [Profile(), 4, Icons.account_circle_outlined],
+    'Setting': [Profile(), 4, Icons.account_circle_outlined],
   };
 }

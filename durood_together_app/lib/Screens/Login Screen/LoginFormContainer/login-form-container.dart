@@ -1,5 +1,10 @@
+import 'package:durood_together_app/Authentication/Authentication.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/SnackBar/custom-snackbar.dart';
+import 'package:durood_together_app/Screens/Login%20Screen/ResetPasswordContainer/reset-password-container.dart';
 import 'package:durood_together_app/Shared/Const/constant.dart';
+import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 class LoginFormContainer extends StatelessWidget {
   final TextEditingController emailController;
@@ -109,6 +114,53 @@ class LoginFormContainer extends StatelessWidget {
             children: [
               Container(
                 child: InkWell(
+                  onTap: () {
+                    Functions().showMyDialog(
+                        context,
+                        'Reset Password',
+                        ResetPasswordContainer(
+                          emailController: emailController,
+                        ),
+                        'Send Email',
+                        true, () async {
+                      dynamic result = await context
+                          .read<Authentication>()
+                          .sendResetPasswordEmail(
+                            email: emailController.text.trim(),
+                          );
+
+                      print(result);
+
+                      // Checking If Email is sent
+                      if (result == 'Email Sent Successfully.') {
+                        final snackBar = SnackBar(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.0,
+                            vertical: 30.0,
+                          ),
+                          backgroundColor: Constant.app_primary_contrast_color
+                              .withOpacity(0.7),
+                          content: CustomSnackbar(
+                            text: result,
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else {
+                        final snackBar = SnackBar(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.0,
+                            vertical: 30.0,
+                          ),
+                          backgroundColor: Constant.app_primary_contrast_color
+                              .withOpacity(0.7),
+                          content: CustomSnackbar(
+                            text: 'Something Went Wrong, try Again.',
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    });
+                  },
                   child: Text(
                     "Forgot Password?",
                     style: TextStyle(

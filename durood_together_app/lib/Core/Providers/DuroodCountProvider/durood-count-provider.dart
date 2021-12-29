@@ -8,7 +8,7 @@ class DuroodCountProvider extends ChangeNotifier {
 
   int get duroodCount => _duroodCount;
   int get duroodCountField => _duroodCountField;
-  // Map<String, dynamic> get todayDuroodCountMap => _todayDuroodCountMap;
+  Map<String, dynamic> get todayDuroodCountMap => _todayDuroodCountMap;
 
   void addDuroodCount() {
     this._duroodCount += 1;
