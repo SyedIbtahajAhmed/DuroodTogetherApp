@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 class CustomListTileWidget extends StatelessWidget {
   final String text;
+  final VoidCallback onPressed;
   const CustomListTileWidget({
     Key key,
     this.text,
+    this.onPressed,
   }) : super(key: key);
 
   @override
@@ -18,7 +20,17 @@ class CustomListTileWidget extends StatelessWidget {
         ),
       ),
       child: ListTile(
-        title: Text(this.text),
+        onTap: () {
+          this.onPressed();
+        },
+        title: Text(
+          this.text,
+          style: TextStyle(
+            color: Colors.grey[700],
+            fontSize: Constant.h5,
+            fontWeight: Constant.app_font_weight,
+          ),
+        ),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/SnackBar/custom-snackbar.dart';
 import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:durood_together_app/Shared/Components/CustomExpansionTileWidget/CustomListTileWidget/custom-list-tile-widget.dart';
 import 'package:durood_together_app/Shared/Components/CustomExpansionTileWidget/custom-expansion-tile-widget.dart';
@@ -115,9 +117,48 @@ class _ProfileBodyState extends State<ProfileBody> {
 
                 // Custom Expansion Extra Tiles
                 CustomExpansionTileWidget(
-                  title: "Settings",
+                  title: "Durood Settings",
                   initiallyExpanded: false,
                   insideWidgets: [
+                    // Durood Lists
+                    CustomExpansionTileWidget(
+                      title: 'Select Durood',
+                      initiallyExpanded: false,
+                      insideWidgets: [
+                        for (int i = 0; i < Constant().duroodList.length; i++)
+                          CustomListTileWidget(
+                            onPressed: () async {
+                              await context
+                                  .read<DuroodCountProvider>()
+                                  .changeDurood(Constant()
+                                      .duroodList
+                                      .keys
+                                      .elementAt(i)
+                                      .toString());
+
+                              final snackBar = SnackBar(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 10.0,
+                                  vertical: 30.0,
+                                ),
+                                backgroundColor: Constant
+                                    .app_primary_contrast_color
+                                    .withOpacity(0.7),
+                                content: CustomSnackbar(
+                                  text: 'Durood Shareef Updated',
+                                ),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            },
+                            text: Constant()
+                                .duroodList
+                                .keys
+                                .elementAt(i)
+                                .toString(),
+                          ),
+                      ],
+                    ),
                     CustomListTileWidget(text: "Item 1"),
                     CustomListTileWidget(text: "Item 2"),
                     CustomListTileWidget(text: "Item 3"),

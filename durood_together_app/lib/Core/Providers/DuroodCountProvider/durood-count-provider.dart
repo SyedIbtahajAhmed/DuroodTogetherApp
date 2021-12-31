@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 class DuroodCountProvider extends ChangeNotifier {
   int _duroodCount = 0;
   int _duroodCountField = 0;
-
+  String _duroodSelected = '';
   Map<String, dynamic> _todayDuroodCountMap = {}; // Today Durood Count Map
 
   int get duroodCount => _duroodCount;
   int get duroodCountField => _duroodCountField;
+  String get duroodSelected => _duroodSelected;
   Map<String, dynamic> get todayDuroodCountMap => _todayDuroodCountMap;
 
   void addDuroodCount() {
@@ -31,6 +32,12 @@ class DuroodCountProvider extends ChangeNotifier {
     this._duroodCountField = 0;
     this._todayDuroodCountMap = {};
     notifyListeners();
+  }
+
+  void changeDurood(String durood) {
+    this._duroodSelected = durood;
+    notifyListeners();
+    // print('Durood Count Selected' + this._duroodSelected);
   }
 
   // Updating Today Durood Count
