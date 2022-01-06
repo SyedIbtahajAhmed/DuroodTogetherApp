@@ -50,7 +50,7 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
 
             // Rounded Button
             Padding(
-              padding: EdgeInsets.only(top: screenSize.height * 0.15),
+              padding: EdgeInsets.only(top: screenSize.height * 0.10),
               child: GestureDetector(
                 // style: ElevatedButton.styleFrom(
                 //   shape: CircleBorder(
@@ -71,7 +71,7 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
                       .duroodCount
                       .toString(),
                   outsideText: '',
-                  lineWidth: 30.0,
+                  lineWidth: 20.0,
                   shouldAnimate: false,
                   progressColor: Constant.app_primary_color,
                   backgroundColor: Constant.app_primary_contrast_color_light,

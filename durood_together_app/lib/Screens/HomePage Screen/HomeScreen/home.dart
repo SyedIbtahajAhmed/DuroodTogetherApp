@@ -1,6 +1,8 @@
+import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/ReportScreen/RerpotHeader/reportheader.dart';
 import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 import 'CountFieldWidget/countField.dart';
 import 'CountSaveButton/countSaveButton.dart';
@@ -42,19 +44,141 @@ class _HomeState extends State<Home> {
               opacity: this.expanded ? 0.0 : 1.0,
             ),
 
-            // Report Header Line
-            TweenAnimationBuilder(
-              tween: Tween(begin: 0.0, end: 1.0),
-              duration: Duration(milliseconds: 1000),
-              builder: (context, value, _) {
-                return Transform.translate(
-                  offset: Offset(0.0, 10.0 * value),
-                  child: ReportHeader(
-                    opacity: this.expanded ? 0.0 : 1.0,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                // Durood Container
+                Container(
+                  width: double.infinity,
+                  padding: this.expanded
+                      ? EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0)
+                      : EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
+                  decoration: BoxDecoration(
+                      // color: Colors.red,
+                      ),
+                  child: Text(
+                    context.watch<DuroodCountProvider>().duroodSelected != ''
+                        ? Constant().duroodList[context
+                            .watch<DuroodCountProvider>()
+                            .duroodSelected
+                            .toString()]
+                        : 'Select Durood In Settings',
+                    textAlign: TextAlign.center,
+                    // textDirection: TextDirection.rtl,
+                    softWrap: true,
+                    style: TextStyle(
+                      color: Constant.app_primary_color,
+                      fontSize: Constant.h7,
+                      fontWeight: Constant.app_font_weight,
+                    ),
                   ),
-                );
-              },
+                ),
+
+                // Report Header Line
+                TweenAnimationBuilder(
+                  tween: Tween(begin: 0.0, end: 1.0),
+                  duration: Duration(milliseconds: 1000),
+                  builder: (context, value, _) {
+                    return Transform.translate(
+                      offset: Offset(0.0, -20.0 + 20.0 * value),
+                      child: ReportHeader(
+                        opacity: this.expanded ? 0.0 : 1.0,
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
+
+            // TweenAnimationBuilder<double>(
+            //   duration: Duration(milliseconds: 1500),
+            //   tween: Tween(begin: 0.0, end: 1.0),
+            //   curve: Curves.easeInOutCubicEmphasized,
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: [
+            //       // Durood Container
+            //       Container(
+            //         width: double.infinity,
+            //         padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
+            //         decoration: BoxDecoration(
+            //             // color: Colors.red,
+            //             ),
+            //         child: Text(
+            //           Constant().duroodList[context
+            //               .watch<DuroodCountProvider>()
+            //               .duroodSelected
+            //               .toString()],
+            //           textAlign: TextAlign.center,
+            //           // textDirection: TextDirection.rtl,
+            //           softWrap: true,
+            //           style: TextStyle(
+            //             color: Constant.app_primary_contrast_color,
+            //             fontSize: Constant.h7,
+            //             fontWeight: Constant.app_font_weight,
+            //           ),
+            //         ),
+            //       ),
+            //
+            //       // Report Header Line
+            //       TweenAnimationBuilder(
+            //         tween: Tween(begin: 0.0, end: 1.0),
+            //         duration: Duration(milliseconds: 1000),
+            //         builder: (context, value, _) {
+            //           return Transform.translate(
+            //             offset: Offset(0.0, 10.0 * value),
+            //             child: ReportHeader(
+            //               opacity: this.expanded ? 0.0 : 1.0,
+            //             ),
+            //           );
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            //   builder: (context, headerValue, Widget child) {
+            //     return Container(
+            //       width: double.infinity,
+            //       height: screenSize.height * 0.31 * headerValue,
+            //       decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.only(
+            //           bottomRight:
+            //               Radius.circular(Constant.app_headers_border_radius),
+            //           bottomLeft:
+            //               Radius.circular(Constant.app_headers_border_radius),
+            //         ),
+            //         boxShadow: [
+            //           BoxShadow(
+            //             color: Constant.app_primary_contrast_color
+            //                 .withOpacity(0.3),
+            //             spreadRadius: 4,
+            //             blurRadius: 5,
+            //             offset: Offset(3, 5), // changes position of shadow
+            //           ),
+            //         ],
+            //         gradient: LinearGradient(
+            //           begin: Alignment.topCenter,
+            //           end: Alignment.bottomCenter,
+            //           stops: [
+            //             0.3,
+            //             1.0,
+            //           ],
+            //           colors: [
+            //             Constant.app_primary_color.withAlpha(200),
+            //             Constant.app_primary_contrast_color,
+            //           ],
+            //         ),
+            //       ),
+            //       child: Transform.translate(
+            //         offset: Offset(0.0, 10 * headerValue),
+            //         child: AnimatedOpacity(
+            //           duration: Duration(milliseconds: 2000),
+            //           opacity: 1.0 * headerValue,
+            //           child: child,
+            //         ),
+            //       ),
+            //     );
+            //   },
+            // ),
 
             // Report Count Total
             AnimatedOpacity(
@@ -141,7 +265,7 @@ class _HomeState extends State<Home> {
 
             !this.expanded
                 ? SizedBox(
-                    height: screenSize.height / 2 * 0.25,
+                    height: screenSize.height / 2 * 0.1,
                   )
                 : Container(),
 

@@ -34,7 +34,7 @@ class ProfileHeader extends StatelessWidget {
             child: Container(
               child: Center(
                 child: Text(
-                  "Your Profile",
+                  "Setting",
                   style: TextStyle(
                     color: Constant.app_primary_color,
                     fontSize: Constant.h2,

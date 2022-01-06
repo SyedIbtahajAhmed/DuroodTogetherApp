@@ -2,7 +2,6 @@ import 'dart:collection';
 import 'dart:math';
 
 import 'package:durood_together_app/Core/DataModels/DuroodCount/duroodCount_model.dart';
-import 'package:durood_together_app/Core/DataModels/UserDuroodCountModel/user-durood-count-model.dart';
 import 'package:durood_together_app/Core/DataModels/UserLocation/user_location.dart';
 import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
 import 'package:durood_together_app/Core/DataViewModels/UserDuroodCountVM/user-durood-count-VM.dart';
@@ -28,6 +27,8 @@ class Functions {
     userId,
   ) async {
     List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+    // List<UserDuroodCountModel> userDuroodCount =
+    //     await userDataDict.fetchUserDuroodCounts();
     Map<String, dynamic> returnedDict = {};
 
     duroodCount.forEach((durood) {
@@ -53,6 +54,8 @@ class Functions {
     // User Monthly Data
     Map<String, dynamic> userMonthlyDataGot =
         await getUserMonthlyData(returnedDict, userId);
+    // User Today Count
+    // int userTodayCountGot = await getUserTodayCount(userDuroodCount, userId);
 
     // User Durood Count Provider Data
     // int userTodayCountGot = await getUserTodayCount(userDataDict, userId);
@@ -364,14 +367,14 @@ class Functions {
   // Get Today Count
   Future<int> getUserTodayCount(dataDict, userId) async {
     // print(userId);
-    List<UserDuroodCountModel> userDuroodCount =
-        await dataDict.fetchUserDuroodCounts();
+    // List<UserDuroodCountModel> userDuroodCount =
+    //     await dataDict.fetchUserDuroodCounts();
     int returnedValue = 0;
 
     int todayCount = 0;
 
     // Iterating dataDict
-    userDuroodCount.forEach((user) {
+    dataDict.forEach((user) {
       if (user.Uid == userId) {
         user.CountData.keys.forEach((key) {
           if (key == getUserDuroodCountModelDate()) {
@@ -784,13 +787,21 @@ class Functions {
 
   // Show Alert Dialog Function
   Future<void> showMyDialog(
-      BuildContext context, VoidCallback uploadDurood) async {
+      BuildContext context,
+      String headerText,
+      Widget content,
+      String buttonText,
+      bool barrierDismissible,
+      VoidCallback callbackFunction) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: barrierDismissible, // user must tap button!
       builder: (context) {
         return CustomAlertDialogBox(
-          uploadDuroodCount: uploadDurood,
+          headerText: headerText,
+          content: content,
+          proceedButtonText: buttonText,
+          dialogCallback: callbackFunction,
         );
       },
     );
