@@ -14,6 +14,7 @@ class AuthenticationWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     Provider.of<UserLocation>(context);
     //final firebaseUser = context.watch<User>();
     final firebaseUser = Provider.of<User>(context);

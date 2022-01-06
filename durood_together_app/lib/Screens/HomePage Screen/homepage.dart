@@ -47,18 +47,23 @@ class _HomePageState extends State<HomePage> {
     // Getting Location Of The User
     // Providers(context).duroodCountVM_provider;
     // final userLocation = Provider.of<UserLocation>(context);
+    //final firebaseUser = context.watch<User>();
+    final firebaseUser = Provider.of<User>(context);
+
     final dynamic duroodCount = Provider.of<DuroodCountVM>(context);
     final dynamic userDuroodCount = Provider.of<UserDuroodCountVM>(context);
-    final firebaseUser = Provider.of<User>(context);
+    // final firebaseUser = Provider.of<User>(context);
     String country;
     String city;
 
-    country = context.read<LocationService>().userAddress.length > 0
-        ? context.read<LocationService>().userAddress[0].country.toString()
-        : '';
-    city = context.read<LocationService>().userAddress.length > 0
-        ? context.read<LocationService>().userAddress[0].locality.toString()
-        : '';
+    if (context.read<LocationService>().userAddress != null) {
+      country = context.read<LocationService>().userAddress.length > 0
+          ? context.read<LocationService>().userAddress[0].country.toString()
+          : '';
+      city = context.read<LocationService>().userAddress.length > 0
+          ? context.read<LocationService>().userAddress[0].locality.toString()
+          : '';
+    }
 
     return FutureBuilder(
       future: Future.wait(

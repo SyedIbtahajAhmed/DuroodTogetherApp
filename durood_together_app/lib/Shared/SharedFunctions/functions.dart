@@ -551,8 +551,14 @@ class Functions {
     DateTime now = new DateTime.now();
     // Extracting Month And Returning Month
     int month = now.month - 1;
-    // Returning
-    return Constant().months[month - 1];
+
+    if (month == 0) {
+      return Constant().months[11];
+    } else {
+      // Returning
+      // print(Constant().months[month - 1]);
+      return Constant().months[month - 1];
+    }
   }
 
   // Getting Day
