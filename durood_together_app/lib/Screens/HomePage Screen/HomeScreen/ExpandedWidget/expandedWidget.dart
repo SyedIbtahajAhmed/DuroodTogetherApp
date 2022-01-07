@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
-import 'package:durood_together_app/Shared/Components/CircularPercentageIndicator/circular-percentage-indicator.dart';
+import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/ExpandedWidget/CustomTasbeeh/custom-tasbeeh.dart';
 import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:durood_together_app/Shared/SharedFunctions/functions.dart';
 import 'package:flutter/material.dart';
@@ -60,22 +60,29 @@ class _ExpandedWidgetState extends State<ExpandedWidget>
                 //   )),
                 //   primary: Constant.app_primary_color.withOpacity(0.5),
                 // ),
-                child: CustomCircularPercentageIndicator(
-                  radiusData: screenSize.width * 0.9,
-                  percentageData:
-                      context.watch<DuroodCountProvider>().duroodCount /
-                          Functions().percentageDivider(
-                              context.watch<DuroodCountProvider>().duroodCount),
+                child: CustomTasbeeh(
                   insideText: context
                       .read<DuroodCountProvider>()
                       .duroodCount
                       .toString(),
-                  outsideText: '',
-                  lineWidth: 20.0,
-                  shouldAnimate: false,
-                  progressColor: Constant.app_primary_color,
-                  backgroundColor: Constant.app_primary_contrast_color_light,
                 ),
+
+                // child: CustomCircularPercentageIndicator(
+                //   radiusData: screenSize.width * 0.9,
+                //   percentageData:
+                //       context.watch<DuroodCountProvider>().duroodCount /
+                //           Functions().percentageDivider(
+                //               context.watch<DuroodCountProvider>().duroodCount),
+                //   insideText: context
+                //       .read<DuroodCountProvider>()
+                //       .duroodCount
+                //       .toString(),
+                //   outsideText: '',
+                //   lineWidth: 20.0,
+                //   shouldAnimate: false,
+                //   progressColor: Constant.app_primary_color,
+                //   backgroundColor: Constant.app_primary_contrast_color_light,
+                // ),
                 onTap: () {
                   Vibration.vibrate(
                       duration: Functions().setVibration(

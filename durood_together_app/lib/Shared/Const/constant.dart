@@ -42,6 +42,9 @@ class Constant {
   // Icon Sizes
   static final double app_bottom_bar_icon_size = 25.0;
 
+  // Constant Values
+  static const double TWO_PI = 3.14 * 2;
+
   // For String Date
   List<String> month = [
     "Jan",
