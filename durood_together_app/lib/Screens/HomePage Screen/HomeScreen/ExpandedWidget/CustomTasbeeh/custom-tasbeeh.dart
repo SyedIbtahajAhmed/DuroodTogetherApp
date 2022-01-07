@@ -40,7 +40,7 @@ class _CustomTasbeehState extends State<CustomTasbeeh> {
                       center: Alignment.center,
                       colors: [
                         Constant.app_primary_contrast_color,
-                        Constant.app_primary_contrast_color_light.withAlpha(55)
+                        Constant.app_primary_color.withAlpha(55)
                       ]).createShader(rect);
                 },
                 child: Container(
