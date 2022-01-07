@@ -1,37 +1,41 @@
 class UserModel {
-  String Country = "";
-  String City = "";
-  String Email = "";
-  String Name = "";
+  String userId = "";
+  String country = "";
+  String city = "";
+  String email = "";
+  String name = "";
 
   UserModel({
-    this.Country,
-    this.City,
-    this.Email,
-    this.Name,
+    this.country,
+    this.city,
+    this.email,
+    this.name,
   });
 
-  UserModel.fromMap(Map snapshot)
-      : Country = snapshot['Country'] ?? '',
-        City = snapshot['City'] ?? '',
-        Email = snapshot['Email'] ?? '',
-        Name = snapshot['Name'] ?? '';
+  UserModel.fromMap(Map snapshot, String id)
+      : this.userId = id,
+        country = snapshot['country'] ?? '',
+        city = snapshot['city'] ?? '',
+        email = snapshot['email'] ?? '',
+        name = snapshot['name'] ?? '';
 
   toJson() {
     return {
-      "Country": Country,
-      "City": City,
-      "Email": Email,
-      "Name": Name,
+      "UserId": userId,
+      "Country": country,
+      "City": city,
+      "Email": email,
+      "Name": name,
     };
   }
 
   Map<String, dynamic> toMap() {
     return {
-      "Country": Country,
-      "City": City,
-      "Email": Email,
-      "Name": Name,
+      "UserId": userId,
+      "Country": country,
+      "City": city,
+      "Email": email,
+      "Name": name,
     };
   }
 }

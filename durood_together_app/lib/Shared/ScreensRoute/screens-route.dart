@@ -1,3 +1,4 @@
+import 'package:durood_together_app/Screens/HomePage%20Screen/FriendsScreen/friends-screen.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/HomeScreen/home.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/LeaderBoardScreen/leader-board-screen.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/ProfileScreen/profile.dart';
@@ -13,5 +14,6 @@ class ScreensRoute {
     'Home': [Home(), 2, Icons.home_outlined],
     'Boards': [LeaderBoardScreen(), 3, Icons.leaderboard],
     'Setting': [Profile(), 4, Icons.account_circle_outlined],
+    'Friends': [FriendsScreen(), 5, Icons.supervised_user_circle_rounded],
   };
 }

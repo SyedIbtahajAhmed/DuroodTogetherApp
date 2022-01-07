@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:durood_together_app/Core/DataModels/DuroodCount/duroodCount_model.dart';
 import 'package:durood_together_app/Core/DataModels/UserLocation/user_location.dart';
+import 'package:durood_together_app/Core/DataModels/UserModel/user-model.dart';
 import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
 import 'package:durood_together_app/Core/DataViewModels/UserDuroodCountVM/user-durood-count-VM.dart';
 import 'package:durood_together_app/Core/Providers/DuroodCountProvider/durood-count-provider.dart';
@@ -467,6 +468,28 @@ class Functions {
     } else {
       return {};
     }
+  }
+
+  Future<Map<String, dynamic>> getUsersFromFirebase(dataDict) async {
+    List<UserModel> users = await dataDict.SearchUsers();
+    // List<UserDuroodCountModel> userDuroodCount =
+    //     await userDataDict.fetchUserDuroodCounts();
+    Map<String, dynamic> returnedDict = {};
+
+    // print(users);
+    users.forEach((durood) {
+      returnedDict[durood.userId.toString()] = {
+        'name': durood.name,
+        'email': durood.email,
+        'city': durood.city,
+        'country': durood.country,
+      };
+    });
+
+    // print(returnedDict);
+    // print(
+    //     'Size Of The Users Dictionary ' + returnedDict.keys.length.toString());
+    return returnedDict;
   }
 
   // Getting Date String

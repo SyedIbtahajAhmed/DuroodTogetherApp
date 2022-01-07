@@ -38,10 +38,10 @@ class Authentication {
       print(user.uid);
 
       UserModel data = new UserModel(
-          Country: country,
-          City: city,
-          Email: user.email,
-          Name: user.displayName);
+          country: country,
+          city: city,
+          email: user.email,
+          name: user.displayName);
 
       UserViewModel().addCustomUser(data, user.uid);
 
@@ -121,10 +121,10 @@ class Authentication {
             await _firebaseAuth.signInWithCredential(credential);
 
         UserModel data = new UserModel(
-          Country: country,
-          City: city,
-          Email: returned_credential.user.email,
-          Name: returned_credential.user.displayName,
+          country: country,
+          city: city,
+          email: returned_credential.user.email,
+          name: returned_credential.user.displayName,
         );
 
         UserViewModel().addCustomUser(data, returned_credential.user.uid);
@@ -156,10 +156,10 @@ class Authentication {
           await _firebaseAuth.signInWithCredential(facebookAuthCredential);
 
       UserModel data = new UserModel(
-        Country: country,
-        City: city,
-        Email: returned_credential.user.email,
-        Name: returned_credential.user.displayName,
+        country: country,
+        city: city,
+        email: returned_credential.user.email,
+        name: returned_credential.user.displayName,
       );
 
       UserViewModel().addCustomUser(data, returned_credential.user.uid);

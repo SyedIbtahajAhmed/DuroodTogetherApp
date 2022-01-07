@@ -10,15 +10,34 @@ class UserViewModel {
 
   List<UserModel> users;
 
-  Future<dynamic> fetchDuroodCounts() async {
+  Future<dynamic> fetchUsers() async {
+    // Changing Collection Path
+    _api.changePath(AppConst.userCollection);
     var result = await _api.getDataCollection();
-    List<DuroodCount> items = [];
+    List<UserModel> items = [];
     users = result.docs.map((doc) {
       if (doc.id != null) {
-        var temp = DuroodCount.fromMap(doc.data(), doc.id.toString());
+        var temp = UserModel.fromMap(doc.data(), doc.id);
         items.add(temp);
       }
     }).toList();
+    return items;
+  }
+
+  Future<dynamic> SearchUsers() async {
+    // Changing Collection Path
+    _api.changePath(AppConst.userCollection);
+    var result = await _api.getDataCollection();
+    List<UserModel> items = [];
+    users = result.docs.map((doc) {
+      if (doc.id != null) {
+        // print(doc.id.)
+        var temp = UserModel.fromMap(doc.data(), doc.id);
+        // print(temp);
+        items.add(temp);
+      }
+    }).toList();
+    print(items);
     return items;
   }
 

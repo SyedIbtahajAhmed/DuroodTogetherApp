@@ -1,5 +1,6 @@
 //Local Imports
 import 'package:durood_together_app/Authentication/Authentication.dart';
+import 'package:durood_together_app/Core/DataViewModels/UserViewModel/user-view-model.dart';
 import 'package:durood_together_app/Screens/SplashScreen/splash-screen.dart';
 import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:durood_together_app/Shared/Locator/lcoator.dart';
@@ -27,6 +28,7 @@ class DuroodApp extends StatelessWidget {
       providers: [
         Provider<Authentication>(
             create: (_) => Authentication(FirebaseAuth.instance)),
+        Provider<UserViewModel>(create: (_) => UserViewModel()),
         Provider<LocationService>(create: (_) => LocationService()),
         StreamProvider(
             create: (context) =>

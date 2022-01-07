@@ -1,5 +1,6 @@
 import 'package:durood_together_app/Core/DataViewModels/DuroodCountModel/duroodCountVM.dart';
 import 'package:durood_together_app/Core/DataViewModels/UserDuroodCountVM/user-durood-count-VM.dart';
+import 'package:durood_together_app/Core/DataViewModels/UserViewModel/user-view-model.dart';
 import 'package:durood_together_app/Services/LocationService/location_service.dart';
 import 'package:durood_together_app/Shared/Const/constant.dart';
 import 'package:durood_together_app/Shared/ScreensRoute/screens-route.dart';
@@ -55,6 +56,7 @@ class _HomePageState extends State<HomePage> {
     // final firebaseUser = Provider.of<User>(context);
     String country;
     String city;
+    // dynamic users = UserViewModel().fetchUsers();
 
     if (context.read<LocationService>().userAddress != null) {
       country = context.read<LocationService>().userAddress.length > 0
