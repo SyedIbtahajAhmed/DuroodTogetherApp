@@ -48,6 +48,7 @@ class _HomePageState extends State<HomePage> {
     // Providers(context).duroodCountVM_provider;
     // final userLocation = Provider.of<UserLocation>(context);
     //final firebaseUser = context.watch<User>();
+
     final firebaseUser = Provider.of<User>(context);
 
     final dynamic duroodCount = Provider.of<DuroodCountVM>(context);

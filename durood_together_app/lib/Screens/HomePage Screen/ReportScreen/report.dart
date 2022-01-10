@@ -23,8 +23,11 @@ class Report extends StatelessWidget {
                 builder: (context, value, _) {
                   return Transform.translate(
                     offset: Offset(0.0, 10.0 * value),
-                    child: ReportHeader(
-                      opacity: 1.0,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
+                      child: ReportHeader(
+                        opacity: 1.0,
+                      ),
                     ),
                   );
                 }),

@@ -159,10 +159,6 @@ class _ProfileBodyState extends State<ProfileBody> {
                           ),
                       ],
                     ),
-                    CustomListTileWidget(text: "Item 1"),
-                    CustomListTileWidget(text: "Item 2"),
-                    CustomListTileWidget(text: "Item 3"),
-                    CustomListTileWidget(text: "Item 4"),
                   ],
                 ),
 

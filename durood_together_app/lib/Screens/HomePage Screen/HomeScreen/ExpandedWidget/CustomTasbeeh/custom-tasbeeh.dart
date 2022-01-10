@@ -50,7 +50,9 @@ class _CustomTasbeehState extends State<CustomTasbeeh> {
                     color: Constant.app_primary_contrast_color,
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: Image.asset("images/circular.jpg").image),
+                      image: Image.asset("images/circle_radial.png").image,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),
