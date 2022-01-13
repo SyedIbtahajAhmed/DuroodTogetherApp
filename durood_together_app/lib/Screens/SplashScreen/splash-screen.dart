@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
             stops: [
-              0.2,
+              0.03,
               1.0,
             ],
             colors: [

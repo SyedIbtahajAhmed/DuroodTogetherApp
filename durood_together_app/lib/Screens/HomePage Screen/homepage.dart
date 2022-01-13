@@ -71,6 +71,9 @@ class _HomePageState extends State<HomePage> {
         [
           Functions().fetchDuroodCountFromProvider(context, duroodCount,
               userDuroodCount, country, city, firebaseUser.uid),
+          // Functions().fetchTopCountryMap(context, duroodCount),
+
+          // Functions().getCurrentMonthData(duroodCount, country, city),
           // Functions().getCurrentMonthData(context, country, city),
           // Functions().getUserMonthlyData(context, firebaseUser.uid),
           // Functions().getUserWeeklyCount(firebaseUser.uid, duroodCount),
@@ -97,79 +100,97 @@ class _HomePageState extends State<HomePage> {
           // print(context.read<DuroodCountVM>().DuroodCountsData);
 
           return Scaffold(
-            backgroundColor: Constant.app_primary_contrast_color,
-            body: Column(
-              children: <Widget>[
-                // Going To Change Tabs Here
-                Expanded(
-                  child: PageView(
-                    onPageChanged: (int page) {
-                      setState(() {
-                        _index = page;
-                      });
-                    },
-                    controller: _pageController,
-                    children: <Widget>[
-                      for (int i = 0; i < ScreensRoute.Screens.length; i++)
-                        Container(
-                          child: ScreensRoute.Screens[ScreensRoute.Screens.keys
-                                  .elementAt(i)
-                                  .toString()]
-                              .elementAt(0), // Widgets Of All Screens
-                        ),
-                    ],
-                  ),
-                ),
+            // backgroundColor: Constant.app_primary_contrast_color,
 
-                // Whole Bottom Tab Bar
-                Padding(
-                  padding: EdgeInsets.only(
-                    // top: 10.0,
-                    bottom: MediaQuery.of(context).padding.bottom,
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Constant.app_primary_color,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(
-                          Constant.app_bottom_bar_border_radius,
-                        ),
-                        topRight: Radius.circular(
-                          Constant.app_bottom_bar_border_radius,
-                        ),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+            body: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  stops: [
+                    0.03,
+                    1.0,
+                  ],
+                  colors: [
+                    Constant.app_primary_contrast_color,
+                    Constant.app_primary_contrast_color_light,
+                  ],
+                ),
+              ),
+              child: Column(
+                children: <Widget>[
+                  // Going To Change Tabs Here
+                  Expanded(
+                    child: PageView(
+                      onPageChanged: (int page) {
+                        setState(() {
+                          _index = page;
+                        });
+                      },
+                      controller: _pageController,
                       children: <Widget>[
-                        // Home Button TAB
                         for (int i = 0; i < ScreensRoute.Screens.length; i++)
                           Container(
-                            child: TabButton(
-                              index: ScreensRoute.Screens[ScreensRoute
-                                      .Screens.keys
-                                      .elementAt(i)
-                                      .toString()]
-                                  .elementAt(1), // Indexes Of All Screens,
-                              title: ScreensRoute.Screens.keys
-                                  .elementAt(i)
-                                  .toString(),
-                              icon: ScreensRoute.Screens[ScreensRoute
-                                      .Screens.keys
-                                      .elementAt(i)
-                                      .toString()]
-                                  .elementAt(2), // Icons Of All Screens,,
-                              selectedPage: _index,
-                              onPressed: () {
-                                changePage(i);
-                              },
-                            ),
+                            child: ScreensRoute.Screens[ScreensRoute
+                                    .Screens.keys
+                                    .elementAt(i)
+                                    .toString()]
+                                .elementAt(0), // Widgets Of All Screens
                           ),
                       ],
                     ),
                   ),
-                ),
-              ],
+
+                  // Whole Bottom Tab Bar
+                  Padding(
+                    padding: EdgeInsets.only(
+                      // top: 10.0,
+                      bottom: MediaQuery.of(context).padding.bottom,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Constant.app_primary_color,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(
+                            Constant.app_bottom_bar_border_radius,
+                          ),
+                          topRight: Radius.circular(
+                            Constant.app_bottom_bar_border_radius,
+                          ),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          // Home Button TAB
+                          for (int i = 0; i < ScreensRoute.Screens.length; i++)
+                            Container(
+                              child: TabButton(
+                                index: ScreensRoute.Screens[ScreensRoute
+                                        .Screens.keys
+                                        .elementAt(i)
+                                        .toString()]
+                                    .elementAt(1), // Indexes Of All Screens,
+                                title: ScreensRoute.Screens.keys
+                                    .elementAt(i)
+                                    .toString(),
+                                icon: ScreensRoute.Screens[ScreensRoute
+                                        .Screens.keys
+                                        .elementAt(i)
+                                        .toString()]
+                                    .elementAt(2), // Icons Of All Screens,,
+                                selectedPage: _index,
+                                onPressed: () {
+                                  changePage(i);
+                                },
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         } else if (snapshot.hasError) {

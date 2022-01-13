@@ -17,6 +17,45 @@ import 'package:intl/intl.dart';
 import 'package:provider/src/provider.dart';
 
 class Functions {
+  // Fetching Top Country
+  Future<Map<String, dynamic>> fetchTopCountryMap(
+    BuildContext context,
+    dataDict,
+  ) async {
+    List<DuroodCount> duroodCount = await dataDict.fetchDuroodCounts();
+    // List<UserDuroodCountModel> userDuroodCount =
+    //     await userDataDict.fetchUserDuroodCounts();
+    Map<String, dynamic> returnedDict = {};
+
+    duroodCount.forEach((durood) {
+      if (durood.Date == getDateString()) {
+        // Sorting The All Country Data
+        dynamic response = SortDictionary(durood.TopFiveCountryData);
+        // Now Country Data Is Sorted
+        // Getting The Top Country
+        // print(response);
+        returnedDict[response.keys.elementAt(0)] = response.values.elementAt(0);
+      }
+      ;
+    });
+    // context.read<DuroodCountVM>().setAttributes(
+    //   currentMonthData: currentMonthDataGot, // Current Month Data
+    //   prevMonthData: previousMonthDataGot, // Previous Month Data
+    //   userMonthlyData: userMonthlyDataGot, // User Monthly Data Got
+    //   // userTodayCount: userTodayCountGot, // User Today Count Got
+    // );
+
+    // context.read<DuroodCountVM>().setAttributes(
+    //   currentMonthData: {
+    //     returnedDict.keys.elementAt(0).toString():
+    //         returnedDict.values.elementAt(0)
+    //   }, // Current Month Data
+    // );
+
+    print(returnedDict);
+    return returnedDict;
+  }
+
   // Fetching Durood Count One Time
   Future<Map<String, dynamic>> fetchDuroodCountFromProvider(
     BuildContext context,

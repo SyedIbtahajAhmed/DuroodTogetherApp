@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 class Constant {
   // Constant Colors
   static const app_primary_color = Color(0xFFFFFFFF);
-  static const app_primary_contrast_color = Color(0xFF16915d);
+  static const app_primary_contrast_color = Color(0xFF002651);
+  static const app_yellow_color = Color(0xFFf4ca0f);
   // static const app_primary_contrast_color = Color(0xFF669203);
-  static const app_primary_contrast_color_light = Color(0xFF37c3b4);
+  static const app_primary_contrast_color_light = Color(0xFF03b7a3);
   // static const app_primary_contrast_color_light = Color(0xFF89C208);
 
   // Font Sizes
@@ -19,9 +20,9 @@ class Constant {
 
   // Button Font Sizes
   static final double app_button_font_size = 20.0;
-  static final double app_button_height = 50.0;
-  static final double app_button_min_width = 50.0;
-  static final double app_button_max_width = 50.0;
+  static final double app_button_height = 35.0;
+  static final double app_button_min_width = 35.0;
+  static final double app_button_max_width = 35.0;
 
   // Font Weight If Bold
   static final FontWeight app_font_weight = FontWeight.w600;
@@ -35,7 +36,7 @@ class Constant {
   // Border Radius
   static final double app_button_border_radius = 40.0;
   static final double app_bottom_bar_border_radius = 45.0;
-  static final double app_text_fields_border_radius = 20.0;
+  static final double app_text_fields_border_radius = 45.0;
   static final double app_cards_border_radius = 20.0;
   static final double app_headers_border_radius = 50.0;
 

@@ -70,8 +70,8 @@ class _GoogleSigninButtonState extends State<GoogleSigninButton> {
         // }
       },
       child: Container(
-        width: 50,
-        height: 50,
+        width: 35,
+        height: 35,
         child: Image(
           image: AssetImage('images/google_logo.png'),
         ),

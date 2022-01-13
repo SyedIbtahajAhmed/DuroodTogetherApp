@@ -69,33 +69,33 @@ class DuroodCountVM extends ChangeNotifier {
     // this._DuroodCountsData = duroodCountData;
 
     // print(currentMonthData);
-    if (currentMonthData.isNotEmpty) {
-    this._topCountry[currentMonthData.keys.elementAt(0).toString()] =
-        currentMonthData.values.elementAt(0); // Current Month Top Country
-    this._topFiveCountries =
-        currentMonthData.values.elementAt(1); // Current Month Top Five Country
-    this._topCity[currentMonthData.keys.elementAt(2).toString()] =
-        currentMonthData.values.elementAt(2); // Current Month Top City
-    this._topFiveCities =
-        currentMonthData.values.elementAt(3); // Current Month Top Five Cities
-    this._globalCount =
-        currentMonthData.values.elementAt(4); // Current Month Global Count
-    this._myCountryCount =
-        currentMonthData.values.elementAt(5); // My Country Count
-    this._myCityCount = currentMonthData.values.elementAt(6); // My City Count
+    if (currentMonthData != null) {
+      this._topCountry[currentMonthData.keys.elementAt(0).toString()] =
+          currentMonthData.values.elementAt(0); // Current Month Top Country
+      this._topFiveCountries = currentMonthData.values
+          .elementAt(1); // Current Month Top Five Country
+      this._topCity[currentMonthData.keys.elementAt(2).toString()] =
+          currentMonthData.values.elementAt(2); // Current Month Top City
+      this._topFiveCities =
+          currentMonthData.values.elementAt(3); // Current Month Top Five Cities
+      this._globalCount =
+          currentMonthData.values.elementAt(4); // Current Month Global Count
+      this._myCountryCount =
+          currentMonthData.values.elementAt(5); // My Country Count
+      this._myCityCount = currentMonthData.values.elementAt(6); // My City Count
     }
 
     this._userMonthlyData = userMonthlyData;
     this._userTodayCount = userTodayCount;
 
     // Saving Previous Month Count
-    if (prevMonthData.isNotEmpty) {
-    this._prevTopCountry[prevMonthData.keys.elementAt(0).toString()] =
-        prevMonthData.values.elementAt(0); // Previous Top Country
-    this._prevTopCity[prevMonthData.keys.elementAt(1).toString()] =
-        prevMonthData.values.elementAt(1); // Previous Top City
-    this._prevGlobalCount =
-        prevMonthData.values.elementAt(2); // Previous Global Count
+    if (prevMonthData != null) {
+      this._prevTopCountry[prevMonthData.keys.elementAt(0).toString()] =
+          prevMonthData.values.elementAt(0); // Previous Top Country
+      this._prevTopCity[prevMonthData.keys.elementAt(1).toString()] =
+          prevMonthData.values.elementAt(1); // Previous Top City
+      this._prevGlobalCount =
+          prevMonthData.values.elementAt(2); // Previous Global Count
     }
   }
 

@@ -1,6 +1,6 @@
 import 'package:durood_together_app/Core/DataModels/UserLocation/user_location.dart';
 import 'package:durood_together_app/Screens/HomePage%20Screen/homepage.dart';
-import 'package:durood_together_app/Screens/Login%20Screen/login.dart';
+import 'package:durood_together_app/Screens/Login%20Screen/login-screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +25,8 @@ class AuthenticationWrapper extends StatelessWidget {
       return HomePage();
     }
 
-    return Login();
+    return Scaffold(
+      body: LoginScreen(),
+    );
   }
 }
